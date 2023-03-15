@@ -1,4 +1,4 @@
-interface MessageUtils {
+export interface MessageUtils {
   isFunction: <T>(v: T) => boolean;
   isDom: <T>(v: T) => boolean;
   isObject: <T>(v: T) => boolean;
@@ -7,16 +7,16 @@ interface MessageUtils {
   hasOwn: <T extends object>(v: T, p: string) => boolean;
   toArray: <T>(v: ArrayLike<T>) => Array<T>;
 }
-enum MessageEnumType {
+export enum MessageEnumType {
   success = 'success',
   info = 'info',
   warning = 'warning',
   error = 'error'
 }
-interface MessageType {
+export interface MessageType {
   [prop in MessageEnumType]: string;
 }
-interface Option {
+export interface Option {
   content: string;
   center?: boolean;
   type?: string;
@@ -26,11 +26,11 @@ interface Option {
   isStyle?: boolean;
   stylePrefix?: string;
 }
-type AnyObj = Record<string, any>;
-interface StyleRefType extends AnyObj {
+export type AnyObj = Record<string, any>;
+export interface StyleRefType extends AnyObj {
   insertAt?: string;
 }
-interface MessageInstance extends AnyObj {
+export interface MessageInstance extends AnyObj {
   el: HTMLElement;
   closeBtnEl: HTMLElement;
   options: Option;
@@ -39,4 +39,4 @@ interface MessageInstance extends AnyObj {
   create: (v: Option) => HTMLElement;
   close: (v: NodeList | HTMLCollection | HTMLElement, t: number) => void;
 }
-type Constructor<T> = new (...args: any[]) => T;
+export type Constructor<T> = new (...args: any[]) => T;
