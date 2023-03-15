@@ -10,7 +10,6 @@ export const defaultMessageOption: ewMessageOption = {
   type: 'info',
   duration: 600,
   showClose: true,
-  log: false,
   isStyle: false,
   stylePrefix: 'ew-'
 };

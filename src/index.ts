@@ -11,7 +11,7 @@ for (let key in typeMap) {
     if (
       util.isObject(option) &&
       util.hasOwn(option as object, 'type') &&
-      util.hasOwn(option as object, 'log')
+      __DEV__
     ) {
       util.warn(MESSAGE_TYPE_WARNING);
     }

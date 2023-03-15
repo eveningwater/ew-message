@@ -1,3 +1,4 @@
+declare const __DEV__: boolean;
 interface ewMessageUtils {
   isFunction: <T>(v: T) => boolean;
   isDom: <T>(v: T) => boolean;
@@ -22,7 +23,6 @@ interface ewMessageOption {
   type?: string;
   duration?: number;
   showClose?: boolean;
-  log?: boolean;
   isStyle?: boolean;
   stylePrefix?: string;
 }

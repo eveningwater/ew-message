@@ -17,14 +17,14 @@ export class Message {
     this.el = null;
     this.closeBtnEl = null;
     if (this.options.isStyle) {
-      if (this.validateHasStyle() && this.options.log) {
+      if (this.validateHasStyle() && __DEV__) {
         util.warn(MESSAGE_STYLE_WARNING);
       }
       if (!this.validateHasStyle()) {
         this.addMessageStyle(this.options.stylePrefix);
       }
     } else {
-      if (!this.validateHasStyle() && this.options.log) {
+      if (!this.validateHasStyle() && __DEV__) {
         util.warn(MESSAGE_HAS_STYLE_WARNING);
       }
     }
@@ -61,12 +61,12 @@ export class Message {
   }
   render(options: ewMessageOption) {
     if ((!options.duration || options.duration <= 0) && !options.showClose) {
-      if (options.log) {
+      if (__DEV__) {
         util.warn(MESSAGE_CLOSE_PARAM_WARNING);
       }
       options.showClose = true;
     }
-    if (!options.content && options.log) {
+    if (!options.content && __DEV__) {
       util.warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
     document.body.appendChild(this.create(options));

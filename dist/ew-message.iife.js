@@ -39,7 +39,6 @@ var ewMessage = (function () {
         type: 'info',
         duration: 600,
         showClose: true,
-        log: false,
         isStyle: false,
         stylePrefix: 'ew-'
     };
@@ -119,7 +118,7 @@ var ewMessage = (function () {
             this.el = null;
             this.closeBtnEl = null;
             if (this.options.isStyle) {
-                if (this.validateHasStyle() && this.options.log) {
+                if (this.validateHasStyle() && __DEV__) {
                     util.warn(MESSAGE_STYLE_WARNING);
                 }
                 if (!this.validateHasStyle()) {
@@ -127,7 +126,7 @@ var ewMessage = (function () {
                 }
             }
             else {
-                if (!this.validateHasStyle() && this.options.log) {
+                if (!this.validateHasStyle() && __DEV__) {
                     util.warn(MESSAGE_HAS_STYLE_WARNING);
                 }
             }
@@ -167,12 +166,12 @@ var ewMessage = (function () {
         Message.prototype.render = function (options) {
             var _this = this;
             if ((!options.duration || options.duration <= 0) && !options.showClose) {
-                if (options.log) {
+                if (__DEV__) {
                     util.warn(MESSAGE_CLOSE_PARAM_WARNING);
                 }
                 options.showClose = true;
             }
-            if (!options.content && options.log) {
+            if (!options.content && __DEV__) {
                 util.warn(MESSAGE_CONTENT_PARAM_WARNING);
             }
             document.body.appendChild(this.create(options));
@@ -253,7 +252,7 @@ var ewMessage = (function () {
             var messageOption = normalizeOptions(option);
             if (util.isObject(option) &&
                 util.hasOwn(option, 'type') &&
-                util.hasOwn(option, 'log')) {
+                __DEV__) {
                 util.warn(MESSAGE_TYPE_WARNING);
             }
             return new Message(__assign(__assign({}, messageOption), { type: key }));
