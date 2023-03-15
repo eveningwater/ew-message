@@ -3,9 +3,9 @@ import { Message } from './message';
 import { normalizeOptions } from './method';
 import util from './util';
 import { MESSAGE_TYPE_WARNING } from './warn';
-const ewMessage = (options: Option) => new Message(options);
+const ewMessage = (options: ewMessageOption) => new Message(options);
 for (let key in typeMap) {
-  ewMessage[key] = (option: Option | string) => {
+  ewMessage[key] = (option: ewMessageOption | string) => {
     const messageOption = normalizeOptions(option);
     if (
       util.isObject(option) &&

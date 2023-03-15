@@ -1,10 +1,10 @@
-export const typeMap: MessageType = {
+export const typeMap: ewMessageType = {
   success: 'success',
   info: 'info',
   warning: 'warning',
   error: 'error'
 };
-export const defaultMessageOption: Option = {
+export const defaultMessageOption: ewMessageOption = {
   content: '',
   center: false,
   type: 'info',

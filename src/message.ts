@@ -6,10 +6,10 @@ import {
   MESSAGE_CONTENT_PARAM_WARNING
 } from './warn';
 export class Message {
-  options: Option;
+  options: ewMessageOption;
   el: HTMLElement | null;
   closeBtnEl: HTMLElement | null;
-  constructor(options: Option | string) {
+  constructor(options: ewMessageOption | string) {
     this.options = normalizeOptions(options);
     this.el = null;
     this.closeBtnEl = null;
@@ -27,7 +27,7 @@ export class Message {
       }
     }
   }
-  render(options: Option) {
+  render(options: ewMessageOption) {
     if ((!options.duration || options.duration <= 0) && !options.showClose) {
       if (options.log) {
         util.warn(MESSAGE_CLOSE_PARAM_WARNING);
@@ -55,7 +55,7 @@ export class Message {
       };
     }
   }
-  create(options: Option) {
+  create(options: ewMessageOption) {
     let element = document.createElement('div');
     element.className = `ew-message ew-message-${options.type}`;
     if (options.center) {

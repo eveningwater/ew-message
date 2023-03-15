@@ -1,4 +1,4 @@
-export interface MessageUtils {
+interface ewMessageUtils {
   isFunction: <T>(v: T) => boolean;
   isDom: <T>(v: T) => boolean;
   isObject: <T>(v: T) => boolean;
@@ -7,16 +7,16 @@ export interface MessageUtils {
   hasOwn: <T extends object>(v: T, p: string) => boolean;
   toArray: <T>(v: ArrayLike<T>) => Array<T>;
 }
-export enum MessageEnumType {
+enum ewMessageEnumType {
   success = 'success',
   info = 'info',
   warning = 'warning',
   error = 'error'
 }
-export interface MessageType {
-  [prop in MessageEnumType]: string;
+interface ewMessageType {
+  [prop in ewMessageEnumType]: string;
 }
-export interface Option {
+interface ewMessageOption {
   content: string;
   center?: boolean;
   type?: string;
@@ -26,17 +26,17 @@ export interface Option {
   isStyle?: boolean;
   stylePrefix?: string;
 }
-export type AnyObj = Record<string, any>;
-export interface StyleRefType extends AnyObj {
+type AnyObj = Record<string, any>;
+interface ewMessageStyleRefType extends AnyObj {
   insertAt?: string;
 }
-export interface MessageInstance extends AnyObj {
+interface ewMessageInstance extends AnyObj {
   el: HTMLElement;
   closeBtnEl: HTMLElement;
-  options: Option;
-  render: (v: Option) => void;
+  options: ewMessageOption;
+  render: (v: ewMessageOption) => void;
   setTop: (v: NodeList | HTMLCollection) => void;
-  create: (v: Option) => HTMLElement;
+  create: (v: ewMessageOption) => HTMLElement;
   close: (v: NodeList | HTMLCollection | HTMLElement, t: number) => void;
 }
-export type Constructor<T> = new (...args: any[]) => T;
+type Constructor<T> = new (...args: any[]) => T;
