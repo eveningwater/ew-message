@@ -34,7 +34,7 @@ var defaultMessageOption = {
     content: '',
     center: false,
     type: 'info',
-    closeTime: 600,
+    duration: 600,
     showClose: true,
     log: false,
     isStyle: false,
@@ -128,7 +128,7 @@ var Message = /** @class */ (function () {
     }
     Message.prototype.render = function (options) {
         var _this = this;
-        if ((!options.closeTime || options.closeTime <= 0) && !options.showClose) {
+        if ((!options.duration || options.duration <= 0) && !options.showClose) {
             if (options.log) {
                 util.warn(MESSAGE_CLOSE_PARAM_WARNING);
             }
@@ -139,10 +139,10 @@ var Message = /** @class */ (function () {
         }
         document.body.appendChild(this.create(options));
         this.setTop(document.querySelectorAll('.ew-message'));
-        if (options.closeTime &&
-            options.closeTime > 0 &&
+        if (options.duration &&
+            options.duration > 0 &&
             this.el instanceof HTMLElement) {
-            this.close(this.el, options.closeTime);
+            this.close(this.el, options.duration);
         }
         if (this.closeBtnEl) {
             this.closeBtnEl.onclick = function (e) {
