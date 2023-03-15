@@ -1,9 +1,22 @@
-.ew-message {
+$infoBorderColor: #ebeef5;
+$infoBgColor: #edf2fc;
+$infoColor: #909399;
+$successBorderColor: #e1f3d8;
+$successBgColor: #e1f3d8;
+$successColor: #67c23a;
+$warningBorderColor: #fdfce6;
+$warningBgColor: #faecd8;
+$warningColor: #e6a23c;
+$errorBorderColor: #fde2e2;
+$errorBgColor: #fef0f0;
+$errorColor: #f56c6c;
+$prefix: ew-;
+.#{$prefix}message {
   min-width: 300px;
-  border: 1px solid #ebeef5;
+  border: 1px solid $infoBorderColor;
   position: fixed;
   left: 50%;
-  background-color: #edf2fc;
+  background-color: $infoBgColor;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
@@ -24,7 +37,7 @@
     padding-right: 15px;
     line-height: 1;
     font-size: 14px;
-    color: #909399;
+    color: $infoColor;
   }
   &-close {
     position: absolute;
@@ -32,36 +45,51 @@
     right: 15px;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #c0c4cc;
+    color: $infoColor;
     font-size: 16px;
     font-style: normal;
     &:hover,
     &:active {
-      color: #909399;
+      color: $infoColor;
     }
   }
   &-center {
     justify-content: center;
   }
   &-success {
-    background-color: #e1f3d8;
-    border-color: #e1f3d8;
-    p {
-      color: #67c23a;
+    background-color: $successBgColor;
+    border-color: $successBorderColor;
+    p,
+    .#{$prefix}message-close {
+      color: $successColor;
+    }
+    .#{$prefix}message-close:hover,
+    .#{$prefix}message-close:active {
+      color: $successColor;
     }
   }
   &-warning {
-    background-color: #fdfce6;
-    border-color: #faecd8;
-    p {
-      color: #e6a23c;
+    background-color: $warningBgColor;
+    border-color: $warningBorderColor;
+    p,
+    .#{$prefix}message-close {
+      color: $warningColor;
+    }
+    .#{$prefix}message-close:hover,
+    .#{$prefix}message-close:active {
+      color: $warningColor;
     }
   }
   &-error {
-    background-color: #fef0f0;
-    border-color: #fde2e2;
-    p {
-      color: #f56c6c;
+    background-color: $errorBgColor;
+    border-color: $errorBorderColor;
+    p,
+    .#{$prefix}message-close {
+      color: $errorColor;
+    }
+    .#{$prefix}message-close:hover,
+    .#{$prefix}message-close:active {
+      color: $errorColor;
     }
   }
 }

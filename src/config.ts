@@ -1,4 +1,4 @@
-export const typeMap = {
+export const typeMap: MessageType = {
   success: 'success',
   info: 'info',
   warning: 'warning',
@@ -8,8 +8,9 @@ export const defaultMessageOption: Option = {
   content: '',
   center: false,
   type: 'info',
-  closeTime: 600,
+  duration: 600,
   showClose: true,
   log: false,
-  isStyle: false
+  isStyle: false,
+  stylePrefix: 'ew-'
 };

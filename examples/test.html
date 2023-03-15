@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ew-color-picker</title>
-</head>
-<body>
-    
-</body>
-<script src="../dist/ew-color-picker.min.js"></script>
-<script>
-    console.log(ewColorPicker)
-</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ew-message</title>
+    <link rel="stylesheet" href="../dist/ew-message.min.css" />
+  </head>
+  <body></body>
+  <script src="../dist/ew-message.min.js"></script>
+  <script>
+    ewMessage('这是一条测试消息');
+    ewMessage.warning('这是一条测试消息');
+    ewMessage.warning({
+      content: '这是一条测试消息',
+      closeTime: 0
+    });
+  </script>
 </html>

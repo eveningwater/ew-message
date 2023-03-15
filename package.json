@@ -26,7 +26,7 @@
     "@types/ms": "^0.7.31",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-latest": "^6.24.1",
-    "node-sass": "^7.0.1",
+    "node-sass": "^8.0.0",
     "rollup": "^2.38.4",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
