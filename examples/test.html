@@ -4,16 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ew-message</title>
-    <link rel="stylesheet" href="../dist/ew-message.min.css" />
+    <!-- <link rel="stylesheet" href="../dist/ew-message.min.css" /> -->
   </head>
   <body></body>
   <script src="../dist/ew-message.min.js"></script>
   <script>
-    ewMessage('这是一条测试消息');
-    ewMessage.warning('这是一条测试消息');
+    ewMessage({
+      duration: 0,
+      content: '这是一条测试消息'
+    });
+    ewMessage.error({
+      duration: 0,
+      content: '这是一条测试消息'
+    });
     ewMessage.warning({
       content: '这是一条测试消息',
-      duration: 0
+      duration: 0,
+      log: true
     });
   </script>
 </html>

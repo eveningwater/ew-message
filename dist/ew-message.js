@@ -46,6 +46,7 @@
         isStyle: false,
         stylePrefix: 'ew-'
     };
+    var getMessageStyle = function (prefix_class) { return "\n." + prefix_class + "message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}." + prefix_class + "message *{box-sizing:border-box;margin:0;padding:0}." + prefix_class + "message p{padding-right:15px;line-height:1;font-size:14px;color:#909399}." + prefix_class + "message-close{position:absolute;top:50%;right:15px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:16px;font-style:normal}." + prefix_class + "message-close:hover,." + prefix_class + "message-close:active{color:#909399}." + prefix_class + "message-center{justify-content:center}." + prefix_class + "message-success{background-color:#e1f3d8;border-color:#e1f3d8}." + prefix_class + "message-success p,." + prefix_class + "message-success ." + prefix_class + "message-close{color:#67c23a}." + prefix_class + "message-success ." + prefix_class + "message-close:hover,." + prefix_class + "message-success ." + prefix_class + "message-close:active{color:#67c23a}." + prefix_class + "message-warning{background-color:#faecd8;border-color:#fdfce6}." + prefix_class + "message-warning p,." + prefix_class + "message-warning ." + prefix_class + "message-close{color:#e6a23c}." + prefix_class + "message-warning ." + prefix_class + "message-close:hover,." + prefix_class + "message-warning ." + prefix_class + "message-close:active{color:#e6a23c}." + prefix_class + "message-error{background-color:#fef0f0;border-color:#fde2e2}." + prefix_class + "message-error p,." + prefix_class + "message-error ." + prefix_class + "message-close{color:#f56c6c}." + prefix_class + "message-error ." + prefix_class + "message-close:hover,." + prefix_class + "message-error ." + prefix_class + "message-close:active{color:#f56c6c}\n"; };
 
     var normalizeOptions = function (option) {
         var messageOption = defaultMessageOption;
@@ -57,9 +58,9 @@
         }
         return messageOption;
     };
-    var addMessageStyle = function (prefix_class) {
+    var addMessageStyle = function (prefix_class, style) {
         if (prefix_class === void 0) { prefix_class = 'ew-'; }
-        var cssText = "\n  ." + prefix_class + "message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}." + prefix_class + "message *{box-sizing:border-box;margin:0;padding:0}." + prefix_class + "message p{padding-right:15px;line-height:1;font-size:14px;color:#909399}." + prefix_class + "message-close{position:absolute;top:50%;right:15px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:16px;font-style:normal}." + prefix_class + "message-close:hover,." + prefix_class + "message-close:active{color:#909399}." + prefix_class + "message-center{justify-content:center}." + prefix_class + "message-success{background-color:#e1f3d8;border-color:#e1f3d8}." + prefix_class + "message-success p,." + prefix_class + "message-success ." + prefix_class + "message-close{color:#67c23a}." + prefix_class + "message-success ." + prefix_class + "message-close:hover,." + prefix_class + "message-success ." + prefix_class + "message-close:active{color:#67c23a}." + prefix_class + "message-warning{background-color:#faecd8;border-color:#fdfce6}." + prefix_class + "message-warning p,." + prefix_class + "message-warning ." + prefix_class + "message-close{color:#e6a23c}." + prefix_class + "message-warning ." + prefix_class + "message-close:hover,." + prefix_class + "message-warning ." + prefix_class + "message-close:active{color:#e6a23c}." + prefix_class + "message-error{background-color:#fef0f0;border-color:#fde2e2}." + prefix_class + "message-error p,." + prefix_class + "message-error ." + prefix_class + "message-close{color:#f56c6c}." + prefix_class + "message-error ." + prefix_class + "message-close:hover,." + prefix_class + "message-error ." + prefix_class + "message-close:active{color:#f56c6c}\n  ";
+        var cssText = style || getMessageStyle(prefix_class);
         var styleInject = function (css, ref) {
             if (ref === void 0)
                 ref = {};
@@ -110,28 +111,62 @@
         'Message need a close time to auto close or a close button to close by yourself!';
     var MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
         'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
+    var MESSAGE_STYLE_WARNING = MESSAGE_WARNING_PREFIX +
+        'You have imported the style file, no need to add style automatically';
+    var MESSAGE_HAS_STYLE_WARNING = MESSAGE_WARNING_PREFIX +
+        'You need to import the style file, or pass the "isStyle" property as true';
 
     var Message = /** @class */ (function () {
         function Message(options) {
-            var _this = this;
-            this.options = normalizeOptions(options);
+            this.options = this.normalizeOptions(options);
             this.el = null;
             this.closeBtnEl = null;
-            this.render(this.options);
             if (this.options.isStyle) {
-                var isHasStyle_1 = false;
-                var styleElements = document.querySelectorAll('style');
-                styleElements.forEach(function (style) {
-                    var _a;
-                    if ((_a = style.textContent) === null || _a === void 0 ? void 0 : _a.includes(_this.options.stylePrefix || 'ew-')) {
-                        isHasStyle_1 = true;
-                    }
-                });
-                if (!isHasStyle_1) {
-                    addMessageStyle(this.options.stylePrefix);
+                if (this.validateHasStyle() && this.options.log) {
+                    util.warn(MESSAGE_STYLE_WARNING);
+                }
+                if (!this.validateHasStyle()) {
+                    this.addMessageStyle(this.options.stylePrefix);
                 }
             }
+            else {
+                if (!this.validateHasStyle() && this.options.log) {
+                    util.warn(MESSAGE_HAS_STYLE_WARNING);
+                }
+            }
+            this.render(this.options);
         }
+        Message.prototype.validateHasStyle = function () {
+            var _this = this;
+            var isHasStyle = false;
+            var styleElements = document.querySelectorAll('style');
+            var allLinks = document.querySelectorAll('link');
+            styleElements.forEach(function (style) {
+                var _a;
+                if ((_a = style.textContent) === null || _a === void 0 ? void 0 : _a.includes(_this.options.stylePrefix || 'ew-')) {
+                    isHasStyle = true;
+                }
+            });
+            allLinks.forEach(function (link) {
+                var href = link.getAttribute('href');
+                if (href === null || href === void 0 ? void 0 : href.includes('ew-message')) {
+                    isHasStyle = true;
+                }
+            });
+            return isHasStyle;
+        };
+        Message.prototype.normalizeOptions = function (options) {
+            return normalizeOptions(options);
+        };
+        Message.prototype.getMessageType = function () {
+            return typeMap;
+        };
+        Message.prototype.getDefaultOption = function () {
+            return defaultMessageOption;
+        };
+        Message.prototype.addMessageStyle = function (prefix_class, style) {
+            addMessageStyle(prefix_class, style);
+        };
         Message.prototype.render = function (options) {
             var _this = this;
             if ((!options.duration || options.duration <= 0) && !options.showClose) {
@@ -215,6 +250,7 @@
     }());
 
     var ewMessage = function (options) { return new Message(options); };
+    ewMessage.util = util;
     var _loop_1 = function (key) {
         ewMessage[key] = function (option) {
             var messageOption = normalizeOptions(option);
