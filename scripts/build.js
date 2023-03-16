@@ -31,7 +31,7 @@ function build(builds) {
 
 function buildEntry(config) {
   const output = config.output;
-  const { file, banner } = output;
+  const { file } = output;
   const isProd = /(min|prod)\.js$/.test(file);
   return rollup
     .rollup(config)
@@ -47,8 +47,7 @@ function buildEntry(config) {
             ascii_only: true
           }
         });
-        const minified = (banner ? banner + '\n' : '') + minifiedCode;
-        return write(file, minified, true);
+        return write(file, minifiedCode, true);
       } else {
         return write(file, code);
       }

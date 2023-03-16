@@ -7,7 +7,7 @@ const ts = require('rollup-plugin-typescript');
 const scss = require('rollup-plugin-scss');
 const banner =
   '/*!\n' +
-  ` * ewMeassage.js v${version}\n` +
+  ` * ewMeassage.js v${version.version}\n` +
   ` * (c) 2023-${new Date().getFullYear()} eveningwater \n` +
   ' * Released under the MIT License.\n' +
   ' */';
@@ -74,7 +74,6 @@ function genConfig(name) {
 
   // built-in vars
   const vars = {
-    __VERSION__: version,
     __DEV__: `process.env.NODE_ENV !== 'production'`
   };
   // build-specific env
