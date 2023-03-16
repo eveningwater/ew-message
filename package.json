@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "一个基于typescript封装的消息提示框",
   "scripts": {
-    "build": "rollup -c --environment NODE_ENV:production",
-    "dev": "rollup -c -w --environment NODE_ENV",
+    "build": "node scripts/build.js",
+    "dev": "rollup -c -w",
     "test": "ts-node test/test.ts",
     "pretest": "npm run build"
   },
@@ -26,6 +26,8 @@
   "homepage": "https://github.com/eveningwater/ew-message#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@rollup/plugin-alias": "^4.0.3",
+    "@rollup/plugin-replace": "^5.0.2",
     "@types/ms": "^0.7.31",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-latest": "^6.24.1",
@@ -37,6 +39,7 @@
     "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript": "^1.0.1",
+    "terser": "^5.16.6",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",

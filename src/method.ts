@@ -10,25 +10,49 @@ export const normalizeOptions = (
   }
   return messageOption;
 };
-export const addMessageStyle = (prefix_class = 'ew-', style?: string) => {
-  const cssText = style || getMessageStyle(prefix_class);
-  const styleInject = (css: string, ref?: ewMessageStyleRefType): void => {
-    if (ref === void 0) ref = {};
-    const insertAt = ref.insertAt;
-    if (!css || typeof document === 'undefined') return;
-    const head = document.head || document.getElementsByTagName('head')[0];
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    if (insertAt === 'top') {
-      if (head.firstChild) {
-        head.insertBefore(style, head.firstChild);
+export const addMessageStyle = (prefix_class = 'ew-', style?: string) =>
+  new Promise(resolve => {
+    const cssText = style || getMessageStyle(prefix_class);
+    const styleInject = (css: string, ref?: ewMessageStyleRefType) => {
+      if (ref === void 0) ref = {};
+      const insertAt = ref.insertAt;
+      if (!css || typeof document === 'undefined') return;
+      const head = document.head || document.getElementsByTagName('head')[0];
+      const style = document.createElement('style');
+      style.type = 'text/css';
+      if (insertAt === 'top') {
+        if (head.firstChild) {
+          head.insertBefore(style, head.firstChild);
+        } else {
+          head.appendChild(style);
+        }
       } else {
         head.appendChild(style);
       }
-    } else {
-      head.appendChild(style);
+      style.appendChild(document.createTextNode(css));
+      resolve(true);
+    };
+    styleInject(cssText);
+  });
+export const validateHasStyle = () => {
+  let isHasStyle = false;
+  const allLinks = document.querySelectorAll('link');
+  allLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href?.includes('ew-message')) {
+      isHasStyle = true;
     }
-    style.appendChild(document.createTextNode(css));
-  };
-  styleInject(cssText);
+  });
+  return isHasStyle;
+};
+export const validateAutoHasStyle = (stylePrefix?: string) => {
+  let isHasStyle = false;
+  const allStyles = document.querySelectorAll('style');
+  allStyles.forEach(style => {
+    const text = style.textContent;
+    if (text === getMessageStyle(stylePrefix)) {
+      isHasStyle = true;
+    }
+  });
+  return isHasStyle;
 };

@@ -1,12 +1,15 @@
 import { defaultMessageOption, typeMap } from './config';
 import './index.scss';
-import { addMessageStyle, normalizeOptions } from './method';
+import {
+  addMessageStyle,
+  normalizeOptions,
+  validateAutoHasStyle,
+  validateHasStyle
+} from './method';
 import util from './util';
 import {
   MESSAGE_CLOSE_PARAM_WARNING,
-  MESSAGE_CONTENT_PARAM_WARNING,
-  MESSAGE_HAS_STYLE_WARNING,
-  MESSAGE_STYLE_WARNING
+  MESSAGE_CONTENT_PARAM_WARNING
 } from './warn';
 export class Message {
   options: ewMessageOption;
@@ -16,36 +19,14 @@ export class Message {
     this.options = this.normalizeOptions(options);
     this.el = null;
     this.closeBtnEl = null;
-    if (this.options.isStyle) {
-      if (this.validateHasStyle() && __DEV__) {
-        util.warn(MESSAGE_STYLE_WARNING);
-      }
-      if (!this.validateHasStyle()) {
-        this.addMessageStyle(this.options.stylePrefix);
-      }
-    } else {
-      if (!this.validateHasStyle() && __DEV__) {
-        util.warn(MESSAGE_HAS_STYLE_WARNING);
-      }
+    let isHasStyle = this.validateHasStyle();
+    if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
+      this.addMessageStyle(this.options.stylePrefix);
     }
     this.render(this.options);
   }
   validateHasStyle() {
-    let isHasStyle = false;
-    const styleElements = document.querySelectorAll('style');
-    const allLinks = document.querySelectorAll('link');
-    styleElements.forEach(style => {
-      if (style.textContent?.includes(this.options.stylePrefix || 'ew-')) {
-        isHasStyle = true;
-      }
-    });
-    allLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href?.includes('ew-message')) {
-        isHasStyle = true;
-      }
-    });
-    return isHasStyle;
+    return validateHasStyle();
   }
   normalizeOptions(options: ewMessageOption | string) {
     return normalizeOptions(options);
@@ -57,7 +38,7 @@ export class Message {
     return defaultMessageOption;
   }
   addMessageStyle(prefix_class?: string, style?: string) {
-    addMessageStyle(prefix_class, style);
+    return addMessageStyle(prefix_class, style);
   }
   render(options: ewMessageOption) {
     if ((!options.duration || options.duration <= 0) && !options.showClose) {

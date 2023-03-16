@@ -7,9 +7,3 @@ export const MESSAGE_CLOSE_PARAM_WARNING =
 export const MESSAGE_CONTENT_PARAM_WARNING =
   MESSAGE_WARNING_PREFIX +
   'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
-export const MESSAGE_STYLE_WARNING =
-  MESSAGE_WARNING_PREFIX +
-  'You have imported the style file, no need to add style automatically';
-export const MESSAGE_HAS_STYLE_WARNING =
-  MESSAGE_WARNING_PREFIX +
-  'You need to import the style file, or pass the "isStyle" property as true';

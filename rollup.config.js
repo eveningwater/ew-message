@@ -20,55 +20,16 @@ export default {
       plugins: [terser()]
     },
     {
-      file: './dist/ew-message.iife.js',
-      format: 'iife',
-      name: 'ewMessage',
-      exports: 'default'
-    },
-    {
-      file: './dist/ew-message.iife.min.js',
-      format: 'iife',
-      name: 'ewMessage',
-      exports: 'default',
-      plugins: [terser()]
-    },
-    {
       file: './dist/ew-message.esm.js',
       format: 'es',
       name: 'ewMessage',
-      exports: 'default'
+      exports: 'auto'
     },
     {
       file: './dist/ew-message.esm.min.js',
       format: 'es',
       name: 'ewMessage',
-      exports: 'default',
-      plugins: [terser()]
-    },
-    {
-      file: './dist/ew-message.amd.js',
-      format: 'amd',
-      name: 'ewMessage',
-      exports: 'default'
-    },
-    {
-      file: './dist/ew-message.amd.min.js',
-      format: 'amd',
-      name: 'ewMessage',
-      exports: 'default',
-      plugins: [terser()]
-    },
-    {
-      file: './dist/ew-message.cjs.js',
-      format: 'cjs',
-      name: 'ewMessage',
-      exports: 'default'
-    },
-    {
-      file: './dist/ew-message.cjs.min.js',
-      format: 'cjs',
-      name: 'ewMessage',
-      exports: 'default',
+      exports: 'auto',
       plugins: [terser()]
     }
   ],

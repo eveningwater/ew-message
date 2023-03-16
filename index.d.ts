@@ -23,7 +23,6 @@ interface ewMessageOption {
   type?: string;
   duration?: number;
   showClose?: boolean;
-  isStyle?: boolean;
   stylePrefix?: string;
 }
 type AnyObj = Record<string, any>;
