@@ -149,6 +149,9 @@
             this.el = null;
             this.closeBtnEl = null;
             var isHasStyle = this.validateHasStyle();
+            if (isHasStyle) {
+                this.options.stylePrefix = 'ew-';
+            }
             if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
                 this.addMessageStyle(this.options.stylePrefix);
             }
@@ -181,7 +184,7 @@
                 util.warn(MESSAGE_CONTENT_PARAM_WARNING);
             }
             document.body.appendChild(this.create(options));
-            this.setTop(document.querySelectorAll('.ew-message'));
+            this.setTop(document.querySelectorAll('.' + this.options.stylePrefix + 'message'));
             if (options.duration &&
                 options.duration > 0 &&
                 this.el instanceof HTMLElement) {
@@ -198,16 +201,16 @@
         };
         Message.prototype.create = function (options) {
             var element = document.createElement('div');
-            element.className = "ew-message ew-message-" + options.type;
+            element.className = this.options.stylePrefix + "message " + this.options.stylePrefix + "message-" + options.type;
             if (options.center) {
-                element.classList.add('ew-message-center');
+                element.classList.add(this.options.stylePrefix + 'message-center');
             }
             var p = document.createElement('p');
             p.innerHTML = options.content;
             element.appendChild(p);
             if (options.showClose) {
                 this.closeBtnEl = document.createElement('i');
-                this.closeBtnEl.classList.add('ew-message-close');
+                this.closeBtnEl.classList.add(this.options.stylePrefix + 'message-close');
                 this.closeBtnEl.innerHTML = '&times;';
                 element.appendChild(this.closeBtnEl);
             }
@@ -245,7 +248,7 @@
                         (_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.removeChild(element);
                     }
                 }
-                _this.setTop(document.querySelectorAll('.ew-message'));
+                _this.setTop(document.querySelectorAll('.' + _this.options.stylePrefix + 'message'));
             }, normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime);
         };
         return Message;
