@@ -9,27 +9,23 @@ export default {
     {
       file: './dist/ew-message.js',
       format: 'umd',
-      name: 'ewMessage',
-      exports: 'default'
+      name: 'ewMessage'
     },
     {
       file: './dist/ew-message.min.js',
       format: 'umd',
       name: 'ewMessage',
-      exports: 'default',
       plugins: [terser()]
     },
     {
       file: './dist/ew-message.esm.js',
       format: 'es',
-      name: 'ewMessage',
-      exports: 'auto'
+      name: 'ewMessage'
     },
     {
       file: './dist/ew-message.esm.min.js',
       format: 'es',
       name: 'ewMessage',
-      exports: 'auto',
       plugins: [terser()]
     }
   ],

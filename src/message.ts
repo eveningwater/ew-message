@@ -100,7 +100,7 @@ export class Message {
     }
   }
   close(element: HTMLElement | NodeList | HTMLCollection, time: number) {
-    const normalizeTime = time || 100;
+    const normalizeTime = time || 10;
     setTimeout(
       () => {
         if (element instanceof NodeList || element instanceof HTMLCollection) {

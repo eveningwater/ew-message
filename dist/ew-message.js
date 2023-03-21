@@ -228,7 +228,7 @@
         };
         Message.prototype.close = function (element, time) {
             var _this = this;
-            var normalizeTime = time || 100;
+            var normalizeTime = time || 10;
             setTimeout(function () {
                 var _a, _b;
                 if (element instanceof NodeList || element instanceof HTMLCollection) {
