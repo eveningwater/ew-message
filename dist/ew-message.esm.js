@@ -129,6 +129,14 @@ util.toArray = function (v) { return [].slice.call(v); };
 util.isObject = function (v) { return typeof v === 'object' && !!v; };
 util.isString = function (v) { return typeof v === 'string'; };
 util.hasOwn = function (v, prop) { return v.hasOwnProperty(prop); };
+util.$$ = function (v, el) {
+    if (el === void 0) { el = document; }
+    return el.querySelectorAll(v);
+};
+util.$ = function (v, el) {
+    if (el === void 0) { el = document; }
+    return el.querySelector(v);
+};
 
 var MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
 var MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
@@ -178,7 +186,7 @@ var Message = /** @class */ (function () {
             util.warn(MESSAGE_CONTENT_PARAM_WARNING);
         }
         document.body.appendChild(this.create(options));
-        this.setTop(document.querySelectorAll('.' + this.options.stylePrefix + 'message'));
+        this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
         if (options.duration &&
             options.duration > 0 &&
             this.el instanceof HTMLElement) {
@@ -242,7 +250,7 @@ var Message = /** @class */ (function () {
                     (_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.removeChild(element);
                 }
             }
-            _this.setTop(document.querySelectorAll('.' + _this.options.stylePrefix + 'message'));
+            _this.setTop(util.$$('.' + _this.options.stylePrefix + 'message'));
         }, normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime);
     };
     return Message;

@@ -54,9 +54,7 @@ export class Message {
       util.warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
     document.body.appendChild(this.create(options));
-    this.setTop(
-      document.querySelectorAll('.' + this.options.stylePrefix + 'message')
-    );
+    this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
     if (
       options.duration &&
       options.duration > 0 &&
@@ -122,9 +120,7 @@ export class Message {
             element.parentElement?.removeChild(element);
           }
         }
-        this.setTop(
-          document.querySelectorAll('.' + this.options.stylePrefix + 'message')
-        );
+        this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
       },
       normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime
     );
