@@ -48,69 +48,6 @@ var getMessageStyle = function (prefix_class) {
     return "\n." + prefix_class + "message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}." + prefix_class + "message *{box-sizing:border-box;margin:0;padding:0}." + prefix_class + "message p{padding-right:15px;line-height:1;font-size:14px;color:#909399}." + prefix_class + "message-close{position:absolute;top:50%;right:15px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:16px;font-style:normal}." + prefix_class + "message-close:hover,." + prefix_class + "message-close:active{color:#909399}." + prefix_class + "message-center{justify-content:center}." + prefix_class + "message-success{background-color:#e1f3d8;border-color:#e1f3d8}." + prefix_class + "message-success p,." + prefix_class + "message-success ." + prefix_class + "message-close{color:#67c23a}." + prefix_class + "message-success ." + prefix_class + "message-close:hover,." + prefix_class + "message-success ." + prefix_class + "message-close:active{color:#67c23a}." + prefix_class + "message-warning{background-color:#faecd8;border-color:#fdfce6}." + prefix_class + "message-warning p,." + prefix_class + "message-warning ." + prefix_class + "message-close{color:#e6a23c}." + prefix_class + "message-warning ." + prefix_class + "message-close:hover,." + prefix_class + "message-warning ." + prefix_class + "message-close:active{color:#e6a23c}." + prefix_class + "message-error{background-color:#fef0f0;border-color:#fde2e2}." + prefix_class + "message-error p,." + prefix_class + "message-error ." + prefix_class + "message-close{color:#f56c6c}." + prefix_class + "message-error ." + prefix_class + "message-close:hover,." + prefix_class + "message-error ." + prefix_class + "message-close:active{color:#f56c6c}\n";
 };
 
-var normalizeOptions = function (option) {
-    var messageOption = defaultMessageOption;
-    if (typeof option === 'string') {
-        messageOption.content = option;
-    }
-    else if (typeof option === 'object' && !!option) {
-        messageOption = __assign(__assign({}, messageOption), option);
-    }
-    return messageOption;
-};
-var addMessageStyle = function (prefix_class, style) {
-    if (prefix_class === void 0) { prefix_class = 'ew-'; }
-    return new Promise(function (resolve) {
-        var cssText = style || getMessageStyle(prefix_class);
-        var styleInject = function (css, ref) {
-            if (ref === void 0)
-                ref = {};
-            var insertAt = ref.insertAt;
-            if (!css || typeof document === 'undefined')
-                return;
-            var head = document.head || document.getElementsByTagName('head')[0];
-            var style = document.createElement('style');
-            style.type = 'text/css';
-            if (insertAt === 'top') {
-                if (head.firstChild) {
-                    head.insertBefore(style, head.firstChild);
-                }
-                else {
-                    head.appendChild(style);
-                }
-            }
-            else {
-                head.appendChild(style);
-            }
-            style.appendChild(document.createTextNode(css));
-            resolve(true);
-        };
-        styleInject(cssText);
-    });
-};
-var validateHasStyle = function () {
-    var isHasStyle = false;
-    var allLinks = document.querySelectorAll('link');
-    allLinks.forEach(function (link) {
-        var href = link.getAttribute('href');
-        if (href === null || href === void 0 ? void 0 : href.includes('ew-message')) {
-            isHasStyle = true;
-        }
-    });
-    return isHasStyle;
-};
-var validateAutoHasStyle = function (stylePrefix) {
-    var isHasStyle = false;
-    var allStyles = document.querySelectorAll('style');
-    allStyles.forEach(function (style) {
-        var text = style.textContent;
-        if (text === getMessageStyle(stylePrefix)) {
-            isHasStyle = true;
-        }
-    });
-    return isHasStyle;
-};
-
 var util = Object.create(null);
 util.isFunction = function (value) { return typeof value === 'function'; };
 util.isDom = function (el) {
@@ -136,6 +73,69 @@ util.$$ = function (v, el) {
 util.$ = function (v, el) {
     if (el === void 0) { el = document; }
     return el.querySelector(v);
+};
+
+var normalizeOptions = function (option) {
+    var messageOption = defaultMessageOption;
+    if (typeof option === 'string') {
+        messageOption.content = option;
+    }
+    else if (typeof option === 'object' && !!option) {
+        messageOption = __assign(__assign({}, messageOption), option);
+    }
+    return messageOption;
+};
+var addMessageStyle = function (prefix_class, style) {
+    if (prefix_class === void 0) { prefix_class = 'ew-'; }
+    return new Promise(function (resolve) {
+        var cssText = style || getMessageStyle(prefix_class);
+        var styleInject = function (css, ref) {
+            if (ref === void 0)
+                ref = {};
+            var insertAt = ref.insertAt;
+            if (!css || typeof document === 'undefined')
+                return;
+            var head = document.head || util.$('head');
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            if (insertAt === 'top') {
+                if (head.firstChild) {
+                    head.insertBefore(style, head.firstChild);
+                }
+                else {
+                    head.appendChild(style);
+                }
+            }
+            else {
+                head.appendChild(style);
+            }
+            style.appendChild(document.createTextNode(css));
+            resolve(true);
+        };
+        styleInject(cssText);
+    });
+};
+var validateHasStyle = function () {
+    var isHasStyle = false;
+    var allLinks = util.$$('link');
+    allLinks.forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (href === null || href === void 0 ? void 0 : href.includes('ew-message')) {
+            isHasStyle = true;
+        }
+    });
+    return isHasStyle;
+};
+var validateAutoHasStyle = function (stylePrefix) {
+    var isHasStyle = false;
+    var allStyles = util.$$('style');
+    allStyles.forEach(function (style) {
+        var text = style.textContent;
+        if (text === getMessageStyle(stylePrefix)) {
+            isHasStyle = true;
+        }
+    });
+    return isHasStyle;
 };
 
 var MESSAGE_WARNING_PREFIX = '[Message Warning]: ';

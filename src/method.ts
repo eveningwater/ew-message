@@ -1,4 +1,5 @@
 import { defaultMessageOption, getMessageStyle } from './config';
+import util from './util';
 export const normalizeOptions = (
   option: string | ewMessageOption
 ): ewMessageOption => {
@@ -17,7 +18,7 @@ export const addMessageStyle = (prefix_class = 'ew-', style?: string) =>
       if (ref === void 0) ref = {};
       const insertAt = ref.insertAt;
       if (!css || typeof document === 'undefined') return;
-      const head = document.head || document.getElementsByTagName('head')[0];
+      const head = document.head || util.$('head');
       const style = document.createElement('style');
       style.type = 'text/css';
       if (insertAt === 'top') {
@@ -36,7 +37,7 @@ export const addMessageStyle = (prefix_class = 'ew-', style?: string) =>
   });
 export const validateHasStyle = () => {
   let isHasStyle = false;
-  const allLinks = document.querySelectorAll('link');
+  const allLinks = util.$$('link');
   allLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (href?.includes('ew-message')) {
@@ -47,7 +48,7 @@ export const validateHasStyle = () => {
 };
 export const validateAutoHasStyle = (stylePrefix?: string) => {
   let isHasStyle = false;
-  const allStyles = document.querySelectorAll('style');
+  const allStyles = util.$$('style');
   allStyles.forEach(style => {
     const text = style.textContent;
     if (text === getMessageStyle(stylePrefix)) {
