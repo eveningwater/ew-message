@@ -1,4 +1,3 @@
-export declare const __DEV__: boolean;
 export interface ewMessageInstance extends AnyObj {
   el: HTMLElement;
   closeBtnEl: HTMLElement;
@@ -16,6 +15,8 @@ export interface ewMessageUtils {
   warn: (v: string) => void;
   hasOwn: <T extends object>(v: T, p: string) => boolean;
   toArray: <T>(v: ArrayLike<T>) => Array<T>;
+  $$: (v: string, el?: Element | Document) => NodeListOf<Element>;
+  $: (v: string, el?: Element | Document) => Element | null;
 }
 export enum ewMessageEnumType {
   success = 'success',

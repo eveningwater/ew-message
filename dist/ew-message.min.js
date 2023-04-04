@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.0.1
+ * ewMeassage.js v0.0.2
  * (c) 2023-2023 eveningwater 
  * Released under the MIT License.
  */

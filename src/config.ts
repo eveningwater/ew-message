@@ -1,3 +1,5 @@
+import type { ewMessageOption, ewMessageType } from "../typings/ewMessage";
+
 export const typeMap: ewMessageType = {
   success: 'success',
   info: 'info',

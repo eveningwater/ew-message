@@ -1,3 +1,4 @@
+import type { ewMessageOption } from '../typings/ewMessage';
 import { defaultMessageOption, typeMap } from './config';
 import './index.scss';
 import {

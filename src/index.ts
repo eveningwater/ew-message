@@ -1,3 +1,4 @@
+import type {  ewMessageOption } from '../typings/ewMessage';
 import { typeMap } from './config';
 import { Message } from './message';
 import { normalizeOptions } from './method';

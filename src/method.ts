@@ -1,3 +1,4 @@
+import type { ewMessageOption, ewMessageStyleRefType } from '../typings/ewMessage';
 import { defaultMessageOption, getMessageStyle } from './config';
 import util from './util';
 export const normalizeOptions = (

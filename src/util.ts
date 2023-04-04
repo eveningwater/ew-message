@@ -1,3 +1,5 @@
+import type { ewMessageUtils } from "../typings/ewMessage";
+
 const util: ewMessageUtils = Object.create(null);
 util.isFunction = <T>(value: T) => typeof value === 'function';
 util.isDom = <T>(el: T): boolean =>
