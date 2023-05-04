@@ -11,7 +11,7 @@
   },
   "main": "dist/ew-message.min.js",
   "module": "dist/ew-message.esm.min.js",
-  "typings": "index.d.ts",
+  "typings": "./types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eveningwater/ew-message.git"
