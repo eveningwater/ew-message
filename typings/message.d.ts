@@ -1,4 +1,5 @@
-import type { ewMessageOption } from '../typings/ewMessage';
+import type { ewMessageOption } from './ewMessage';
+import './index.scss';
 export declare class Message {
     options: ewMessageOption;
     el: HTMLElement | null;

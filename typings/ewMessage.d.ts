@@ -1,12 +1,3 @@
-export interface ewMessageInstance extends AnyObj {
-  el: HTMLElement;
-  closeBtnEl: HTMLElement;
-  options: ewMessageOption;
-  render: (v: ewMessageOption) => void;
-  setTop: (v: NodeList | HTMLCollection) => void;
-  create: (v: ewMessageOption) => HTMLElement;
-  close: (v: NodeList | HTMLCollection | HTMLElement, t: number) => void;
-}
 export interface ewMessageUtils {
   isFunction: <T>(v: T) => boolean;
   isDom: <T>(v: T) => boolean;
@@ -39,16 +30,3 @@ export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {
   insertAt?: string;
 }
-export declare function ewMessageFunction(
-  v: ewMessageOption
-): ewMessageInstance;
-export declare type ewMessageFunctionValue = typeof ewMessageFunction;
-export declare type ewMessageStaticMethods = {
-  [prop in ewMessageEnumType]: ewMessageFunctionValue;
-};
-export declare interface ewMessageStaticProps extends ewMessageStaticMethods {
-  util: ewMessageUtils;
-}
-export declare interface ewMessage
-  extends ewMessageStaticProps,
-    ewMessageFunctionValue {}
