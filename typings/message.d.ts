@@ -5,9 +5,10 @@ export declare class Message {
     el: HTMLElement | null;
     closeBtnEl: HTMLElement | null;
     constructor(options: ewMessageOption | string);
+    destroy(): void;
     validateHasStyle(): boolean;
     normalizeOptions(options: ewMessageOption | string): ewMessageOption;
-    getMessageType(): import("../typings/ewMessage").ewMessageType;
+    getMessageType(): import("./ewMessage").ewMessageType;
     getDefaultOption(): ewMessageOption;
     addMessageStyle(prefix_class?: string, style?: string): Promise<unknown>;
     render(options: ewMessageOption): void;

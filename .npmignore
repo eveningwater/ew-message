@@ -8,3 +8,5 @@ yarn.lock
 package-lock.json
 .gitignore
 src/*
+tsconfig.json
+.babelrc

@@ -29,6 +29,9 @@ export class Message {
     }
     this.render(this.options);
   }
+  destroy(){
+    this.el?.remove();
+  }
   validateHasStyle() {
     return validateHasStyle();
   }

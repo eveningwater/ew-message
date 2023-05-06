@@ -13,8 +13,7 @@
 ### 安装
 
 ```
-  npm install ew-message --save-dev//或者 yarn add ew-message
-
+npm install ew-message --save-dev//或者 yarn add ew-message
 ```
 
 ### 引入
@@ -49,9 +48,11 @@ interface ewMessageOption {
 
 ## cdn 引入
 
+```js
 //样式引入
-CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.css
-CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.js
+// CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.css
+// CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.js
+```
 
 ## 在组件中使用
 
@@ -69,3 +70,4 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 
 - 0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。
 - 0.0.5: 修改了 ts 类型导入。
+- 0.0.6: 消息提示框添加了销毁 destory 方法。

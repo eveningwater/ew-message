@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.0.2
+ * ewMeassage.js v0.0.6
  * (c) 2023-2023 eveningwater 
  * Released under the MIT License.
  */
@@ -165,6 +165,10 @@
             }
             this.render(this.options);
         }
+        Message.prototype.destroy = function () {
+            var _a;
+            (_a = this.el) === null || _a === void 0 ? void 0 : _a.remove();
+        };
         Message.prototype.validateHasStyle = function () {
             return validateHasStyle();
         };
