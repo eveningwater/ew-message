@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const msg = ewMessage('这是一个默认的消息提示框');
     return () => {
-      msg.el?.remove();
+      msg.destroy();
     };
   }, []);
   return (

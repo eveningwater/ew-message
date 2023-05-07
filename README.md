@@ -60,7 +60,6 @@ interface ewMessageOption {
 import ewMessage from 'ewMessage';
 //  导入样式
 import 'ew-message/dist/ew-message.min.css';
-//或者  import "ew-message/src/style/ew-message.css"
 const msg = ewMessage(option); //option为配置对象，详情见前述
 ```
 
@@ -68,6 +67,6 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 
 # 更新日志
 
-- 0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。
+- 0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。destroy
 - 0.0.5: 修改了 ts 类型导入。
-- 0.0.6: 消息提示框添加了销毁 destory 方法。
+- 0.0.6: 消息提示框添加了销毁 destroy 方法。
