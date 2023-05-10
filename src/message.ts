@@ -9,6 +9,8 @@ import {
 } from './method';
 import util from './util';
 import {
+  MESSAGE_CLOSE_DURATION_WARNING,
+  MESSAGE_CLOSE_MAX_DURATION_WARNING,
   MESSAGE_CLOSE_PARAM_WARNING,
   MESSAGE_CONTENT_PARAM_WARNING
 } from './warn';
@@ -30,7 +32,9 @@ export class Message {
     this.render(this.options);
   }
   destroy(){
-    this.el?.remove();
+    if(this.el){
+      this.close(this.el,0);
+    }
   }
   validateHasStyle() {
     return validateHasStyle();
@@ -48,7 +52,7 @@ export class Message {
     return addMessageStyle(prefix_class, style);
   }
   render(options: ewMessageOption) {
-    if ((!options.duration || options.duration <= 0) && !options.showClose) {
+    if ((!util.isNumber(options.duration) || (options.duration as number) <= 0) && !options.showClose) {
       if (__DEV__) {
         util.warn(MESSAGE_CLOSE_PARAM_WARNING);
       }
@@ -60,11 +64,11 @@ export class Message {
     document.body.appendChild(this.create(options));
     this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
     if (
-      options.duration &&
-      options.duration > 0 &&
+      util.isNumber(options.duration) &&
+      (options.duration as number) > 0 &&
       this.el instanceof HTMLElement
     ) {
-      this.close(this.el, options.duration);
+      this.close(this.el, options.duration as number);
     }
     if (this.closeBtnEl) {
       this.closeBtnEl.onclick = (e: MouseEvent) => {
@@ -102,7 +106,15 @@ export class Message {
     }
   }
   close(element: HTMLElement | NodeList | HTMLCollection, time: number) {
-    const normalizeTime = time || 10;
+    if(__DEV__ && !util.isNumber(time)){
+       util.warn(MESSAGE_CLOSE_DURATION_WARNING);
+    }
+    if(__DEV__ && !util.isNumber(this.options.maxDuration)){
+      util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
+    }
+    const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
+    const maxDuration = this.options.maxDuration || 10000;
+    const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
     setTimeout(
       () => {
         if (element instanceof NodeList || element instanceof HTMLCollection) {
@@ -126,7 +138,7 @@ export class Message {
         }
         this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
       },
-      normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime
+      Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime,normalizeMaxDuration)
     );
   }
 }

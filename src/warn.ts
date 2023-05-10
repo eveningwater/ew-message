@@ -7,3 +7,9 @@ export const MESSAGE_CLOSE_PARAM_WARNING =
 export const MESSAGE_CONTENT_PARAM_WARNING =
   MESSAGE_WARNING_PREFIX +
   'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
+export const MESSAGE_CLOSE_DURATION_WARNING =
+  MESSAGE_WARNING_PREFIX +
+  '"Duration" property value is not a number,make sure to use a number';
+export const MESSAGE_CLOSE_MAX_DURATION_WARNING =
+  MESSAGE_WARNING_PREFIX +
+  '"maxDuration" property value is not a number,make sure to use a number';

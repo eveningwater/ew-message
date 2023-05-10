@@ -3,6 +3,7 @@ export interface ewMessageUtils {
   isDom: <T>(v: T) => boolean;
   isObject: <T>(v: T) => boolean;
   isString: <T>(v: T) => boolean;
+  isNumber: <T>(v: T) => boolean;
   warn: (v: string) => void;
   hasOwn: <T extends object>(v: T, p: string) => boolean;
   toArray: <T>(v: ArrayLike<T>) => Array<T>;
@@ -25,6 +26,7 @@ export interface ewMessageOption {
   duration?: number;
   showClose?: boolean;
   stylePrefix?: string;
+  maxDuration?: number;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {

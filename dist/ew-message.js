@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.0.6
+ * ewMeassage.js v0.0.7
  * (c) 2023-2023 eveningwater 
  * Released under the MIT License.
  */
@@ -45,9 +45,10 @@
         content: '',
         center: false,
         type: 'info',
-        duration: 600,
+        duration: 100,
         showClose: true,
-        stylePrefix: 'ew-'
+        stylePrefix: 'ew-',
+        maxDuration: 10000
     };
     var getMessageStyle = function (prefix_class) {
         if (prefix_class === void 0) { prefix_class = 'ew-'; }
@@ -71,6 +72,7 @@
     util.toArray = function (v) { return [].slice.call(v); };
     util.isObject = function (v) { return typeof v === 'object' && !!v; };
     util.isString = function (v) { return typeof v === 'string'; };
+    util.isNumber = function (v) { return typeof v === 'number'; };
     util.hasOwn = function (v, prop) { return v.hasOwnProperty(prop); };
     util.$$ = function (v, el) {
         if (el === void 0) { el = document; }
@@ -150,6 +152,10 @@
         'Message need a close time to auto close or a close button to close by yourself!';
     var MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
         'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
+    var MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
+        '"Duration" property value is not a number,make sure to use a number';
+    var MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
+        '"maxDuration" property value is not a number,make sure to use a number';
 
     var Message = /** @class */ (function () {
         function Message(options) {
@@ -240,7 +246,15 @@
         };
         Message.prototype.close = function (element, time) {
             var _this = this;
-            var normalizeTime = time || 10;
+            if ( !util.isNumber(time)) {
+                util.warn(MESSAGE_CLOSE_DURATION_WARNING);
+            }
+            var normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
+            if ( !util.isNumber(this.options.maxDuration)) {
+                util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
+            }
+            var maxDuration = this.options.maxDuration || 10000;
+            var normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
             setTimeout(function () {
                 var _a, _b;
                 if (element instanceof NodeList || element instanceof HTMLCollection) {
@@ -261,7 +275,7 @@
                     }
                 }
                 _this.setTop(util.$$('.' + _this.options.stylePrefix + 'message'));
-            }, normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime);
+            }, Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration));
         };
         return Message;
     }());
