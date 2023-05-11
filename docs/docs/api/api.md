@@ -83,3 +83,31 @@ const msg = ewMessage({
 > ps: 如果传入的值不是一个数值，也会在开发环境下提示警告，如果小于等于 duration,则会取 duration 作为默认值。
 
 > ps: 不建议设置该值。
+
+### showClose
+
+该字段的值是一个布尔值，表示是否显示消息提示框的关闭按钮，默认值是 true，可以将值设置为 false。如:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  showClose: false
+});
+```
+
+> ps: 需要注意的是如果将 duration 的值设置为 0,showClose 设置为 false,则在开发环境下会提供警告，然后自动开启消息提示框的关闭按钮。
+
+### stylePrefix
+
+该属性是一个字符串，表示样式类名的前缀，默认是'ew-',可以自定义类名，方便自己修改样式。如:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  stylePrefix: 'el-'
+});
+```
+
+以上代码将会给消息提示框的样式类名前缀变成 el-,比如原本是 ew-message 类名将变成 el-message。
+
+通常来讲这个属性应该是用不到的，只有在确实需要自定义样式的时候可以用到。

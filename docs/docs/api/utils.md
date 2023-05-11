@@ -16,8 +16,98 @@ const util = ewMessage.util;
 该工具函数表示判断是否是一个函数，传入一个需要判断的参数。如:
 
 ```ts
-const testFn = () => {
+const testFn = function() {
   console.log('这是一个函数');
 };
 util.isFunction(testFn); // true
+util.isFunction(null); // false
+```
+
+## isDom
+
+该工具函数表示判断是否是一个 dom 元素，传入一个需要判断参数。如:
+
+```ts
+const div = document.querySelector('#app');
+util.isDom(div); // true;
+util.isDom(1); // false;
+```
+
+## isObject
+
+该工具函数表示判断是否是一个对象，传入一个需要判断的参数。如:
+
+```ts
+util.isObject({}); // true;
+util.isObject([]); // true;
+util.isObject(function() {
+  console.log(1);
+}); // false;
+util.isObject(111); // false;
+```
+
+## isString
+
+该工具函数表示判断是否是一个字符串，传入一个需要判断的参数。如:
+
+```ts
+util.isString('111'); // true;
+util.isString(111); // false
+```
+
+## isNumber(0.0.7 版本新增)
+
+该工具函数表示判断是否是一个数值，传入一个需要判断的参数。如:
+
+```ts
+util.isNumber(123); // true;
+util.isNumber(NaN); // false;
+util.isNumber('1111'); // false
+```
+
+## warn
+
+该函数表示在控制台打印一些警告信息，传入一个需要打印的信息字符串。如:
+
+```ts
+util.warn('warning: this is not a function');
+```
+
+## hasOwn
+
+该工具函数表示某个属性是否在某个对象上，传入 2 个参数，第一个参数是一个对象，第二个参数是一个属性名。如:
+
+```ts
+const obj = { name: 'eveningwater' };
+util.hasOwn(obj, 'name'); // true;
+util.hasOwn(obj, 'age'); // false;
+```
+
+## toArray
+
+该工具函数用于将伪数组转换成真正的数组，传入一个需要转换的值。如:
+
+```ts
+// 假设页面有多个<div class="list-item"></div>的元素
+const listItems = document.querySelectorAll('.list-item');
+util.toArray(listItems); // 一个包含多个div元素的数组
+```
+
+## \$
+
+该工具函数用于获取 dom 元素，有两个参数，第一个参数是一个字符串，第二个参数是一个 dom 元素。如:
+
+```ts
+const app = util.$('#app');
+util.$('.child', app);
+```
+
+## \$\$
+
+该工具函数用于获取 dom 元素集合即 NodeList,参数同\$方法。如:
+
+```ts
+const app = util.$('#app');
+util.$$('.child', app);
+util.$$('.child');
 ```

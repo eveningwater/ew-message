@@ -16,7 +16,7 @@ util.warn = (v: string) => console.warn(v);
 util.toArray = <T>(v: ArrayLike<T>): Array<T> => [].slice.call(v);
 util.isObject = <T>(v: T) => typeof v === 'object' && !!v;
 util.isString = <T>(v: T) => typeof v === 'string';
-util.isNumber = <T>(v: T) => typeof v === 'number';
+util.isNumber = <T>(v: T) => typeof v === 'number' && !Number.isNaN(v);
 util.hasOwn = <T extends object>(v: T, prop: string) => v.hasOwnProperty(prop);
 util.$$ = (v: string,el:Element | Document = document) => el.querySelectorAll(v);
 util.$ = (v: string,el:Element | Document = document) => el.querySelector(v);

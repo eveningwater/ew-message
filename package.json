@@ -5,6 +5,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "build:build": "rollup -c",
+    "build:docs":"cd docs && npm run build",
+    "start:docs":"cd docs && npm run start",
     "dev": "rollup -c -w",
     "test": "ts-node test/test.ts",
     "pretest": "npm run build"

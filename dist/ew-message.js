@@ -72,7 +72,7 @@
     util.toArray = function (v) { return [].slice.call(v); };
     util.isObject = function (v) { return typeof v === 'object' && !!v; };
     util.isString = function (v) { return typeof v === 'string'; };
-    util.isNumber = function (v) { return typeof v === 'number'; };
+    util.isNumber = function (v) { return typeof v === 'number' && !Number.isNaN(v); };
     util.hasOwn = function (v, prop) { return v.hasOwnProperty(prop); };
     util.$$ = function (v, el) {
         if (el === void 0) { el = document; }
@@ -172,8 +172,9 @@
             this.render(this.options);
         }
         Message.prototype.destroy = function () {
-            var _a;
-            (_a = this.el) === null || _a === void 0 ? void 0 : _a.remove();
+            if (this.el) {
+                this.close(this.el, 0);
+            }
         };
         Message.prototype.validateHasStyle = function () {
             return validateHasStyle();
@@ -192,7 +193,7 @@
         };
         Message.prototype.render = function (options) {
             var _this = this;
-            if ((!options.duration || options.duration <= 0) && !options.showClose) {
+            if ((!util.isNumber(options.duration) || options.duration <= 0) && !options.showClose) {
                 {
                     util.warn(MESSAGE_CLOSE_PARAM_WARNING);
                 }
@@ -203,7 +204,7 @@
             }
             document.body.appendChild(this.create(options));
             this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
-            if (options.duration &&
+            if (util.isNumber(options.duration) &&
                 options.duration > 0 &&
                 this.el instanceof HTMLElement) {
                 this.close(this.el, options.duration);
@@ -249,10 +250,10 @@
             if ( !util.isNumber(time)) {
                 util.warn(MESSAGE_CLOSE_DURATION_WARNING);
             }
-            var normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
             if ( !util.isNumber(this.options.maxDuration)) {
                 util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
             }
+            var normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
             var maxDuration = this.options.maxDuration || 10000;
             var normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
             setTimeout(function () {
