@@ -65,6 +65,8 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 
 当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。
 
+更多详情参阅文档官网介绍[ew-message](https://eveningwater.github.io/ew-message/);
+
 # 更新日志
 
 - 0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。
