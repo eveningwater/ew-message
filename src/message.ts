@@ -14,6 +14,7 @@ import {
   MESSAGE_CLOSE_PARAM_WARNING,
   MESSAGE_CONTENT_PARAM_WARNING
 } from './warn';
+import {ewMessageType} from "../typings/ewMessage";
 export class Message {
   options: ewMessageOption;
   el: HTMLElement | null;
@@ -29,8 +30,30 @@ export class Message {
     if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
       this.addMessageStyle(this.options.stylePrefix);
     }
-    this.render(this.options);
+    this.options.immediate && this.render(this.options);
   }
+
+  public success(options: Partial<ewMessageOption>): void {
+    this.renderTypedMessage({...options, type: typeMap.success})
+  }
+
+  public warning(options: Partial<ewMessageOption>): void {
+    this.renderTypedMessage({...options, type: typeMap.warning})
+  }
+
+  public error(options: Partial<ewMessageOption>): void {
+    this.renderTypedMessage({...options, type: typeMap.error})
+  }
+
+  public info(options: Partial<ewMessageOption>): void {
+    this.renderTypedMessage({...options, type: typeMap.info})
+  }
+
+  private renderTypedMessage(options: Partial<ewMessageOption>): void {
+    const mergedOptions = {...this.options, ...options};
+    this.render(mergedOptions);
+  }
+
   destroy(){
     if(this.el){
       this.close(this.el,0);

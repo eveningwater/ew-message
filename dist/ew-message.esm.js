@@ -3,7 +3,7 @@
  * (c) 2023-2023 eveningwater 
  * Released under the MIT License.
  */
-/*! *****************************************************************************
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -46,7 +46,7 @@ var defaultMessageOption = {
 };
 var getMessageStyle = function (prefix_class) {
     if (prefix_class === void 0) { prefix_class = 'ew-'; }
-    return "\n." + prefix_class + "message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}." + prefix_class + "message *{box-sizing:border-box;margin:0;padding:0}." + prefix_class + "message p{padding-right:15px;line-height:1;font-size:14px;color:#909399}." + prefix_class + "message-close{position:absolute;top:50%;right:15px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:16px;font-style:normal}." + prefix_class + "message-close:hover,." + prefix_class + "message-close:active{color:#909399}." + prefix_class + "message-center{justify-content:center}." + prefix_class + "message-success{background-color:#e1f3d8;border-color:#e1f3d8}." + prefix_class + "message-success p,." + prefix_class + "message-success ." + prefix_class + "message-close{color:#67c23a}." + prefix_class + "message-success ." + prefix_class + "message-close:hover,." + prefix_class + "message-success ." + prefix_class + "message-close:active{color:#67c23a}." + prefix_class + "message-warning{background-color:#faecd8;border-color:#fdfce6}." + prefix_class + "message-warning p,." + prefix_class + "message-warning ." + prefix_class + "message-close{color:#e6a23c}." + prefix_class + "message-warning ." + prefix_class + "message-close:hover,." + prefix_class + "message-warning ." + prefix_class + "message-close:active{color:#e6a23c}." + prefix_class + "message-error{background-color:#fef0f0;border-color:#fde2e2}." + prefix_class + "message-error p,." + prefix_class + "message-error ." + prefix_class + "message-close{color:#f56c6c}." + prefix_class + "message-error ." + prefix_class + "message-close:hover,." + prefix_class + "message-error ." + prefix_class + "message-close:active{color:#f56c6c}\n";
+    return "\n.".concat(prefix_class, "message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}.").concat(prefix_class, "message *{box-sizing:border-box;margin:0;padding:0}.").concat(prefix_class, "message p{padding-right:15px;line-height:1;font-size:14px;color:#909399}.").concat(prefix_class, "message-close{position:absolute;top:50%;right:15px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:16px;font-style:normal}.").concat(prefix_class, "message-close:hover,.").concat(prefix_class, "message-close:active{color:#909399}.").concat(prefix_class, "message-center{justify-content:center}.").concat(prefix_class, "message-success{background-color:#e1f3d8;border-color:#e1f3d8}.").concat(prefix_class, "message-success p,.").concat(prefix_class, "message-success .").concat(prefix_class, "message-close{color:#67c23a}.").concat(prefix_class, "message-success .").concat(prefix_class, "message-close:hover,.").concat(prefix_class, "message-success .").concat(prefix_class, "message-close:active{color:#67c23a}.").concat(prefix_class, "message-warning{background-color:#faecd8;border-color:#fdfce6}.").concat(prefix_class, "message-warning p,.").concat(prefix_class, "message-warning .").concat(prefix_class, "message-close{color:#e6a23c}.").concat(prefix_class, "message-warning .").concat(prefix_class, "message-close:hover,.").concat(prefix_class, "message-warning .").concat(prefix_class, "message-close:active{color:#e6a23c}.").concat(prefix_class, "message-error{background-color:#fef0f0;border-color:#fde2e2}.").concat(prefix_class, "message-error p,.").concat(prefix_class, "message-error .").concat(prefix_class, "message-close{color:#f56c6c}.").concat(prefix_class, "message-error .").concat(prefix_class, "message-close:hover,.").concat(prefix_class, "message-error .").concat(prefix_class, "message-close:active{color:#f56c6c}\n");
 };
 
 var util = Object.create(null);
@@ -163,8 +163,24 @@ var Message = /** @class */ (function () {
         if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
             this.addMessageStyle(this.options.stylePrefix);
         }
-        this.render(this.options);
+        this.options.immediate && this.render(this.options);
     }
+    Message.prototype.success = function (options) {
+        this.renderTypedMessage(__assign(__assign({}, options), { type: typeMap.success }));
+    };
+    Message.prototype.warning = function (options) {
+        this.renderTypedMessage(__assign(__assign({}, options), { type: typeMap.warning }));
+    };
+    Message.prototype.error = function (options) {
+        this.renderTypedMessage(__assign(__assign({}, options), { type: typeMap.error }));
+    };
+    Message.prototype.info = function (options) {
+        this.renderTypedMessage(__assign(__assign({}, options), { type: typeMap.info }));
+    };
+    Message.prototype.renderTypedMessage = function (options) {
+        var mergedOptions = __assign(__assign({}, this.options), options);
+        this.render(mergedOptions);
+    };
     Message.prototype.destroy = function () {
         if (this.el) {
             this.close(this.el, 0);
@@ -214,7 +230,7 @@ var Message = /** @class */ (function () {
     };
     Message.prototype.create = function (options) {
         var element = document.createElement('div');
-        element.className = this.options.stylePrefix + "message " + this.options.stylePrefix + "message-" + options.type;
+        element.className = "".concat(this.options.stylePrefix, "message ").concat(this.options.stylePrefix, "message-").concat(options.type);
         if (options.center) {
             element.classList.add(this.options.stylePrefix + 'message-center');
         }
@@ -241,10 +257,10 @@ var Message = /** @class */ (function () {
     };
     Message.prototype.close = function (element, time) {
         var _this = this;
-        if ( !util.isNumber(time)) {
+        if (!util.isNumber(time)) {
             util.warn(MESSAGE_CLOSE_DURATION_WARNING);
         }
-        if ( !util.isNumber(this.options.maxDuration)) {
+        if (!util.isNumber(this.options.maxDuration)) {
             util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
         }
         var normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -292,4 +308,4 @@ for (var key in typeMap) {
     _loop_1(key);
 }
 
-export default ewMessage;
+export { ewMessage as default };
