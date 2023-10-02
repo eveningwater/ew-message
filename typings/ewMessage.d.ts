@@ -27,6 +27,8 @@ export interface ewMessageOption {
   showClose?: boolean;
   stylePrefix?: string;
   maxDuration?: number;
+  showTypeIcon?: boolean;
+  typeIcon?: string;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {

@@ -4,11 +4,14 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-
+import ewMessage from 'ew-message';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
+  const onMessageHandler = () => {
+    ewMessage('这是一个测试的提示!');
+  };
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -21,6 +24,12 @@ function HomepageHeader() {
           >
             快速开始
           </Link>
+          <button
+            className="button button--secondary button--lg"
+            onClick={onMessageHandler}
+          >
+            点我试用
+          </button>
         </div>
       </div>
     </header>

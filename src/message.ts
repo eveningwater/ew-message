@@ -1,5 +1,6 @@
 import type { ewMessageOption } from '../typings/ewMessage';
 import { defaultMessageOption, typeMap } from './config';
+import { typeIconMap } from './icon';
 import './index.scss';
 import {
   addMessageStyle,
@@ -31,9 +32,9 @@ export class Message {
     }
     this.render(this.options);
   }
-  destroy(){
-    if(this.el){
-      this.close(this.el,0);
+  destroy() {
+    if (this.el) {
+      this.close(this.el, 0);
     }
   }
   validateHasStyle() {
@@ -87,6 +88,10 @@ export class Message {
     }
     const p = document.createElement('p');
     p.innerHTML = options.content;
+    if (options.showTypeIcon) {
+      const icon = options.typeIcon ? options.typeIcon : typeIconMap[options.type || 'info'];
+      element.appendChild(icon);
+    }
     element.appendChild(p);
     if (options.showClose) {
       this.closeBtnEl = document.createElement('i');
@@ -106,10 +111,10 @@ export class Message {
     }
   }
   close(element: HTMLElement | NodeList | HTMLCollection, time: number) {
-    if(__DEV__ && !util.isNumber(time)){
-       util.warn(MESSAGE_CLOSE_DURATION_WARNING);
+    if (__DEV__ && !util.isNumber(time)) {
+      util.warn(MESSAGE_CLOSE_DURATION_WARNING);
     }
-    if(__DEV__ && !util.isNumber(this.options.maxDuration)){
+    if (__DEV__ && !util.isNumber(this.options.maxDuration)) {
       util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
     }
     const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -138,7 +143,7 @@ export class Message {
         }
         this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
       },
-      Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime,normalizeMaxDuration)
+      Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration)
     );
   }
 }

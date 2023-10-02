@@ -111,3 +111,27 @@ const msg = ewMessage({
 以上代码将会给消息提示框的样式类名前缀变成 el-,比如原本是 ew-message 类名将变成 el-message。
 
 通常来讲这个属性应该是用不到的，只有在确实需要自定义样式的时候可以用到。
+
+### showTypeIcon (0.0.8)新增
+
+该属性是一个布尔值，表示是否显示图标，会根据相关的类型来匹配相应的图标，比如 info 类型就是 info 类型的图标,默认值是 true。如下所示:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  showTypeIcon: true
+});
+```
+
+### typeIcon(0.0.8)新增
+
+该属性用于自定义图标，需要将 showTypeIcon 设置为 true 才行，如果默认的图标不符合要求，可以自己传入一个 img 标签或者 svg 标签自定义一个图标，或者是任意元素，不过需要自己调整样式。如下所示:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  showTypeIcon: true,
+  typeIcon:
+    '<svg t="1695191942528" class="ew-message-icon ew-message-info-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>'
+});
+```
