@@ -16,7 +16,7 @@ const util = ewMessage.util;
 该工具函数表示判断是否是一个函数，传入一个需要判断的参数。如:
 
 ```ts
-const testFn = function() {
+const testFn = function () {
   console.log('这是一个函数');
 };
 util.isFunction(testFn); // true
@@ -40,7 +40,7 @@ util.isDom(1); // false;
 ```ts
 util.isObject({}); // true;
 util.isObject([]); // true;
-util.isObject(function() {
+util.isObject(function () {
   console.log(1);
 }); // false;
 util.isObject(111); // false;
@@ -93,7 +93,7 @@ const listItems = document.querySelectorAll('.list-item');
 util.toArray(listItems); // 一个包含多个div元素的数组
 ```
 
-## \$
+## $
 
 该工具函数用于获取 dom 元素，有两个参数，第一个参数是一个字符串，第二个参数是一个 dom 元素。如:
 
@@ -102,7 +102,7 @@ const app = util.$('#app');
 util.$('.child', app);
 ```
 
-## \$\$
+## $$
 
 该工具函数用于获取 dom 元素集合即 NodeList,参数同\$方法。如:
 
@@ -110,4 +110,13 @@ util.$('.child', app);
 const app = util.$('#app');
 util.$$('.child', app);
 util.$$('.child');
+```
+
+## createElement
+
+该工具函数用于根据模板字符串创建一个 dom 元素，模板字符串可以带入子元素，如:
+
+```ts
+const html = util.createElement(`<div><span></span></div>`);
+console.log(html); // 返回div节点
 ```

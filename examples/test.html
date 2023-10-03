@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ew-message</title>
-    <!-- <link rel="stylesheet" href="../dist/ew-message.min.css" /> -->
-  </head>
-  <body></body>
-  <script src="../dist/ew-message.js"></script>
-  <script>
-    const msg1 = ewMessage({
-      duration: 3000,
-      content: '这是一条测试消息',
-      maxDuration: 2000
-    });
-  </script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ew-message</title>
+  <!-- <link rel="stylesheet" href="../dist/ew-message.min.css" /> -->
+</head>
+
+<body></body>
+<script src="../dist/ew-message.js"></script>
+<script>
+  const msg1 = ewMessage({
+    duration: 0,
+    content: '这是一条测试消息',
+    maxDuration: 2000,
+    // showTypeIcon: false,
+    type: 'info',
+    showClose: true
+  });
+</script>
+
 </html>

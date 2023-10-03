@@ -1,6 +1,6 @@
 import type { ewMessageOption } from '../typings/ewMessage';
 import { defaultMessageOption, typeMap } from './config';
-import { typeIconMap } from './icon';
+import { closeIcon, typeIconMap } from './icon';
 import './index.scss';
 import {
   addMessageStyle,
@@ -72,11 +72,8 @@ export class Message {
       this.close(this.el, options.duration as number);
     }
     if (this.closeBtnEl) {
-      this.closeBtnEl.onclick = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        if (target && target.parentElement instanceof HTMLElement) {
-          this.close(target.parentElement, 0);
-        }
+      this.closeBtnEl.onclick = () => {
+        this.close(<HTMLElement>this.closeBtnEl?.parentElement, 0);
       };
     }
   }
@@ -89,14 +86,14 @@ export class Message {
     const p = document.createElement('p');
     p.innerHTML = options.content;
     if (options.showTypeIcon) {
-      const icon = options.typeIcon ? options.typeIcon : typeIconMap[options.type || 'info'];
-      element.appendChild(icon);
+      const icon = options.typeIcon ? options.typeIcon : typeIconMap[options.type || 'info'](this.options.stylePrefix);
+      element.appendChild(util.createElement(icon));
     }
     element.appendChild(p);
     if (options.showClose) {
       this.closeBtnEl = document.createElement('i');
       this.closeBtnEl.classList.add(this.options.stylePrefix + 'message-close');
-      this.closeBtnEl.innerHTML = '&times;';
+      this.closeBtnEl.innerHTML = this.options.closeIcon ? this.options.closeIcon : closeIcon(this.options.stylePrefix!);
       element.appendChild(this.closeBtnEl);
     }
     this.el = element;

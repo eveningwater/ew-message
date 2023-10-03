@@ -125,7 +125,7 @@ const msg = ewMessage({
 
 ### typeIcon(0.0.8)新增
 
-该属性用于自定义图标，需要将 showTypeIcon 设置为 true 才行，如果默认的图标不符合要求，可以自己传入一个 img 标签或者 svg 标签自定义一个图标，或者是任意元素，不过需要自己调整样式。如下所示:
+该属性用于自定义图标，需要将 showTypeIcon 设置为 true 才行，如果默认的图标不符合需求，可以自己传入一个 img 标签或者 svg 标签自定义一个图标，或者是任意元素，不过需要自己调整图标样式，可以定义`${prefix}-message-${type}-icon`相关的类名来使用默认的样式,其中 prefix 的值为前缀名默认是 ew,type 为消息提示框类型，如 info。如下所示:
 
 ```ts
 const msg = ewMessage({
@@ -133,5 +133,19 @@ const msg = ewMessage({
   showTypeIcon: true,
   typeIcon:
     '<svg t="1695191942528" class="ew-message-icon ew-message-info-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>'
+});
+```
+
+### closeIcon
+
+该属性用于自定义关闭按钮的图标，需要将 showClose 设置为 true 才行，如果默认的关闭按钮图标不符合需求，可以自己传入一个 img 标签或者 svg 标签自定义一个图标，或者是任意元素，不过需要自己调整图标样式，可以定义`${prefix}-message-close-icon`相关的类名来使用默认的样式,其中 prefix 的值为前缀名，默认是 ew。如:
+
+```ts
+// 不推荐替换默认的图标
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  showTypeIcon: true,
+  typeIcon:
+    '<svg t="1695191942528" class="ew-message-close-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>'
 });
 ```

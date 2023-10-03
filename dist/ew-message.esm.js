@@ -1,138 +1,118 @@
 /*!
- * ewMeassage.js v0.0.7
+ * ewMeassage.js v0.0.8
  * (c) 2023-2023 eveningwater 
  * Released under the MIT License.
  */
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-var typeMap = {
+const typeMap = {
     success: 'success',
     info: 'info',
     warning: 'warning',
     error: 'error'
 };
-var defaultMessageOption = {
+const defaultMessageOption = {
     content: '',
     center: false,
     type: 'info',
     duration: 100,
     showClose: true,
     stylePrefix: 'ew-',
-    maxDuration: 10000
+    maxDuration: 10000,
+    showTypeIcon: true
 };
-var getMessageStyle = function (prefix_class) {
-    if (prefix_class === void 0) { prefix_class = 'ew-'; }
-    return "\n." + prefix_class + "message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}." + prefix_class + "message *{box-sizing:border-box;margin:0;padding:0}." + prefix_class + "message p{padding-right:15px;line-height:1;font-size:14px;color:#909399}." + prefix_class + "message-close{position:absolute;top:50%;right:15px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:16px;font-style:normal}." + prefix_class + "message-close:hover,." + prefix_class + "message-close:active{color:#909399}." + prefix_class + "message-center{justify-content:center}." + prefix_class + "message-success{background-color:#e1f3d8;border-color:#e1f3d8}." + prefix_class + "message-success p,." + prefix_class + "message-success ." + prefix_class + "message-close{color:#67c23a}." + prefix_class + "message-success ." + prefix_class + "message-close:hover,." + prefix_class + "message-success ." + prefix_class + "message-close:active{color:#67c23a}." + prefix_class + "message-warning{background-color:#faecd8;border-color:#fdfce6}." + prefix_class + "message-warning p,." + prefix_class + "message-warning ." + prefix_class + "message-close{color:#e6a23c}." + prefix_class + "message-warning ." + prefix_class + "message-close:hover,." + prefix_class + "message-warning ." + prefix_class + "message-close:active{color:#e6a23c}." + prefix_class + "message-error{background-color:#fef0f0;border-color:#fde2e2}." + prefix_class + "message-error p,." + prefix_class + "message-error ." + prefix_class + "message-close{color:#f56c6c}." + prefix_class + "message-error ." + prefix_class + "message-close:hover,." + prefix_class + "message-error ." + prefix_class + "message-close:active{color:#f56c6c}\n";
+const getMessageStyle = (prefix_class = 'ew-') => `
+.${prefix_class}message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}.${prefix_class}message > .${prefix_class}message-icon{width:1em;height:1em;margin-right:5px;}.${prefix_class}message p{padding:0;padding-right:15px;line-height:1;font-size:14px;color:#909399;margin:0;}.${prefix_class}message-close{position:absolute;top:50%;right:5px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:20px;font-style:normal}.${prefix_class}message-close-icon{width:1em;height:1em;}.${prefix_class}message-close:hover,.${prefix_class}message-close:active{color:#909399}.${prefix_class}message-center{justify-content:center}.${prefix_class}message-success{background-color:#e1f3d8;border-color:#e1f3d8}.${prefix_class}message-success p,.${prefix_class}message-success .${prefix_class}message-close{color:#67c23a}.${prefix_class}message-success .${prefix_class}message-close:hover,.${prefix_class}message-success .${prefix_class}message-close:active{color:#67c23a}.${prefix_class}message-warning{background-color:#faecd8;border-color:#fdfce6}.${prefix_class}message-warning p,.${prefix_class}message-warning .${prefix_class}message-close{color:#e6a23c}.${prefix_class}message-warning .${prefix_class}message-close:hover,.${prefix_class}message-warning .${prefix_class}message-close:active{color:#e6a23c}.${prefix_class}message-error{background-color:#fef0f0;border-color:#fde2e2}.${prefix_class}message-error p,.${prefix_class}message-error .${prefix_class}message-close{color:#f56c6c}.${prefix_class}message-error .${prefix_class}message-close:hover,.${prefix_class}message-error .${prefix_class}message-close:active{color:#f56c6c}
+`;
+
+const successIcon = (prefix) => `<svg t="1695191725930" class="${prefix}message-icon ${prefix}message-success-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4394"><path d="M512 97.52381c228.912762 0 414.47619 185.563429 414.47619 414.47619s-185.563429 414.47619-414.47619 414.47619S97.52381 740.912762 97.52381 512 283.087238 97.52381 512 97.52381z m193.194667 218.331428L447.21981 581.315048l-103.936-107.812572-52.662858 50.761143 156.379429 162.230857 310.662095-319.683047-52.467809-50.956191z" p-id="4395" fill="#1afa29"></path></svg>`;
+const warningIcon = (prefix) => `<svg t="1695191794405" class="${prefix}message-icon ${prefix}message-warning-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5405"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296z m32 440c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z" p-id="5406" fill="#faad14"></path></svg>`;
+const errorIcon = (prefix) => `<svg t="1695191861829" class="${prefix}message-icon ${prefix}message-error-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6407"><path d="M512 64.303538c-247.25636 0-447.696462 200.440102-447.696462 447.696462 0 247.254314 200.440102 447.696462 447.696462 447.696462s447.696462-200.440102 447.696462-447.696462S759.25636 64.303538 512 64.303538zM710.491727 665.266709c12.491499 12.491499 12.489452 32.729425-0.002047 45.220924-6.246261 6.246261-14.429641 9.370415-22.611997 9.370415s-16.363689-3.121084-22.60995-9.366322L512 557.222971 358.730221 710.491727c-6.246261 6.246261-14.429641 9.366322-22.611997 9.366322s-16.365736-3.125177-22.611997-9.370415c-12.491499-12.491499-12.491499-32.729425 0-45.220924l153.268756-153.266709L313.50725 358.730221c-12.491499-12.491499-12.489452-32.729425 0.002047-45.220924s32.729425-12.495592 45.220924-0.004093l153.268756 153.268756 153.268756-153.268756c12.491499-12.491499 32.729425-12.487406 45.220924 0.004093s12.493545 32.729425 0.002047 45.220924L557.225017 512 710.491727 665.266709z" fill="#ff4d4f" p-id="6408"></path></svg>`;
+const infoIcon = (prefix) => `<svg t="1695191942528" class="${prefix}message-icon ${prefix}message-info-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>`;
+const closeIcon = (prefix) => `<svg t="1690189203554" class="${prefix}message-close-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2272" fill="currentColor"><path d="M504.224 470.288l207.84-207.84a16 16 0 0 1 22.608 0l11.328 11.328a16 16 0 0 1 0 22.624l-207.84 207.824 207.84 207.84a16 16 0 0 1 0 22.608l-11.328 11.328a16 16 0 0 1-22.624 0l-207.824-207.84-207.84 207.84a16 16 0 0 1-22.608 0l-11.328-11.328a16 16 0 0 1 0-22.624l207.84-207.824-207.84-207.84a16 16 0 0 1 0-22.608l11.328-11.328a16 16 0 0 1 22.624 0l207.824 207.84z" p-id="2273"></path></svg>`;
+const typeIconMap = {
+    success: successIcon,
+    warning: warningIcon,
+    info: infoIcon,
+    error: errorIcon
 };
 
-var util = Object.create(null);
-util.isFunction = function (value) { return typeof value === 'function'; };
-util.isDom = function (el) {
-    return typeof HTMLElement === 'object'
-        ? el instanceof HTMLElement
-        : (el &&
-            typeof el === 'object' &&
-            el instanceof Node &&
-            el.nodeType === 1 &&
-            typeof el.nodeName === 'string') ||
-            el instanceof HTMLCollection ||
-            el instanceof NodeList;
-};
-util.warn = function (v) { return console.warn(v); };
-util.toArray = function (v) { return [].slice.call(v); };
-util.isObject = function (v) { return typeof v === 'object' && !!v; };
-util.isString = function (v) { return typeof v === 'string'; };
-util.isNumber = function (v) { return typeof v === 'number' && !Number.isNaN(v); };
-util.hasOwn = function (v, prop) { return v.hasOwnProperty(prop); };
-util.$$ = function (v, el) {
-    if (el === void 0) { el = document; }
-    return el.querySelectorAll(v);
-};
-util.$ = function (v, el) {
-    if (el === void 0) { el = document; }
-    return el.querySelector(v);
+const util = Object.create(null);
+util.isFunction = (value) => typeof value === 'function';
+util.isDom = (el) => typeof HTMLElement === 'object'
+    ? el instanceof HTMLElement
+    : (el &&
+        typeof el === 'object' &&
+        el instanceof Node &&
+        el.nodeType === 1 &&
+        typeof el.nodeName === 'string') ||
+        el instanceof HTMLCollection ||
+        el instanceof NodeList;
+util.warn = (v) => console.warn(v);
+util.toArray = (v) => [].slice.call(v);
+util.isObject = (v) => typeof v === 'object' && !!v;
+util.isString = (v) => typeof v === 'string';
+util.isNumber = (v) => typeof v === 'number' && !Number.isNaN(v);
+util.hasOwn = (v, prop) => v.hasOwnProperty(prop);
+util.$$ = (v, el = document) => el.querySelectorAll(v);
+util.$ = (v, el = document) => el.querySelector(v);
+util.createElement = (temp) => {
+    const div = document.createElement('div');
+    div.innerHTML = temp;
+    return div.firstElementChild;
 };
 
-var normalizeOptions = function (option) {
-    var messageOption = defaultMessageOption;
+const normalizeOptions = (option) => {
+    let messageOption = defaultMessageOption;
     if (typeof option === 'string') {
         messageOption.content = option;
     }
     else if (typeof option === 'object' && !!option) {
-        messageOption = __assign(__assign({}, messageOption), option);
+        messageOption = { ...messageOption, ...option };
     }
     return messageOption;
 };
-var addMessageStyle = function (prefix_class, style) {
-    if (prefix_class === void 0) { prefix_class = 'ew-'; }
-    return new Promise(function (resolve) {
-        var cssText = style || getMessageStyle(prefix_class);
-        var styleInject = function (css, ref) {
-            if (ref === void 0)
-                ref = {};
-            var insertAt = ref.insertAt;
-            if (!css || typeof document === 'undefined')
-                return;
-            var head = document.head || util.$('head');
-            var style = document.createElement('style');
-            style.type = 'text/css';
-            if (insertAt === 'top') {
-                if (head.firstChild) {
-                    head.insertBefore(style, head.firstChild);
-                }
-                else {
-                    head.appendChild(style);
-                }
+const addMessageStyle = (prefix_class = 'ew-', style) => new Promise(resolve => {
+    const cssText = style || getMessageStyle(prefix_class);
+    const styleInject = (css, ref) => {
+        if (ref === void 0)
+            ref = {};
+        const insertAt = ref.insertAt;
+        if (!css || typeof document === 'undefined')
+            return;
+        const head = document.head || util.$('head');
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        if (insertAt === 'top') {
+            if (head.firstChild) {
+                head.insertBefore(style, head.firstChild);
             }
             else {
                 head.appendChild(style);
             }
-            style.appendChild(document.createTextNode(css));
-            resolve(true);
-        };
-        styleInject(cssText);
-    });
-};
-var validateHasStyle = function () {
-    var isHasStyle = false;
-    var allLinks = util.$$('link');
-    allLinks.forEach(function (link) {
-        var href = link.getAttribute('href');
-        if (href === null || href === void 0 ? void 0 : href.includes('ew-message')) {
+        }
+        else {
+            head.appendChild(style);
+        }
+        style.appendChild(document.createTextNode(css));
+        resolve(true);
+    };
+    styleInject(cssText);
+});
+const validateHasStyle = () => {
+    let isHasStyle = false;
+    const allLinks = util.$$('link');
+    allLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href?.includes('ew-message')) {
             isHasStyle = true;
         }
     });
     return isHasStyle;
 };
-var validateAutoHasStyle = function (stylePrefix) {
-    var isHasStyle = false;
-    var allStyles = util.$$('style');
-    allStyles.forEach(function (style) {
-        var text = style.textContent;
+const validateAutoHasStyle = (stylePrefix) => {
+    let isHasStyle = false;
+    const allStyles = util.$$('style');
+    allStyles.forEach(style => {
+        const text = style.textContent;
         if (text === getMessageStyle(stylePrefix)) {
             isHasStyle = true;
         }
@@ -140,23 +120,26 @@ var validateAutoHasStyle = function (stylePrefix) {
     return isHasStyle;
 };
 
-var MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
-var MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
-var MESSAGE_CLOSE_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
+const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
+const MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
+const MESSAGE_CLOSE_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
     'Message need a close time to auto close or a close button to close by yourself!';
-var MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
+const MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
     'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
-var MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
+const MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
     '"Duration" property value is not a number,make sure to use a number';
-var MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
+const MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
     '"maxDuration" property value is not a number,make sure to use a number';
 
-var Message = /** @class */ (function () {
-    function Message(options) {
+class Message {
+    options;
+    el;
+    closeBtnEl;
+    constructor(options) {
         this.options = this.normalizeOptions(options);
         this.el = null;
         this.closeBtnEl = null;
-        var isHasStyle = this.validateHasStyle();
+        let isHasStyle = this.validateHasStyle();
         if (isHasStyle) {
             this.options.stylePrefix = 'ew-';
         }
@@ -165,28 +148,27 @@ var Message = /** @class */ (function () {
         }
         this.render(this.options);
     }
-    Message.prototype.destroy = function () {
+    destroy() {
         if (this.el) {
             this.close(this.el, 0);
         }
-    };
-    Message.prototype.validateHasStyle = function () {
+    }
+    validateHasStyle() {
         return validateHasStyle();
-    };
-    Message.prototype.normalizeOptions = function (options) {
+    }
+    normalizeOptions(options) {
         return normalizeOptions(options);
-    };
-    Message.prototype.getMessageType = function () {
+    }
+    getMessageType() {
         return typeMap;
-    };
-    Message.prototype.getDefaultOption = function () {
+    }
+    getDefaultOption() {
         return defaultMessageOption;
-    };
-    Message.prototype.addMessageStyle = function (prefix_class, style) {
+    }
+    addMessageStyle(prefix_class, style) {
         return addMessageStyle(prefix_class, style);
-    };
-    Message.prototype.render = function (options) {
-        var _this = this;
+    }
+    render(options) {
         if ((!util.isNumber(options.duration) || options.duration <= 0) && !options.showClose) {
             {
                 util.warn(MESSAGE_CLOSE_PARAM_WARNING);
@@ -204,92 +186,86 @@ var Message = /** @class */ (function () {
             this.close(this.el, options.duration);
         }
         if (this.closeBtnEl) {
-            this.closeBtnEl.onclick = function (e) {
-                var target = e.target;
-                if (target && target.parentElement instanceof HTMLElement) {
-                    _this.close(target.parentElement, 0);
-                }
+            this.closeBtnEl.onclick = () => {
+                this.close(this.closeBtnEl?.parentElement, 0);
             };
         }
-    };
-    Message.prototype.create = function (options) {
-        var element = document.createElement('div');
-        element.className = this.options.stylePrefix + "message " + this.options.stylePrefix + "message-" + options.type;
+    }
+    create(options) {
+        let element = document.createElement('div');
+        element.className = `${this.options.stylePrefix}message ${this.options.stylePrefix}message-${options.type}`;
         if (options.center) {
             element.classList.add(this.options.stylePrefix + 'message-center');
         }
-        var p = document.createElement('p');
+        const p = document.createElement('p');
         p.innerHTML = options.content;
+        if (options.showTypeIcon) {
+            const icon = options.typeIcon ? options.typeIcon : typeIconMap[options.type || 'info'](this.options.stylePrefix);
+            element.appendChild(util.createElement(icon));
+        }
         element.appendChild(p);
         if (options.showClose) {
             this.closeBtnEl = document.createElement('i');
             this.closeBtnEl.classList.add(this.options.stylePrefix + 'message-close');
-            this.closeBtnEl.innerHTML = '&times;';
+            this.closeBtnEl.innerHTML = this.options.closeIcon ? this.options.closeIcon : closeIcon(this.options.stylePrefix);
             element.appendChild(this.closeBtnEl);
         }
         this.el = element;
         return element;
-    };
-    Message.prototype.setTop = function (element) {
+    }
+    setTop(element) {
         if (!element || !element.length)
             return;
-        var height = element[0].offsetHeight;
-        for (var i = 0, len = element.length; i < len; i++) {
-            var item = element[i];
+        const height = element[0].offsetHeight;
+        for (let i = 0, len = element.length; i < len; i++) {
+            const item = element[i];
             item.setAttribute('style', 'top:' + (25 * (i + 1) + height * i) + 'px;');
         }
-    };
-    Message.prototype.close = function (element, time) {
-        var _this = this;
-        if ( !util.isNumber(time)) {
+    }
+    close(element, time) {
+        if (!util.isNumber(time)) {
             util.warn(MESSAGE_CLOSE_DURATION_WARNING);
         }
-        if ( !util.isNumber(this.options.maxDuration)) {
+        if (!util.isNumber(this.options.maxDuration)) {
             util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
         }
-        var normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
-        var maxDuration = this.options.maxDuration || 10000;
-        var normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
-        setTimeout(function () {
-            var _a, _b;
+        const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
+        const maxDuration = this.options.maxDuration || 10000;
+        const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
+        setTimeout(() => {
             if (element instanceof NodeList || element instanceof HTMLCollection) {
-                util.toArray(element).forEach(function (item) {
-                    var _a, _b;
+                util.toArray(element).forEach(item => {
                     if (util.isDom(item) &&
                         util.isDom(item.parentElement) &&
-                        util.isFunction((_a = item.parentElement) === null || _a === void 0 ? void 0 : _a.removeChild)) {
-                        (_b = item.parentElement) === null || _b === void 0 ? void 0 : _b.removeChild(item);
+                        util.isFunction(item.parentElement?.removeChild)) {
+                        item.parentElement?.removeChild(item);
                     }
                 });
             }
             else {
                 if (util.isDom(element) &&
                     util.isDom(element.parentElement) &&
-                    util.isFunction((_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.removeChild)) {
-                    (_b = element.parentElement) === null || _b === void 0 ? void 0 : _b.removeChild(element);
+                    util.isFunction(element.parentElement?.removeChild)) {
+                    element.parentElement?.removeChild(element);
                 }
             }
-            _this.setTop(util.$$('.' + _this.options.stylePrefix + 'message'));
+            this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
         }, Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration));
-    };
-    return Message;
-}());
+    }
+}
 
-var ewMessage = function (options) { return new Message(options); };
+const ewMessage = (options) => new Message(options);
 ewMessage.util = util;
-var _loop_1 = function (key) {
-    ewMessage[key] = function (option) {
-        var messageOption = normalizeOptions(option);
+for (let key in typeMap) {
+    ewMessage[key] = (option) => {
+        const messageOption = normalizeOptions(option);
         if (util.isObject(option) &&
             util.hasOwn(option, 'type') &&
             true) {
             util.warn(MESSAGE_TYPE_WARNING);
         }
-        return new Message(__assign(__assign({}, messageOption), { type: key }));
+        return new Message({ ...messageOption, type: key });
     };
-};
-for (var key in typeMap) {
-    _loop_1(key);
 }
 
-export default ewMessage;
+export { ewMessage as default };

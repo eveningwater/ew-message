@@ -9,6 +9,7 @@ export interface ewMessageUtils {
   toArray: <T>(v: ArrayLike<T>) => Array<T>;
   $$: (v: string, el?: Element | Document) => NodeListOf<Element>;
   $: (v: string, el?: Element | Document) => Element | null;
+  createElement: (v: string) => HTMLElement;
 }
 export enum ewMessageEnumType {
   success = 'success',
@@ -29,6 +30,7 @@ export interface ewMessageOption {
   maxDuration?: number;
   showTypeIcon?: boolean;
   typeIcon?: string;
+  closeIcon?: string;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {
