@@ -1,33 +1,37 @@
----
-sidebar_position: 1
----
+# ew-message
 
-# 指南
+[![NPM version](https://img.shields.io/npm/v/ew-message.svg?color=red)](https://www.npmjs.com/package/ew-message)
+![npm](https://img.shields.io/npm/dw/ew-message)
+![npm](https://img.shields.io/npm/dt/ew-message)
+[![GitHub stars](https://img.shields.io/github/stars/eveningwater/ewMessage.svg?color=#42b983)](https://github.com/eveningwater/ew-message/stargazers)
+[![GitHub stars](https://img.shields.io/github/forks/eveningwater/ewMessage.svg)](https://github.com/eveningwater/ew-message/network/members)
 
-仅仅只需要一分钟的时间就可以上手使用。
+一个基于 typescript 而封装的消息提示框插件。
 
-## 安装
+## 安装与使用
+
+### 安装
 
 ```
-npm install ew-message --save-dev//或者 yarn add ew-message 或者 pnpm install ew-message --save-dev
+npm install ew-message --save-dev//或者 yarn add ew-message
 ```
 
-### 使用
+### 引入
 
-```ts
-import ewMessage from 'ewMessage';
-//  导入样式
-import 'ew-message/dist/ew-message.min.css';
-const msg = ewMessage('这是一个默认的消息提示框!');
-// 销毁提示框
-msg.destroy();
+```js
+<script src="./dist/ew-message.min.js"></script>
 ```
 
-> PS: 当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。
+消息提示框插件如下:
 
-> PS: 推荐使用导入样式文件的方式。
+```js
+const msg1 = ewMessage('默认消息提示框');
+const msg1 = ewMessage({
+  content: '默认消息提示框'
+});
+```
 
-函数还可以传入一个配置对象，配置对象如下:
+option 配置对象有如下参数:
 
 ```ts
 interface ewMessageOption {
@@ -40,7 +44,7 @@ interface ewMessageOption {
 }
 ```
 
-其中 content 为消息提示框内容，必传参数，如果在开发环境下，不传参数，则会出现警告。
+> ps: 推荐使用导入样式文件的方式。
 
 ## cdn 引入
 
@@ -49,3 +53,24 @@ interface ewMessageOption {
 // CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.css
 // CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.js
 ```
+
+## 在组件中使用
+
+```js
+import ewMessage from 'ewMessage';
+//  导入样式
+import 'ew-message/dist/ew-message.min.css';
+const msg = ewMessage(option); //option为配置对象，详情见前述
+```
+
+当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。
+
+更多详情参阅文档官网介绍[ew-message](https://eveningwater.github.io/ew-message/);
+
+# 更新日志
+
+- 0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。
+- 0.0.5: 修改了 ts 类型导入。
+- 0.0.6: 消息提示框添加了销毁 destroy 方法。
+- 0.0.7: 完善了 ts 类型,新增了最大关闭时间属性 maxDuration,修改了默认关闭时间。
+- 0.0.8: 新增了 showTypeIcon 和 typeIcon 属性以及 closeIcon，用于配置图标,新增了工具方法 createElement。

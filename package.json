@@ -5,11 +5,13 @@
   "scripts": {
     "build": "node scripts/build.js",
     "build:build": "rollup -c",
-    "build:docs": "cd docs && npm run build",
+    "build:docs": "node scripts/build-docs.js & cd docs && npm run build",
     "start:docs": "cd docs && npm run start",
     "dev": "rollup -c -w",
     "test": "ts-node test/test.ts",
-    "pretest": "npm run build"
+    "pretest": "npm run build",
+    "deploy": "npm publish .",
+    "deploy-docs": "git subtree push --prefix gh-pages origin gh-pages"
   },
   "main": "dist/ew-message.min.js",
   "module": "dist/ew-message.esm.min.js",

@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'ewMessage',
   tagline: '一个基于typescript封装的消息提示框插件',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/ew-message-logo.svg',
 
   // Set the production url of your site here
   url: 'https://eveningwater.github.io/',
@@ -65,7 +65,7 @@ const config = {
         title: 'ewMessage',
         logo: {
           alt: 'ewMessage',
-          src: 'img/logo.svg'
+          src: 'img/ew-message-logo.svg'
         },
         items: [
           {

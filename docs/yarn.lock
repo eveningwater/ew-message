@@ -3751,6 +3751,11 @@ events@^3.2.0:
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
+ew-message@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.npmmirror.com/ew-message/-/ew-message-0.0.7.tgz#f2c84437dc0a01b066ef23b914125a1b39d04f61"
+  integrity sha512-Wx22MUvicA4T9d391XVJjLJIVC17vZhRK8GNvNStcmOwX1JX3xDqRyGZWA+Cs2JyKsFdIM1hfdfZ3Y7XJaR0TA==
+
 execa@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/execa/-/execa-5.1.1.tgz#f80ad9cbf4298f7bd1d4c9555c21e93741c411dd"
