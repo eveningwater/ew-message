@@ -41,6 +41,9 @@ interface ewMessageOption {
   duration?: number; //消息提示框消失时间
   showClose?: boolean; //是否显示关闭按钮
   stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效
+  showTypeIcon?: boolean; // 是否显示类型图标，默认为true
+  typeIcon?: string; // 自定义类型图标
+  closeIcon?: string; // 自定义关闭按钮图标
 }
 ```
 
