@@ -13,6 +13,7 @@ import {
   MESSAGE_CLOSE_DURATION_WARNING,
   MESSAGE_CLOSE_MAX_DURATION_WARNING,
   MESSAGE_CLOSE_PARAM_WARNING,
+  MESSAGE_CONTAINER_WARNING,
   MESSAGE_CONTENT_PARAM_WARNING
 } from './warn';
 export class Message {
@@ -30,7 +31,7 @@ export class Message {
     if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
       this.addMessageStyle(this.options.stylePrefix);
     }
-    this.render(this.options);
+    this.options.immediate && this.render(this.options);
   }
   destroy() {
     if (this.el) {
@@ -52,7 +53,21 @@ export class Message {
   addMessageStyle(prefix_class?: string, style?: string) {
     return addMessageStyle(prefix_class, style);
   }
-  render(options: ewMessageOption) {
+  checkContainer(el?: string | HTMLElement) {
+    if (util.isDom(el)) {
+      return el as HTMLElement;
+    } else if (util.isString(el)) {
+      const container = util.$(el as string) as HTMLElement;
+      if (!container && __DEV__) {
+        util.warn(MESSAGE_CONTAINER_WARNING);
+        return document.body;
+      }
+      return container;
+    }
+    return document.body;
+  }
+  render(opt?: ewMessageOption) {
+    const options = opt || this.options;
     if ((!util.isNumber(options.duration) || (options.duration as number) <= 0) && !options.showClose) {
       if (__DEV__) {
         util.warn(MESSAGE_CLOSE_PARAM_WARNING);
@@ -62,7 +77,8 @@ export class Message {
     if (!options.content && __DEV__) {
       util.warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
-    document.body.appendChild(this.create(options));
+    const container = this.checkContainer(options.container);
+    container.appendChild(this.create(options));
     this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
     if (
       util.isNumber(options.duration) &&

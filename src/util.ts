@@ -25,4 +25,24 @@ util.createElement = (temp: string) => {
   div.innerHTML = temp;
   return div.firstElementChild as HTMLElement;
 }
+util.on = (
+  element: HTMLElement | Document | Element | Window,
+  type: string,
+  handler: EventListenerOrEventListenerObject,
+  useCapture = false
+) => {
+  if (element && type && handler) {
+    element.addEventListener(type, handler, useCapture);
+  }
+}
+util.off = (
+  element: HTMLElement | Document | Element | Window,
+  type: string,
+  handler: EventListenerOrEventListenerObject,
+  useCapture = false
+) => {
+  if (element && type && handler) {
+    element.removeEventListener(type, handler, useCapture);
+  }
+}
 export default util;

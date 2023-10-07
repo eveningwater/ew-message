@@ -17,7 +17,9 @@ const defaultMessageOption = {
     showClose: true,
     stylePrefix: 'ew-',
     maxDuration: 10000,
-    showTypeIcon: true
+    showTypeIcon: true,
+    immediate: true,
+    container: document.body
 };
 const getMessageStyle = (prefix_class = 'ew-') => `
 .${prefix_class}message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;z-index:10001;box-sizing:border-box;margin:0}.${prefix_class}message > .${prefix_class}message-icon{width:1em;height:1em;margin-right:5px;}.${prefix_class}message p{padding:0;padding-right:15px;line-height:1;font-size:14px;color:#909399;margin:0;}.${prefix_class}message-close{position:absolute;top:50%;right:5px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:20px;font-style:normal}.${prefix_class}message-close-icon{width:1em;height:1em;}.${prefix_class}message-close:hover,.${prefix_class}message-close:active{color:#909399}.${prefix_class}message-center{justify-content:center}.${prefix_class}message-success{background-color:#e1f3d8;border-color:#e1f3d8}.${prefix_class}message-success p,.${prefix_class}message-success .${prefix_class}message-close{color:#67c23a}.${prefix_class}message-success .${prefix_class}message-close:hover,.${prefix_class}message-success .${prefix_class}message-close:active{color:#67c23a}.${prefix_class}message-warning{background-color:#faecd8;border-color:#fdfce6}.${prefix_class}message-warning p,.${prefix_class}message-warning .${prefix_class}message-close{color:#e6a23c}.${prefix_class}message-warning .${prefix_class}message-close:hover,.${prefix_class}message-warning .${prefix_class}message-close:active{color:#e6a23c}.${prefix_class}message-error{background-color:#fef0f0;border-color:#fde2e2}.${prefix_class}message-error p,.${prefix_class}message-error .${prefix_class}message-close{color:#f56c6c}.${prefix_class}message-error .${prefix_class}message-close:hover,.${prefix_class}message-error .${prefix_class}message-close:active{color:#f56c6c}
@@ -58,6 +60,16 @@ util.createElement = (temp) => {
     const div = document.createElement('div');
     div.innerHTML = temp;
     return div.firstElementChild;
+};
+util.on = (element, type, handler, useCapture = false) => {
+    if (element && type && handler) {
+        element.addEventListener(type, handler, useCapture);
+    }
+};
+util.off = (element, type, handler, useCapture = false) => {
+    if (element && type && handler) {
+        element.removeEventListener(type, handler, useCapture);
+    }
 };
 
 const normalizeOptions = (option) => {
@@ -130,6 +142,8 @@ const MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
     '"Duration" property value is not a number,make sure to use a number';
 const MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
     '"maxDuration" property value is not a number,make sure to use a number';
+const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
+    'Can not find the dom element,make sure to pass a correct dom element';
 
 class Message {
     options;
@@ -146,7 +160,7 @@ class Message {
         if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
             this.addMessageStyle(this.options.stylePrefix);
         }
-        this.render(this.options);
+        this.options.immediate && this.render(this.options);
     }
     destroy() {
         if (this.el) {
@@ -168,7 +182,22 @@ class Message {
     addMessageStyle(prefix_class, style) {
         return addMessageStyle(prefix_class, style);
     }
-    render(options) {
+    checkContainer(el) {
+        if (util.isDom(el)) {
+            return el;
+        }
+        else if (util.isString(el)) {
+            const container = util.$(el);
+            if (!container && true) {
+                util.warn(MESSAGE_CONTAINER_WARNING);
+                return document.body;
+            }
+            return container;
+        }
+        return document.body;
+    }
+    render(opt) {
+        const options = opt || this.options;
         if ((!util.isNumber(options.duration) || options.duration <= 0) && !options.showClose) {
             {
                 util.warn(MESSAGE_CLOSE_PARAM_WARNING);
@@ -178,7 +207,8 @@ class Message {
         if (!options.content && true) {
             util.warn(MESSAGE_CONTENT_PARAM_WARNING);
         }
-        document.body.appendChild(this.create(options));
+        const container = this.checkContainer(options.container);
+        container.appendChild(this.create(options));
         this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
         if (util.isNumber(options.duration) &&
             options.duration > 0 &&

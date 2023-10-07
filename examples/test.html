@@ -8,7 +8,9 @@
   <!-- <link rel="stylesheet" href="../dist/ew-message.min.css" /> -->
 </head>
 
-<body></body>
+<body>
+  <div id="test"></div>
+</body>
 <script src="../dist/ew-message.js"></script>
 <script>
   const msg1 = ewMessage({
@@ -17,8 +19,12 @@
     maxDuration: 2000,
     // showTypeIcon: false,
     type: 'info',
-    showClose: true
+    showClose: true,
+    immediate: false,
+    // container: '#test'
   });
+  console.log(msg1);
+  msg1.render();
 </script>
 
 </html>

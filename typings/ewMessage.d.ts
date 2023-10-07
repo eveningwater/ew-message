@@ -10,6 +10,18 @@ export interface ewMessageUtils {
   $$: (v: string, el?: Element | Document) => NodeListOf<Element>;
   $: (v: string, el?: Element | Document) => Element | null;
   createElement: (v: string) => HTMLElement;
+  on: (
+    element: HTMLElement | Document | Element | Window,
+    type: string,
+    handler: EventListenerOrEventListenerObject,
+    useCapture: boolean
+  ) => void
+  off: (
+    element: HTMLElement | Document | Element | Window,
+    type: string,
+    handler: EventListenerOrEventListenerObject,
+    useCapture: boolean
+  ) => void
 }
 export enum ewMessageEnumType {
   success = 'success',
@@ -31,6 +43,8 @@ export interface ewMessageOption {
   showTypeIcon?: boolean;
   typeIcon?: string;
   closeIcon?: string;
+  container?: string | HTMLElement;
+  immediate?: boolean;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {

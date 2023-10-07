@@ -13,3 +13,6 @@ export const MESSAGE_CLOSE_DURATION_WARNING =
 export const MESSAGE_CLOSE_MAX_DURATION_WARNING =
   MESSAGE_WARNING_PREFIX +
   '"maxDuration" property value is not a number,make sure to use a number';
+export const MESSAGE_CONTAINER_WARNING =
+  MESSAGE_WARNING_PREFIX +
+  'Can not find the dom element,make sure to pass a correct dom element';
