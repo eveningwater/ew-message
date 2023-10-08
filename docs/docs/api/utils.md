@@ -112,11 +112,40 @@ util.$$('.child', app);
 util.$$('.child');
 ```
 
-## createElement
+## createElement(0.0.8 新增)
 
 该工具函数用于根据模板字符串创建一个 dom 元素，模板字符串可以带入子元素，如:
 
 ```ts
 const html = util.createElement(`<div><span></span></div>`);
 console.log(html); // 返回div节点
+```
+
+## addClass(0.0.9 新增)
+
+该工具函数用于给 dom 元素添加类名，需要传入 2 个参数，如:
+
+```ts
+const html = util.addClass(`app`, util.$('#app'));
+// 给id为app的元素添加app类名
+```
+
+## off(0.0.9 新增)
+
+该方法用于给移除一个事件监听器，传入四个参数，第一个为 DOM 元素，第二个为事件名，第三个参数为事件监听器，第四个参数为一个布尔值。如:
+
+```ts
+const test = document.getElementById('test');
+const handler = e => console.log(e.target.tagName);
+util.off(test, 'click', handler);
+```
+
+## on(0.0.9 新增)
+
+该方法用于添加一个事件监听器，参数等同 off 方法。如:
+
+```ts
+const test = document.getElementById('test');
+const handler = e => console.log(e.target.tagName);
+util.on(test, 'click', handler);
 ```
