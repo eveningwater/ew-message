@@ -25,6 +25,7 @@ util.createElement = (temp: string) => {
   div.innerHTML = temp;
   return div.firstElementChild as HTMLElement;
 }
+util.addClass = (v: string, el: HTMLElement) => el.classList.add(v);
 util.on = (
   element: HTMLElement | Document | Element | Window,
   type: string,

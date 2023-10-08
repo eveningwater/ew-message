@@ -14,14 +14,15 @@ export interface ewMessageUtils {
     element: HTMLElement | Document | Element | Window,
     type: string,
     handler: EventListenerOrEventListenerObject,
-    useCapture: boolean
+    useCapture?: boolean
   ) => void
   off: (
     element: HTMLElement | Document | Element | Window,
     type: string,
     handler: EventListenerOrEventListenerObject,
-    useCapture: boolean
+    useCapture?: boolean
   ) => void
+  addClass: (v: string, el: HTMLElement) => void
 }
 export enum ewMessageEnumType {
   success = 'success',
@@ -45,6 +46,8 @@ export interface ewMessageOption {
   closeIcon?: string;
   container?: string | HTMLElement;
   immediate?: boolean;
+  removeClassName?: string;
+  removeClassNameSymbol?: string;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {

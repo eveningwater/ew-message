@@ -1,7 +1,6 @@
 import type { ewMessageOption } from '../typings/ewMessage';
-import { defaultMessageOption, typeMap } from './config';
+import { defaultMessageOption, typeMap, utilAnimationClassNames } from './config';
 import { closeIcon, typeIconMap } from './icon';
-import './index.scss';
 import {
   addMessageStyle,
   normalizeOptions,
@@ -123,6 +122,37 @@ export class Message {
       item.setAttribute('style', 'top:' + (25 * (i + 1) + height * i) + 'px;');
     }
   }
+  animationRemoveNode(el: HTMLElement) {
+    const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
+    if (removeClassName) {
+      const classNameList = removeClassName?.split(removeClassNameSymbol as string);
+      if (classNameList.length > 1) {
+        const filterRemoveClassNameList: string[] = []
+        utilAnimationClassNames.forEach(item => {
+          classNameList.forEach(className => {
+            if (item.includes(className)) {
+              filterRemoveClassNameList.push(stylePrefix + 'message-' + className)
+            } else {
+              filterRemoveClassNameList.push(className);
+            }
+          })
+        })
+        filterRemoveClassNameList.forEach(className => util.addClass(className, el))
+      } else {
+        let filterRemoveClassName = removeClassName;
+        if (utilAnimationClassNames.some(item => item.includes(removeClassName))) {
+          filterRemoveClassName = stylePrefix + 'message-' + removeClassName;
+        }
+        util.addClass(filterRemoveClassName, el);
+      }
+
+      util.on(el, 'animationend', () => {
+        el.parentElement?.removeChild(el);
+      })
+    } else {
+      el.parentElement?.removeChild(el);
+    }
+  }
   close(element: HTMLElement | NodeList | HTMLCollection, time: number) {
     if (__DEV__ && !util.isNumber(time)) {
       util.warn(MESSAGE_CLOSE_DURATION_WARNING);
@@ -142,7 +172,7 @@ export class Message {
               util.isDom(item.parentElement) &&
               util.isFunction(item.parentElement?.removeChild)
             ) {
-              item.parentElement?.removeChild(item);
+              this.animationRemoveNode(item as HTMLElement);
             }
           });
         } else {
@@ -151,7 +181,7 @@ export class Message {
             util.isDom(element.parentElement) &&
             util.isFunction(element.parentElement?.removeChild)
           ) {
-            element.parentElement?.removeChild(element);
+            this.animationRemoveNode(element);
           }
         }
         this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));

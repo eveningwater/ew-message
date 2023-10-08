@@ -44,6 +44,10 @@ interface ewMessageOption {
   showTypeIcon?: boolean; // 是否显示类型图标，默认为true
   typeIcon?: string; // 自定义类型图标
   closeIcon?: string; // 自定义关闭按钮图标
+  container?: string | HTMLElement; // 挂载元素
+  immediate?: boolean; // 是否立即渲染消息提示框
+  removeClassName?: string; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown
+  removeClassNameSymbol?: string; // 指定多个移除动画类名并且分隔符不是空白时传入
 }
 ```
 
@@ -77,3 +81,4 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 - 0.0.6: 消息提示框添加了销毁 destroy 方法。
 - 0.0.7: 完善了 ts 类型,新增了最大关闭时间属性 maxDuration,修改了默认关闭时间。
 - 0.0.8: 新增了 showTypeIcon 和 typeIcon 属性以及 closeIcon，用于配置图标,新增了工具方法 createElement。
+- 0.0.9: 新增了 container、immediate、removeClassName、removeClassNameSymbol?: string; 配置属性，新增了 on,off,addClass 工具方法。

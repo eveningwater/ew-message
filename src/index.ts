@@ -1,9 +1,11 @@
-import type {  ewMessageOption } from '../typings/ewMessage';
+import type { ewMessageOption } from '../typings/ewMessage';
 import { typeMap } from './config';
 import { Message } from './message';
 import { normalizeOptions } from './method';
 import util from './util';
 import { MESSAGE_TYPE_WARNING } from './warn';
+import './styles/index.scss';
+
 const ewMessage = (options: ewMessageOption | string) => new Message(options);
 ewMessage.util = util;
 for (let key in typeMap) {
