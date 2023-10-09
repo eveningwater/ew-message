@@ -14,9 +14,9 @@
   transition: transform 0.4s;
   border-radius: 4px;
   top: 25px;
-  z-index: 10001;
   box-sizing: border-box;
   margin: 0;
+  z-index: 1000;
   &-icon {
     width: 1em;
     height: 1em;

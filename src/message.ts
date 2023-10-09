@@ -30,7 +30,14 @@ export class Message {
     if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
       this.addMessageStyle(this.options.stylePrefix);
     }
+    this.addZIndex();
     this.options.immediate && this.render(this.options);
+  }
+  addZIndex() {
+    const { messageZIndex, stylePrefix } = this.options;
+    if (util.isNumber(messageZIndex) && (messageZIndex as number) > 0) {
+      this.addMessageStyle(stylePrefix, `.${stylePrefix}message{z-index:${messageZIndex}}`);
+    }
   }
   destroy() {
     if (this.el) {

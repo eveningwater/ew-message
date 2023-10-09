@@ -200,7 +200,7 @@ const msg = ewMessage({
   content: '这是一个默认的消息提示框',
   removeClassName: 'fadeOut,scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown
   removeClassNameSymbol: ','
-  // 这里是使用逗号隔开，因此不需要指定 removeClassNameSymbol
+  // 这里是使用逗号隔开
 });
 ```
 
@@ -223,6 +223,18 @@ const msg = ewMessage({
   content: '这是一个默认的消息提示框',
   removeClassName: 'fadeOut+scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown
   removeClassNameSymbol: '+'
-  // 这里是使用+隔开，因此不需要指定 removeClassNameSymbol
+  // 这里是使用+隔开
 });
+```
+
+### messageZIndex(0.1.0 新增)
+
+用于自定义消息提示框的显示层级，是一个 number 值，用于覆盖默认得到 z-index:1000，无默认值。如:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  messageZIndex: 2000
+});
+// 设置消息提示框的显示层级为2000
 ```

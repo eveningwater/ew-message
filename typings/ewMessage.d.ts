@@ -48,6 +48,7 @@ export interface ewMessageOption {
   immediate?: boolean;
   removeClassName?: string;
   removeClassNameSymbol?: string;
+  messageZIndex?: number;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {
