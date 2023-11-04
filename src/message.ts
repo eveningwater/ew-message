@@ -1,8 +1,9 @@
 import type { ewMessageOption } from '../typings/ewMessage';
-import { defaultMessageOption, typeMap, utilAnimationClassNames } from './config';
+import { baseTopUnit, defaultMessageOption, typeMap, utilAnimationClassNames } from './config';
 import { closeIcon, typeIconMap } from './icon';
 import {
   addMessageStyle,
+  getOffsetTop,
   normalizeOptions,
   validateAutoHasStyle,
   validateHasStyle
@@ -85,7 +86,7 @@ export class Message {
     }
     const container = this.checkContainer(options.container);
     container.appendChild(this.create(options));
-    this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
+    this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
     if (
       util.isNumber(options.duration) &&
       (options.duration as number) > 0 &&
@@ -123,10 +124,13 @@ export class Message {
   }
   setTop(element: NodeList | HTMLCollection) {
     if (!element || !element.length) return;
+    const { top } = this.options;
     const height = (element[0] as HTMLElement).offsetHeight;
+
+
     for (let i = 0, len = element.length; i < len; i++) {
       const item = element[i] as HTMLElement;
-      item.setAttribute('style', 'top:' + (25 * (i + 1) + height * i) + 'px;');
+      item.setAttribute('style', `top:${getOffsetTop(top) !== baseTopUnit ? top : `${(baseTopUnit * (i + 1) + height * i)}px`};`);
     }
   }
   animationRemoveNode(el: HTMLElement) {
@@ -170,6 +174,7 @@ export class Message {
     const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
     const maxDuration = this.options.maxDuration || 10000;
     const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
+    const container = this.checkContainer(this.options.container);
     setTimeout(
       () => {
         if (element instanceof NodeList || element instanceof HTMLCollection) {
@@ -191,7 +196,7 @@ export class Message {
             this.animationRemoveNode(element);
           }
         }
-        this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
+        this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
       },
       Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration)
     );

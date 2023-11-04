@@ -49,6 +49,7 @@ interface ewMessageOption {
   removeClassName?: string; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown
   removeClassNameSymbol?: string; // 指定多个移除动画类名并且分隔符不是空白时传入
   messageZIndex?: number; // 指定消息提示框的显示层级
+  top?: number; // 用于自定义配置每个消息提示框的top偏移值
 }
 ```
 
@@ -84,3 +85,4 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 - 0.0.8: 新增了 showTypeIcon 和 typeIcon 属性以及 closeIcon，用于配置图标,新增了工具方法 createElement。
 - 0.0.9: 新增了 container、immediate、removeClassName、removeClassNameSymbol 配置属性，新增了 on,off,addClass 工具方法。
 - 0.1.0: 修复了 ts 类型错误，新增了 messageZIndex 属性。
+- 0.1.1: 新增了 top 属性。

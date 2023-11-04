@@ -49,6 +49,7 @@ export interface ewMessageOption {
   removeClassName?: string;
   removeClassNameSymbol?: string;
   messageZIndex?: number;
+  top?: number | string;
 }
 export type AnyObj = Record<string, any>;
 export interface ewMessageStyleRefType extends AnyObj {

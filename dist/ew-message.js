@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.1.0
+ * ewMeassage.js v0.1.1
  * (c) 2023-2023 eveningwater 
  * Released under the MIT License.
  */
@@ -33,6 +33,7 @@
 .${prefix_class}message-fadeOut{animation:fadeOut 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes fadeOut{0%{opacity:1}25%{opacity:0.8}50%{opacity:0.6}75%{opacity:0.4}100%{opacity:0}}.${prefix_class}message-scaleDown{animation:scaleDown 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes scaleDown{0%{transform:scale(1)}25%{transform:scale(0.8)}50%{transform:scale(0.6)}75%{transform:scale(0.4)}100%{transform:scale(0)}}.${prefix_class}message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;box-sizing:border-box;margin:0;z-index:1000;}.${prefix_class}message-icon{width:1em;height:1em;margin-right:5px}.${prefix_class}message p{padding:0;padding-right:15px;line-height:1;font-size:14px;color:#909399;margin:0}.${prefix_class}message-close{position:absolute;top:50%;right:5px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:20px;font-style:normal}.${prefix_class}message-close:hover,.${prefix_class}message-close:active{color:#909399}.${prefix_class}message-close-icon{width:1em;height:1em}.${prefix_class}message-center{justify-content:center}.${prefix_class}message-success{background-color:#e1f3d8;border-color:#e1f3d8}.${prefix_class}message-success p,.${prefix_class}message-success .${prefix_class}message-close{color:#67c23a}.${prefix_class}message-success .${prefix_class}message-close:hover,.${prefix_class}message-success .${prefix_class}message-close:active{color:#67c23a}.${prefix_class}message-warning{background-color:#faecd8;border-color:#fdfce6}.${prefix_class}message-warning p,.${prefix_class}message-warning .${prefix_class}message-close{color:#e6a23c}.${prefix_class}message-warning .${prefix_class}message-close:hover,.${prefix_class}message-warning .${prefix_class}message-close:active{color:#e6a23c}.${prefix_class}message-error{background-color:#fef0f0;border-color:#fde2e2}.${prefix_class}message-error p,.${prefix_class}message-error .${prefix_class}message-close{color:#f56c6c}.${prefix_class}message-error .${prefix_class}message-close:hover,.${prefix_class}message-error .${prefix_class}message-close:active{color:#f56c6c}
 `;
   const utilAnimationClassNames = ['fadeOut', 'scaleDown'];
+  const baseTopUnit = 25;
 
   const successIcon = (prefix) => `<svg t="1695191725930" class="${prefix}message-icon ${prefix}message-success-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4394"><path d="M512 97.52381c228.912762 0 414.47619 185.563429 414.47619 414.47619s-185.563429 414.47619-414.47619 414.47619S97.52381 740.912762 97.52381 512 283.087238 97.52381 512 97.52381z m193.194667 218.331428L447.21981 581.315048l-103.936-107.812572-52.662858 50.761143 156.379429 162.230857 310.662095-319.683047-52.467809-50.956191z" p-id="4395" fill="#1afa29"></path></svg>`;
   const warningIcon = (prefix) => `<svg t="1695191794405" class="${prefix}message-icon ${prefix}message-warning-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5405"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296z m32 440c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z" p-id="5406" fill="#faad14"></path></svg>`;
@@ -141,6 +142,19 @@
       });
       return isHasStyle;
   };
+  const getOffsetTop = (top) => {
+      if (util.isNumber(top)) {
+          return `${top}px`;
+      }
+      if (util.isString(top)) {
+          const regExp = /\d*[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]$/g;
+          console.log(top.replace(regExp, ''));
+          if (util.isNumber(Number(top.replace(regExp, '')))) {
+              return top;
+          }
+      }
+      return baseTopUnit;
+  };
 
   const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
   const MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
@@ -226,7 +240,7 @@
           }
           const container = this.checkContainer(options.container);
           container.appendChild(this.create(options));
-          this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
+          this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
           if (util.isNumber(options.duration) &&
               options.duration > 0 &&
               this.el instanceof HTMLElement) {
@@ -263,10 +277,11 @@
       setTop(element) {
           if (!element || !element.length)
               return;
+          const { top } = this.options;
           const height = element[0].offsetHeight;
           for (let i = 0, len = element.length; i < len; i++) {
               const item = element[i];
-              item.setAttribute('style', 'top:' + (25 * (i + 1) + height * i) + 'px;');
+              item.setAttribute('style', `top:${getOffsetTop(top) !== baseTopUnit ? top : `${(baseTopUnit * (i + 1) + height * i)}px`};`);
           }
       }
       animationRemoveNode(el) {
@@ -312,6 +327,7 @@
           const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
           const maxDuration = this.options.maxDuration || 10000;
           const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
+          const container = this.checkContainer(this.options.container);
           setTimeout(() => {
               if (element instanceof NodeList || element instanceof HTMLCollection) {
                   util.toArray(element).forEach(item => {
@@ -329,7 +345,7 @@
                       this.animationRemoveNode(element);
                   }
               }
-              this.setTop(util.$$('.' + this.options.stylePrefix + 'message'));
+              this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
           }, Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration));
       }
   }

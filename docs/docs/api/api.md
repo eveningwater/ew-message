@@ -238,3 +238,18 @@ const msg = ewMessage({
 });
 // 设置消息提示框的显示层级为2000
 ```
+
+### top(0.1.1 新增)
+
+用于自定义消息提示框的 top 偏移量，是一个 number 值或者字符串值，如示例:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  top: 20
+});
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  top: '15px'
+});
+```

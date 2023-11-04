@@ -1,5 +1,5 @@
 import type { ewMessageOption, ewMessageStyleRefType } from '../typings/ewMessage';
-import { defaultMessageOption, getMessageStyle } from './config';
+import { baseTopUnit, defaultMessageOption, getMessageStyle } from './config';
 import util from './util';
 export const normalizeOptions = (
   option: string | ewMessageOption
@@ -57,4 +57,16 @@ export const validateAutoHasStyle = (stylePrefix?: string) => {
     }
   });
   return isHasStyle;
+};
+export const getOffsetTop = (top?: string | number) => {
+  if (util.isNumber(top)) {
+    return `${top}px`;
+  }
+  if (util.isString(top)) {
+    const regExp = /^(?:px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax)/g;
+    if (util.isNumber(Number((top as string).replace(regExp, ''))) && (top as string)) {
+      return top;
+    }
+  }
+  return baseTopUnit;
 };
