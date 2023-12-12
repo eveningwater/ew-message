@@ -63,7 +63,7 @@ export const getOffsetTop = (top?: string | number) => {
     return `${top}px`;
   }
   if (util.isString(top)) {
-    const regExp = /^(?:px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax)/g;
+    const regExp = /[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]/g;
     if (util.isNumber(Number((top as string).replace(regExp, ''))) && (top as string)) {
       return top;
     }

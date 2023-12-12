@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ewMessage = factory());
-})(this, (function () { 'use strict';
+}(this, (function () { 'use strict';
 
   const typeMap = {
       success: 'success',
@@ -147,9 +147,8 @@
           return `${top}px`;
       }
       if (util.isString(top)) {
-          const regExp = /\d*[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]$/g;
-          console.log(top.replace(regExp, ''));
-          if (util.isNumber(Number(top.replace(regExp, '')))) {
+          const regExp = /[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]/g;
+          if (util.isNumber(Number(top.replace(regExp, ''))) && top) {
               return top;
           }
       }
@@ -170,9 +169,6 @@
       'Can not find the dom element,make sure to pass a correct dom element';
 
   class Message {
-      options;
-      el;
-      closeBtnEl;
       constructor(options) {
           this.options = this.normalizeOptions(options);
           this.el = null;
@@ -318,10 +314,10 @@
           }
       }
       close(element, time) {
-          if (!util.isNumber(time)) {
+          if ( !util.isNumber(time)) {
               util.warn(MESSAGE_CLOSE_DURATION_WARNING);
           }
-          if (!util.isNumber(this.options.maxDuration)) {
+          if ( !util.isNumber(this.options.maxDuration)) {
               util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
           }
           const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -366,4 +362,4 @@
 
   return ewMessage;
 
-}));
+})));

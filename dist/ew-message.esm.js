@@ -141,9 +141,8 @@ const getOffsetTop = (top) => {
         return `${top}px`;
     }
     if (util.isString(top)) {
-        const regExp = /\d*[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]$/g;
-        console.log(top.replace(regExp, ''));
-        if (util.isNumber(Number(top.replace(regExp, '')))) {
+        const regExp = /[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]/g;
+        if (util.isNumber(Number(top.replace(regExp, ''))) && top) {
             return top;
         }
     }
@@ -164,9 +163,6 @@ const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
     'Can not find the dom element,make sure to pass a correct dom element';
 
 class Message {
-    options;
-    el;
-    closeBtnEl;
     constructor(options) {
         this.options = this.normalizeOptions(options);
         this.el = null;
@@ -312,10 +308,10 @@ class Message {
         }
     }
     close(element, time) {
-        if (!util.isNumber(time)) {
+        if ( !util.isNumber(time)) {
             util.warn(MESSAGE_CLOSE_DURATION_WARNING);
         }
-        if (!util.isNumber(this.options.maxDuration)) {
+        if ( !util.isNumber(this.options.maxDuration)) {
             util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
         }
         const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -358,4 +354,4 @@ for (let key in typeMap) {
     };
 }
 
-export { ewMessage as default };
+export default ewMessage;

@@ -65,8 +65,10 @@ export class Message {
       return el as HTMLElement;
     } else if (util.isString(el)) {
       const container = util.$(el as string) as HTMLElement;
-      if (!container && __DEV__) {
-        util.warn(MESSAGE_CONTAINER_WARNING);
+      if (!container) {
+        if (__DEV__) {
+          util.warn(MESSAGE_CONTAINER_WARNING);
+        }
         return document.body;
       }
       return container;
