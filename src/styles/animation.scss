@@ -3,7 +3,7 @@
 
 $animation-remove-key-list: (
   'fadeOut': 'opacity',
-  'scaleDown': 'transform',
+  'scaleUp': 'transform',
 );
 
 $animation-remove-value-list: (
@@ -25,7 +25,7 @@ $animation-remove-value-list: (
 
 $animation-add-key-list: (
   'fadeIn': 'opacity',
-  'scaleUp': 'transform',
+  'scaleDown': 'transform',
 );
 
 $animation-add-value-list: (

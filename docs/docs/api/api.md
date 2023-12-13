@@ -221,7 +221,7 @@ const msg = ewMessage({
 ```ts
 const msg = ewMessage({
   content: '这是一个默认的消息提示框',
-  removeClassName: 'fadeOut+scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown
+  removeClassName: 'fadeOut+scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown,0.1.1版本更名为scaleUp
   removeClassNameSymbol: '+'
   // 这里是使用+隔开
 });
@@ -270,7 +270,7 @@ const msg = ewMessage({
 ```ts
 const msg = ewMessage({
   content: "这是一个默认的消息提示框",
-  startClassName: "fadeIn scaleUp", // 或者也可以传入ew-message-fadeIn ew-message-scaleUp
+  startClassName: "fadeIn scaleDown", // 或者也可以传入ew-message-fadeIn ew-message-scaleDown
   // 这里是使用空白隔开，因此不需要指定 startClassNameSymbol
 });
 ```
@@ -278,7 +278,7 @@ const msg = ewMessage({
 ```ts
 const msg = ewMessage({
   content: '这是一个默认的消息提示框',
-  startClassName: 'fadeIn,scaleUp' // 或者也可以传入ew-message-fadeIn ew-message-scaleUp
+  startClassName: 'fadeIn,scaleDown' // 或者也可以传入ew-message-fadeIn ew-message-scaleDown
   startClassNameSymbol: ','
   // 这里是使用逗号隔开
 });
@@ -301,7 +301,7 @@ const msg = ewMessage({
 ```ts
 const msg = ewMessage({
   content: '这是一个默认的消息提示框',
-  startClassName: 'fadeIn+scaleUp' // 或者也可以传入ew-message-fadeIn ew-message-scaleUp
+  startClassName: 'fadeIn+scaleDown' // 或者也可以传入ew-message-fadeIn ew-message-scaleDown
   startClassNameSymbol: '+'
   // 这里是使用+隔开
 });
