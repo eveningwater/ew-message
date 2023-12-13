@@ -27,12 +27,15 @@
       immediate: true,
       container: document.body,
       removeClassName: '',
-      removeClassNameSymbol: ' '
+      removeClassNameSymbol: ' ',
+      startClassName: '',
+      startClassNameSymbol: ' '
   };
   const getMessageStyle = (prefix_class = 'ew-') => `
-.${prefix_class}message-fadeOut{animation:fadeOut 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes fadeOut{0%{opacity:1}25%{opacity:0.8}50%{opacity:0.6}75%{opacity:0.4}100%{opacity:0}}.${prefix_class}message-scaleDown{animation:scaleDown 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes scaleDown{0%{transform:scale(1)}25%{transform:scale(0.8)}50%{transform:scale(0.6)}75%{transform:scale(0.4)}100%{transform:scale(0)}}.${prefix_class}message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;box-sizing:border-box;margin:0;z-index:1000;}.${prefix_class}message-icon{width:1em;height:1em;margin-right:5px}.${prefix_class}message p{padding:0;padding-right:15px;line-height:1;font-size:14px;color:#909399;margin:0}.${prefix_class}message-close{position:absolute;top:50%;right:5px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:20px;font-style:normal}.${prefix_class}message-close:hover,.${prefix_class}message-close:active{color:#909399}.${prefix_class}message-close-icon{width:1em;height:1em}.${prefix_class}message-center{justify-content:center}.${prefix_class}message-success{background-color:#e1f3d8;border-color:#e1f3d8}.${prefix_class}message-success p,.${prefix_class}message-success .${prefix_class}message-close{color:#67c23a}.${prefix_class}message-success .${prefix_class}message-close:hover,.${prefix_class}message-success .${prefix_class}message-close:active{color:#67c23a}.${prefix_class}message-warning{background-color:#faecd8;border-color:#fdfce6}.${prefix_class}message-warning p,.${prefix_class}message-warning .${prefix_class}message-close{color:#e6a23c}.${prefix_class}message-warning .${prefix_class}message-close:hover,.${prefix_class}message-warning .${prefix_class}message-close:active{color:#e6a23c}.${prefix_class}message-error{background-color:#fef0f0;border-color:#fde2e2}.${prefix_class}message-error p,.${prefix_class}message-error .${prefix_class}message-close{color:#f56c6c}.${prefix_class}message-error .${prefix_class}message-close:hover,.${prefix_class}message-error .${prefix_class}message-close:active{color:#f56c6c}
+.${prefix_class}message-fadeOut{animation:fadeOut 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes fadeOut{0%{opacity:1}25%{opacity:0.8}50%{opacity:0.6}75%{opacity:0.4}100%{opacity:0}}.${prefix_class}message-scaleDown{animation:scaleDown 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes scaleDown{0%{transform:scale(1)}25%{transform:scale(0.8)}50%{transform:scale(0.6)}75%{transform:scale(0.4)}100%{transform:scale(0)}}.${prefix_class}message-fadeIn{animation:fadeIn 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes fadeIn{0%{opacity:1}25%{opacity:0.8}50%{opacity:0.6}75%{opacity:0.4}100%{opacity:0}}.${prefix_class}message-scaleUp{animation:scaleUp 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes scaleUp{0%{transform:scale(1)}25%{transform:scale(0.8)}50%{transform:scale(0.6)}75%{transform:scale(0.4)}100%{transform:scale(0)}}.${prefix_class}message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;box-sizing:border-box;margin:0;z-index:1000}.${prefix_class}message-icon{width:1em;height:1em;margin-right:5px}.${prefix_class}message p{padding:0;padding-right:15px;line-height:1;font-size:14px;color:#909399;margin:0}.${prefix_class}message-close{position:absolute;top:50%;right:5px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:20px;font-style:normal}.${prefix_class}message-close:hover,.${prefix_class}message-close:active{color:#909399}.${prefix_class}message-close-icon{width:1em;height:1em}.${prefix_class}message-center{justify-content:center}.${prefix_class}message-success{background-color:#e1f3d8;border-color:#e1f3d8}.${prefix_class}message-success p,.${prefix_class}message-success .${prefix_class}message-close{color:#67c23a}.${prefix_class}message-success .${prefix_class}message-close:hover,.${prefix_class}message-success .${prefix_class}message-close:active{color:#67c23a}.${prefix_class}message-warning{background-color:#faecd8;border-color:#fdfce6}.${prefix_class}message-warning p,.${prefix_class}message-warning .${prefix_class}message-close{color:#e6a23c}.${prefix_class}message-warning .${prefix_class}message-close:hover,.${prefix_class}message-warning .${prefix_class}message-close:active{color:#e6a23c}.${prefix_class}message-error{background-color:#fef0f0;border-color:#fde2e2}.${prefix_class}message-error p,.${prefix_class}message-error .${prefix_class}message-close{color:#f56c6c}.${prefix_class}message-error .${prefix_class}message-close:hover,.${prefix_class}message-error .${prefix_class}message-close:active{color:#f56c6c};
 `;
-  const utilAnimationClassNames = ['fadeOut', 'scaleDown'];
+  const utilAnimationRemoveClassNames = ['fadeOut', 'scaleDown'];
+  const utilAnimationAddClassNames = ['fadeIn', 'scaleUp'];
   const baseTopUnit = 25;
 
   const successIcon = (prefix) => `<svg t="1695191725930" class="${prefix}message-icon ${prefix}message-success-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4394"><path d="M512 97.52381c228.912762 0 414.47619 185.563429 414.47619 414.47619s-185.563429 414.47619-414.47619 414.47619S97.52381 740.912762 97.52381 512 283.087238 97.52381 512 97.52381z m193.194667 218.331428L447.21981 581.315048l-103.936-107.812572-52.662858 50.761143 156.379429 162.230857 310.662095-319.683047-52.467809-50.956191z" p-id="4395" fill="#1afa29"></path></svg>`;
@@ -72,6 +75,7 @@
       return div.firstElementChild;
   };
   util.addClass = (v, el) => el.classList.add(v);
+  util.removeClass = (v, el) => el.classList.remove(v);
   util.on = (element, type, handler, useCapture = false) => {
       if (element && type && handler) {
           element.addEventListener(type, handler, useCapture);
@@ -215,8 +219,10 @@
           }
           else if (util.isString(el)) {
               const container = util.$(el);
-              if (!container && true) {
-                  util.warn(MESSAGE_CONTAINER_WARNING);
+              if (!container) {
+                  {
+                      util.warn(MESSAGE_CONTAINER_WARNING);
+                  }
                   return document.body;
               }
               return container;
@@ -235,7 +241,8 @@
               util.warn(MESSAGE_CONTENT_PARAM_WARNING);
           }
           const container = this.checkContainer(options.container);
-          container.appendChild(this.create(options));
+          const el = this.create(options);
+          this.animationAddNode(el, container);
           this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
           if (util.isNumber(options.duration) &&
               options.duration > 0 &&
@@ -243,9 +250,9 @@
               this.close(this.el, options.duration);
           }
           if (this.closeBtnEl) {
-              this.closeBtnEl.onclick = () => {
-                  this.close(this.closeBtnEl?.parentElement, 0);
-              };
+              util.on(this.closeBtnEl, 'click', () => {
+                  this.close(this.closeBtnEl.parentElement, 0);
+              });
           }
       }
       create(options) {
@@ -280,13 +287,51 @@
               item.setAttribute('style', `top:${getOffsetTop(top) !== baseTopUnit ? top : `${(baseTopUnit * (i + 1) + height * i)}px`};`);
           }
       }
+      animationAddNode(el, container) {
+          const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
+          if (startClassName) {
+              const classNameList = startClassName?.split(startClassNameSymbol);
+              if (classNameList.length > 1) {
+                  const filterAddClassNameList = [];
+                  utilAnimationAddClassNames.forEach(item => {
+                      classNameList.forEach(className => {
+                          if (item.includes(className)) {
+                              filterAddClassNameList.push(stylePrefix + 'message-' + className);
+                          }
+                          else {
+                              filterAddClassNameList.push(className);
+                          }
+                      });
+                  });
+                  filterAddClassNameList.forEach(className => util.addClass(className, el));
+                  setTimeout(() => {
+                      util.on(el, 'animationend', () => {
+                          filterAddClassNameList.forEach(className => util.removeClass(className, el));
+                      });
+                  }, 1000);
+              }
+              else {
+                  let filterStartClassName = startClassName;
+                  if (utilAnimationAddClassNames.some(item => item.includes(startClassName))) {
+                      filterStartClassName = stylePrefix + 'message-' + startClassName;
+                  }
+                  util.addClass(filterStartClassName, el);
+                  setTimeout(() => {
+                      util.on(el, 'animationend', () => {
+                          util.removeClass(filterStartClassName, el);
+                      });
+                  }, 1000);
+              }
+          }
+          container.appendChild(el);
+      }
       animationRemoveNode(el) {
           const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
           if (removeClassName) {
               const classNameList = removeClassName?.split(removeClassNameSymbol);
               if (classNameList.length > 1) {
                   const filterRemoveClassNameList = [];
-                  utilAnimationClassNames.forEach(item => {
+                  utilAnimationRemoveClassNames.forEach(item => {
                       classNameList.forEach(className => {
                           if (item.includes(className)) {
                               filterRemoveClassNameList.push(stylePrefix + 'message-' + className);
@@ -300,7 +345,7 @@
               }
               else {
                   let filterRemoveClassName = removeClassName;
-                  if (utilAnimationClassNames.some(item => item.includes(removeClassName))) {
+                  if (utilAnimationRemoveClassNames.some(item => item.includes(removeClassName))) {
                       filterRemoveClassName = stylePrefix + 'message-' + removeClassName;
                   }
                   util.addClass(filterRemoveClassName, el);

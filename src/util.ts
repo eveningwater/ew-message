@@ -26,6 +26,7 @@ util.createElement = (temp: string) => {
   return div.firstElementChild as HTMLElement;
 }
 util.addClass = (v: string, el: HTMLElement) => el.classList.add(v);
+util.removeClass = (v: string, el: HTMLElement) => el.classList.remove(v);
 util.on = (
   element: HTMLElement | Document | Element | Window,
   type: string,

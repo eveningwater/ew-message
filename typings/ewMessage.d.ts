@@ -23,6 +23,7 @@ export interface ewMessageUtils {
     useCapture?: boolean
   ) => void
   addClass: (v: string, el: HTMLElement) => void
+  removeClass: (v: string, el: HTMLElement) => void
 }
 export enum ewMessageEnumType {
   success = 'success',
@@ -47,6 +48,8 @@ export interface ewMessageOption {
   container?: string | HTMLElement;
   immediate?: boolean;
   removeClassName?: string;
+  startClassName?: string;
+  startClassNameSymbol?: string;
   removeClassNameSymbol?: string;
   messageZIndex?: number;
   top?: number | string;

@@ -1,5 +1,5 @@
 import type { ewMessageOption } from '../typings/ewMessage';
-import { baseTopUnit, defaultMessageOption, typeMap, utilAnimationClassNames } from './config';
+import { baseTopUnit, defaultMessageOption, typeMap, utilAnimationAddClassNames, utilAnimationRemoveClassNames } from './config';
 import { closeIcon, typeIconMap } from './icon';
 import {
   addMessageStyle,
@@ -87,7 +87,8 @@ export class Message {
       util.warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
     const container = this.checkContainer(options.container);
-    container.appendChild(this.create(options));
+    const el = this.create(options);
+    this.animationAddNode(el, container);
     this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
     if (
       util.isNumber(options.duration) &&
@@ -97,9 +98,9 @@ export class Message {
       this.close(this.el, options.duration as number);
     }
     if (this.closeBtnEl) {
-      this.closeBtnEl.onclick = () => {
-        this.close(<HTMLElement>this.closeBtnEl?.parentElement, 0);
-      };
+      util.on(this.closeBtnEl, 'click', () => {
+        this.close(<HTMLElement>this.closeBtnEl!.parentElement, 0)
+      })
     }
   }
   create(options: ewMessageOption) {
@@ -128,12 +129,48 @@ export class Message {
     if (!element || !element.length) return;
     const { top } = this.options;
     const height = (element[0] as HTMLElement).offsetHeight;
-
-
     for (let i = 0, len = element.length; i < len; i++) {
       const item = element[i] as HTMLElement;
       item.setAttribute('style', `top:${getOffsetTop(top) !== baseTopUnit ? top : `${(baseTopUnit * (i + 1) + height * i)}px`};`);
     }
+  }
+  animationAddNode(el: HTMLElement, container: HTMLElement) {
+    const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
+    if (startClassName) {
+      const classNameList = startClassName?.split(startClassNameSymbol as string);
+      if (classNameList.length > 1) {
+        const filterAddClassNameList: string[] = []
+        utilAnimationAddClassNames.forEach(item => {
+          classNameList.forEach(className => {
+            if (item.includes(className)) {
+              filterAddClassNameList.push(stylePrefix + 'message-' + className)
+            } else {
+              filterAddClassNameList.push(className);
+            }
+          })
+        })
+        filterAddClassNameList.forEach(className => util.addClass(className, el));
+
+        setTimeout(() => {
+          util.on(el, 'animationend', () => {
+            filterAddClassNameList.forEach(className => util.removeClass(className, el));
+          })
+        }, 1000);
+      } else {
+        let filterStartClassName = startClassName;
+        if (utilAnimationAddClassNames.some(item => item.includes(startClassName))) {
+          filterStartClassName = stylePrefix + 'message-' + startClassName;
+        }
+        util.addClass(filterStartClassName, el);
+        setTimeout(() => {
+          util.on(el, 'animationend', () => {
+            util.removeClass(filterStartClassName, el);
+          })
+        }, 1000);
+      }
+
+    }
+    container.appendChild(el);
   }
   animationRemoveNode(el: HTMLElement) {
     const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
@@ -141,7 +178,7 @@ export class Message {
       const classNameList = removeClassName?.split(removeClassNameSymbol as string);
       if (classNameList.length > 1) {
         const filterRemoveClassNameList: string[] = []
-        utilAnimationClassNames.forEach(item => {
+        utilAnimationRemoveClassNames.forEach(item => {
           classNameList.forEach(className => {
             if (item.includes(className)) {
               filterRemoveClassNameList.push(stylePrefix + 'message-' + className)
@@ -153,7 +190,7 @@ export class Message {
         filterRemoveClassNameList.forEach(className => util.addClass(className, el))
       } else {
         let filterRemoveClassName = removeClassName;
-        if (utilAnimationClassNames.some(item => item.includes(removeClassName))) {
+        if (utilAnimationRemoveClassNames.some(item => item.includes(removeClassName))) {
           filterRemoveClassName = stylePrefix + 'message-' + removeClassName;
         }
         util.addClass(filterRemoveClassName, el);

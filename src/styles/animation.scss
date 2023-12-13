@@ -1,15 +1,12 @@
 @import './variable.scss';
 @use 'sass:map';
 
-$opacity: 1, 0.8, 0.6, 0.4, 0;
-$transform: scale(1), scale(0.8), scale(0.6), scale(0.4), scale(0);
-
-$animation-key-list: (
+$animation-remove-key-list: (
   'fadeOut': 'opacity',
-  'scaleDown': 'transform'
+  'scaleDown': 'transform',
 );
 
-$animation-value-list: (
+$animation-remove-value-list: (
   'opacity': (
     'opacity1': 1,
     'opacity2': 0.8,
@@ -25,32 +22,60 @@ $animation-value-list: (
     'transform5': scale(0)
   )
 );
+
+$animation-add-key-list: (
+  'fadeIn': 'opacity',
+  'scaleUp': 'transform',
+);
+
+$animation-add-value-list: (
+  'opacity': (
+    'opacity1': 0,
+    'opacity2': 0.4,
+    'opacity3': 0.6,
+    'opacity4': 0.8,
+    'opacity5': 1
+  ),
+  'transform': (
+    'transform1': scale(0),
+    'transform2': scale(0.4),
+    'transform3': scale(0.6),
+    'transform4': scale(0.8),
+    'transform5': scale(1)
+  )
+);
+
 $prefixValue: $prefix + message-;
-@each $key, $value in $animation-key-list {
-  .#{$prefixValue + $key} {
-    animation: #{$key} 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
-  $listValue: map-get($animation-value-list, $value);
 
-  @keyframes #{$key} {
-    0% {
-      #{$value}: map-get($listValue, #{$value + '1'});
+@mixin setAnimation($list){
+  @each $key, $value in $list {
+    .#{$prefixValue + $key} {
+      animation: #{$key} 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
-
-    25% {
-      #{$value}: map-get($listValue, #{$value + '2'});
-    }
-
-    50% {
-      #{$value}: map-get($listValue, #{$value + '3'});
-    }
-
-    75% {
-      #{$value}: map-get($listValue, #{$value + '4'});
-    }
-
-    100% {
-      #{$value}: map-get($listValue, #{$value + '5'});
+    $listValue: map-get($animation-remove-value-list, $value);
+  
+    @keyframes #{$key} {
+      0% {
+        #{$value}: map-get($listValue, #{$value + '1'});
+      }
+  
+      25% {
+        #{$value}: map-get($listValue, #{$value + '2'});
+      }
+  
+      50% {
+        #{$value}: map-get($listValue, #{$value + '3'});
+      }
+  
+      75% {
+        #{$value}: map-get($listValue, #{$value + '4'});
+      }
+  
+      100% {
+        #{$value}: map-get($listValue, #{$value + '5'});
+      }
     }
   }
 }
+@include setAnimation($animation-remove-key-list);
+@include setAnimation($animation-add-key-list);
