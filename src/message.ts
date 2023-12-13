@@ -150,7 +150,6 @@ export class Message {
           })
         })
         filterAddClassNameList.forEach(className => util.addClass(className, el));
-
         setTimeout(() => {
           util.on(el, 'animationend', () => {
             filterAddClassNameList.forEach(className => util.removeClass(className, el));
@@ -168,7 +167,6 @@ export class Message {
           })
         }, 1000);
       }
-
     }
     container.appendChild(el);
   }

@@ -11,7 +11,7 @@ sidebar_position: 1
 默认参数可以是一个字符串，用作消息提示框的内容，如:
 
 ```ts
-const msg = ewMessage('这是一个默认的消息提示框');
+const msg = ewMessage("这是一个默认的消息提示框");
 ```
 
 ## 配置对象
@@ -23,7 +23,7 @@ const msg = ewMessage('这是一个默认的消息提示框');
 content 是一个字符串，用作消息提示框的内容，默认为空，如果在开发环境下（即导入的是非生产模式的文件 ewMessage.js），则会在控制台给出警告，如:
 
 ```ts
-const msg = ewMessage({ content: '这是一个默认的消息提示框' });
+const msg = ewMessage({ content: "这是一个默认的消息提示框" });
 ```
 
 ### center
@@ -32,7 +32,7 @@ center 属性是一个布尔值，表示是否让消息提示框的内容剧中�
 
 ```ts
 // 消息提示框内容居中
-const msg = ewMessage({ content: '这是一个默认的消息提示框', center: true });
+const msg = ewMessage({ content: "这是一个默认的消息提示框", center: true });
 ```
 
 ### type
@@ -41,9 +41,9 @@ type 的值虽然是一个字符串，但只支持"info" | "success" | "warning"
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个成功的消息提示框',
+  content: "这是一个成功的消息提示框",
   center: true,
-  type: 'success' // 成功消息提示框
+  type: "success", // 成功消息提示框
 });
 ```
 
@@ -53,10 +53,10 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
+  content: "这是一个默认的消息提示框",
   center: true,
-  type: 'success',
-  duration: 2000 // 消息提示框将在2s后关闭
+  type: "success",
+  duration: 2000, // 消息提示框将在2s后关闭
 });
 ```
 
@@ -72,11 +72,11 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
+  content: "这是一个默认的消息提示框",
   center: true,
-  type: 'success',
+  type: "success",
   duration: 120000,
-  maxDuration: 10000 // 最大关闭时间设置的是10s，因此消息提示框将在10s后关闭，而不是12s后关闭
+  maxDuration: 10000, // 最大关闭时间设置的是10s，因此消息提示框将在10s后关闭，而不是12s后关闭
 });
 ```
 
@@ -90,8 +90,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  showClose: false
+  content: "这是一个默认的消息提示框",
+  showClose: false,
 });
 ```
 
@@ -103,8 +103,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  stylePrefix: 'el-'
+  content: "这是一个默认的消息提示框",
+  stylePrefix: "el-",
 });
 ```
 
@@ -118,8 +118,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  showTypeIcon: true
+  content: "这是一个默认的消息提示框",
+  showTypeIcon: true,
 });
 ```
 
@@ -129,10 +129,10 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
+  content: "这是一个默认的消息提示框",
   showTypeIcon: true,
   typeIcon:
-    '<svg t="1695191942528" class="ew-message-icon ew-message-info-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>'
+    '<svg t="1695191942528" class="ew-message-icon ew-message-info-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>',
 });
 ```
 
@@ -143,10 +143,10 @@ const msg = ewMessage({
 ```ts
 // 不推荐替换默认的图标
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
+  content: "这是一个默认的消息提示框",
   showTypeIcon: true,
   closeIcon:
-    '<svg t="1695191942528" class="ew-message-close-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>'
+    '<svg t="1695191942528" class="ew-message-close-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7731" id="mx_n_1695191942529"><path d="M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z" fill="#1677ff" p-id="7732"></path></svg>',
 });
 ```
 
@@ -156,8 +156,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  container: '#test'
+  content: "这是一个默认的消息提示框",
+  container: "#test",
 });
 // 将消息提示框挂载到页面当中id为test的元素中
 ```
@@ -168,8 +168,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  immediate: false
+  content: "这是一个默认的消息提示框",
+  immediate: false,
 });
 msg.render(); // 内部会自动获取配置对象并渲染
 ```
@@ -180,8 +180,8 @@ msg.render(); // 内部会自动获取配置对象并渲染
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  removeClassName: 'fadeOut' // 或者也可以传入ew-message-fadeOut
+  content: "这是一个默认的消息提示框",
+  removeClassName: "fadeOut", // 或者也可以传入ew-message-fadeOut
 });
 ```
 
@@ -189,8 +189,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  removeClassName: 'fadeOut scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown
+  content: "这是一个默认的消息提示框",
+  removeClassName: "fadeOut scaleDown", // 或者也可以传入ew-message-fadeOut ew-message-scaleDown
   // 这里是使用空白隔开，因此不需要指定 removeClassNameSymbol
 });
 ```
@@ -209,8 +209,8 @@ const msg = ewMessage({
 ```ts
 // 假设页面引入了animate.css文件
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  removeClassName: 'animate__animated animate__bounce'
+  content: "这是一个默认的消息提示框",
+  removeClassName: "animate__animated animate__bounce",
 });
 ```
 
@@ -233,8 +233,8 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  messageZIndex: 2000
+  content: "这是一个默认的消息提示框",
+  messageZIndex: 2000,
 });
 // 设置消息提示框的显示层级为2000
 ```
@@ -245,11 +245,64 @@ const msg = ewMessage({
 
 ```ts
 const msg = ewMessage({
-  content: '这是一个默认的消息提示框',
-  top: 20
+  content: "这是一个默认的消息提示框",
+  top: 20,
 });
 const msg = ewMessage({
+  content: "这是一个默认的消息提示框",
+  top: "15px",
+});
+```
+
+### startClassName(0.1.1 新增)
+
+该属性用于添加消息提示框时添加的动画类名，目前内置有 fadeIn 和 scaleUp 动画效果，如指定了正确的动画类名值，当消息框出现时，会有相应的动画效果,延迟 1s 之后，会移除动画效果类名。默认值是空字符串，即没有动画效果。如:
+
+```ts
+const msg = ewMessage({
+  content: "这是一个默认的消息提示框",
+  removeClassName: "fadeIn", // 或者也可以传入ew-message-fadeIn
+});
+```
+
+也可以传入多个类名，多个类名之间可以使用任意值或者空白来隔开，如果不是使用空白隔开，则需要指定 startClassNameSymbol 的值，例如:
+
+```ts
+const msg = ewMessage({
+  content: "这是一个默认的消息提示框",
+  startClassName: "fadeIn scaleUp", // 或者也可以传入ew-message-fadeIn ew-message-scaleUp
+  // 这里是使用空白隔开，因此不需要指定 startClassNameSymbol
+});
+```
+
+```ts
+const msg = ewMessage({
   content: '这是一个默认的消息提示框',
-  top: '15px'
+  startClassName: 'fadeIn,scaleUp' // 或者也可以传入ew-message-fadeIn ew-message-scaleUp
+  startClassNameSymbol: ','
+  // 这里是使用逗号隔开
+});
+```
+
+我们可以结合[animate.css](https://animate.style/)来为移除消息提示框添加对应的动画效果，如果页面当中引入了该样式文件，则可以传入相应的类名，如:
+
+```ts
+// 假设页面引入了animate.css文件
+const msg = ewMessage({
+  content: "这是一个默认的消息提示框",
+  startClassName: "animate__animated animate__bounceIn",
+});
+```
+
+### startClassNameSymbol(0.1.1 新增)
+
+用于指定多个 startClassName 的分隔符，如果 startClassName 指定的是单个类名或者是多个以空白隔开的类名，则不需要传入该值。如:
+
+```ts
+const msg = ewMessage({
+  content: '这是一个默认的消息提示框',
+  startClassName: 'fadeIn+scaleUp' // 或者也可以传入ew-message-fadeIn ew-message-scaleUp
+  startClassNameSymbol: '+'
+  // 这里是使用+隔开
 });
 ```
