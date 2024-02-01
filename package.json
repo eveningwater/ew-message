@@ -11,6 +11,7 @@
     "test": "ts-node test/test.ts",
     "pretest": "npm run build",
     "publish": "npm publish .",
+    "publicPublish": "npm publish . --access public",
     "deploy": "npm run build:docs & gh-pages -d gh-pages",
     "release-docs": "gh-pages -d gh-pages"
   },
