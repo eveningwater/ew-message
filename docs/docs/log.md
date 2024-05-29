@@ -14,3 +14,4 @@ sidebar_position: 0
 - 0.0.9: 新增了 container、immediate、removeClassName、removeClassNameSymbol 配置属性，新增了 on,off,addClass 工具方法。
 - 0.1.0: 修复了 ts 类型错误，新增了 messageZIndex 属性。
 - 0.1.1: 新增了 top 属性,新增了 startClassName 与 startClassNameSymbol 属性,新增了 removeClass 方法。
+- 0.1.2: 修改了销毁消息提示框逻辑。

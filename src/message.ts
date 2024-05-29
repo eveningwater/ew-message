@@ -42,7 +42,7 @@ export class Message {
   }
   destroy() {
     if (this.el) {
-      this.close(this.el, 0);
+      this.close(this.el, 0, true);
     }
   }
   validateHasStyle() {
@@ -201,7 +201,7 @@ export class Message {
       el.parentElement?.removeChild(el);
     }
   }
-  close(element: HTMLElement | NodeList | HTMLCollection, time: number) {
+  close(element: HTMLElement | NodeList | HTMLCollection, time: number, isDestroy = false) {
     if (__DEV__ && !util.isNumber(time)) {
       util.warn(MESSAGE_CLOSE_DURATION_WARNING);
     }
@@ -212,30 +212,36 @@ export class Message {
     const maxDuration = this.options.maxDuration || 10000;
     const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
     const container = this.checkContainer(this.options.container);
-    setTimeout(
-      () => {
-        if (element instanceof NodeList || element instanceof HTMLCollection) {
-          util.toArray(element).forEach(item => {
-            if (
-              util.isDom(item) &&
-              util.isDom(item.parentElement) &&
-              util.isFunction(item.parentElement?.removeChild)
-            ) {
-              this.animationRemoveNode(item as HTMLElement);
-            }
-          });
-        } else {
+    const destroy = () => {
+      if (element instanceof NodeList || element instanceof HTMLCollection) {
+        util.toArray(element).forEach(item => {
           if (
-            util.isDom(element) &&
-            util.isDom(element.parentElement) &&
-            util.isFunction(element.parentElement?.removeChild)
+            util.isDom(item) &&
+            util.isDom(item.parentElement) &&
+            util.isFunction(item.parentElement?.removeChild)
           ) {
-            this.animationRemoveNode(element);
+            this.animationRemoveNode(item as HTMLElement);
           }
+        });
+      } else {
+        if (
+          util.isDom(element) &&
+          util.isDom(element.parentElement) &&
+          util.isFunction(element.parentElement?.removeChild)
+        ) {
+          this.animationRemoveNode(element);
         }
-        this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
-      },
-      Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration)
-    );
+      }
+      this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
+    }
+    const destroyTime = Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration)
+    if (isDestroy) {
+      destroy();
+    } else {
+      setTimeout(
+        () => destroy(),
+        destroyTime
+      );
+    }
   }
 }

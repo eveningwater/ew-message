@@ -7,7 +7,11 @@ import './App.css';
 function App() {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    const msg = ewMessage('这是一个默认的消息提示框');
+    const msg = ewMessage({
+      content: '这是一个默认的消息提示框',
+      showClose: true,
+      duration: 0
+    });
     return () => {
       msg.destroy();
     };
