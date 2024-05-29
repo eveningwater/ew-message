@@ -1,21 +1,28 @@
-import type { ewMessageOption } from '../typings/ewMessage';
-import { baseTopUnit, defaultMessageOption, typeMap, utilAnimationAddClassNames, utilAnimationRemoveClassNames } from './config';
-import { closeIcon, typeIconMap } from './icon';
+import type { ewMessageOption } from "../typings/ewMessage";
+import {
+  baseTopUnit,
+  defaultMessageOption,
+  typeMap,
+  utilAnimationAddClassNames,
+  utilAnimationRemoveClassNames,
+} from "./config";
+import { closeIcon, typeIconMap } from "./icon";
 import {
   addMessageStyle,
   getOffsetTop,
   normalizeOptions,
   validateAutoHasStyle,
-  validateHasStyle
-} from './method';
-import util from './util';
+  validateHasStyle,
+} from "./method";
+import util from "./util";
 import {
   MESSAGE_CLOSE_DURATION_WARNING,
   MESSAGE_CLOSE_MAX_DURATION_WARNING,
   MESSAGE_CLOSE_PARAM_WARNING,
   MESSAGE_CONTAINER_WARNING,
-  MESSAGE_CONTENT_PARAM_WARNING
-} from './warn';
+  MESSAGE_CONTENT_PARAM_WARNING,
+} from "./warn";
+
 export class Message {
   options: ewMessageOption;
   el: HTMLElement | null;
@@ -26,7 +33,7 @@ export class Message {
     this.closeBtnEl = null;
     let isHasStyle = this.validateHasStyle();
     if (isHasStyle) {
-      this.options.stylePrefix = 'ew-';
+      this.options.stylePrefix = "ew-";
     }
     if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
       this.addMessageStyle(this.options.stylePrefix);
@@ -36,8 +43,11 @@ export class Message {
   }
   addZIndex() {
     const { messageZIndex, stylePrefix } = this.options;
-    if (util.isNumber(messageZIndex) && (messageZIndex as number) > 0) {
-      this.addMessageStyle(stylePrefix, `.${stylePrefix}message{z-index:${messageZIndex}}`);
+    if (util.isNumber(messageZIndex) && messageZIndex! > 0) {
+      this.addMessageStyle(
+        stylePrefix,
+        `.${stylePrefix}message{z-index:${messageZIndex}}`
+      );
     }
   }
   destroy() {
@@ -77,19 +87,22 @@ export class Message {
   }
   render(opt?: ewMessageOption) {
     const options = opt || this.options;
-    if ((!util.isNumber(options.duration) || (options.duration as number) <= 0) && !options.showClose) {
+    if (
+      (!util.isNumber(options.duration) || (options.duration as number) <= 0) &&
+      !options.showClose
+    ) {
       if (__DEV__) {
         util.warn(MESSAGE_CLOSE_PARAM_WARNING);
       }
       options.showClose = true;
     }
-    if (!options.content && __DEV__) {
+    if (!util.isString(options.content) && __DEV__) {
       util.warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
     const container = this.checkContainer(options.container);
     const el = this.create(options);
     this.animationAddNode(el, container);
-    this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
+    this.setTop(util.$$("." + this.options.stylePrefix + "message", container));
     if (
       util.isNumber(options.duration) &&
       (options.duration as number) > 0 &&
@@ -98,28 +111,35 @@ export class Message {
       this.close(this.el, options.duration as number);
     }
     if (this.closeBtnEl) {
-      util.on(this.closeBtnEl, 'click', () => {
-        this.close(<HTMLElement>this.closeBtnEl!.parentElement, 0)
-      })
+      util.on(this.closeBtnEl, "click", () => {
+        this.close(<HTMLElement>this.closeBtnEl!.parentElement, 0);
+      });
     }
   }
   create(options: ewMessageOption) {
-    let element = document.createElement('div');
+    let element = document.createElement("div");
     element.className = `${this.options.stylePrefix}message ${this.options.stylePrefix}message-${options.type}`;
     if (options.center) {
-      element.classList.add(this.options.stylePrefix + 'message-center');
+      element.classList.add(this.options.stylePrefix + "message-center");
     }
-    const p = document.createElement('p');
+    const p = document.createElement("p");
     p.innerHTML = options.content;
     if (options.showTypeIcon) {
-      const icon = options.typeIcon ? options.typeIcon : typeIconMap[options.type || 'info'](this.options.stylePrefix);
+      const icon = options.typeIcon
+        ? options.typeIcon
+        : typeIconMap[options.type || "info"](this.options.stylePrefix);
       element.appendChild(util.createElement(icon));
     }
     element.appendChild(p);
     if (options.showClose) {
-      this.closeBtnEl = document.createElement('i');
-      this.closeBtnEl.classList.add(this.options.stylePrefix + 'message-close');
-      this.closeBtnEl.innerHTML = this.options.closeIcon ? this.options.closeIcon : closeIcon(this.options.stylePrefix!);
+      this.closeBtnEl = document.createElement("i");
+      util.addClass(
+        `${this.options.stylePrefix}message-close`,
+        this.closeBtnEl
+      );
+      this.closeBtnEl.innerHTML = this.options.closeIcon
+        ? this.options.closeIcon
+        : closeIcon(this.options.stylePrefix!);
       element.appendChild(this.closeBtnEl);
     }
     this.el = element;
@@ -131,72 +151,86 @@ export class Message {
     const height = (element[0] as HTMLElement).offsetHeight;
     for (let i = 0, len = element.length; i < len; i++) {
       const item = element[i] as HTMLElement;
-      item.setAttribute('style', `top:${getOffsetTop(top) !== baseTopUnit ? top : `${(baseTopUnit * (i + 1) + height * i)}px`};`);
+      item.setAttribute(
+        "style",
+        `top:${
+          getOffsetTop(top) !== baseTopUnit
+            ? top
+            : `${baseTopUnit * (i + 1) + height * i}px`
+        };`
+      );
     }
   }
   animationAddNode(el: HTMLElement, container: HTMLElement) {
     const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
     if (startClassName) {
-      const classNameList = startClassName?.split(startClassNameSymbol as string);
+      const classNameList = startClassName?.split(startClassNameSymbol!);
       if (classNameList.length > 1) {
-        const filterAddClassNameList: string[] = []
-        utilAnimationAddClassNames.forEach(item => {
-          classNameList.forEach(className => {
-            if (item.includes(className)) {
-              filterAddClassNameList.push(stylePrefix + 'message-' + className)
-            } else {
-              filterAddClassNameList.push(className);
-            }
-          })
-        })
-        filterAddClassNameList.forEach(className => util.addClass(className, el));
-        setTimeout(() => {
-          util.on(el, 'animationend', () => {
-            filterAddClassNameList.forEach(className => util.removeClass(className, el));
-          })
-        }, 1000);
+        const filterAddClassNameList: string[] = [];
+        utilAnimationAddClassNames.forEach((item) => {
+          classNameList.forEach((className) => {
+            const pushClassName = item.includes(className)
+              ? `${stylePrefix}message-${className}`
+              : className;
+            filterAddClassNameList.push(pushClassName);
+          });
+        });
+        filterAddClassNameList.forEach((className) =>
+          util.addClass(className, el)
+        );
+        util.on(el, "animationend", () => {
+          filterAddClassNameList.forEach((className) =>
+            util.removeClass(className, el)
+          );
+        });
       } else {
         let filterStartClassName = startClassName;
-        if (utilAnimationAddClassNames.some(item => item.includes(startClassName))) {
-          filterStartClassName = stylePrefix + 'message-' + startClassName;
+        if (
+          utilAnimationAddClassNames.some((item) =>
+            item.includes(startClassName)
+          )
+        ) {
+          filterStartClassName = `${stylePrefix}message-${startClassName}`;
         }
         util.addClass(filterStartClassName, el);
-        setTimeout(() => {
-          util.on(el, 'animationend', () => {
-            util.removeClass(filterStartClassName, el);
-          })
-        }, 1000);
+        util.on(el, "animationend", () =>
+          util.removeClass(filterStartClassName, el)
+        );
       }
     }
     container.appendChild(el);
   }
   animationRemoveNode(el: HTMLElement) {
-    const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
+    const { removeClassName, stylePrefix, removeClassNameSymbol } =
+      this.options;
     if (removeClassName) {
-      const classNameList = removeClassName?.split(removeClassNameSymbol as string);
+      const classNameList = removeClassName?.split(removeClassNameSymbol!);
       if (classNameList.length > 1) {
-        const filterRemoveClassNameList: string[] = []
-        utilAnimationRemoveClassNames.forEach(item => {
-          classNameList.forEach(className => {
-            if (item.includes(className)) {
-              filterRemoveClassNameList.push(stylePrefix + 'message-' + className)
-            } else {
-              filterRemoveClassNameList.push(className);
-            }
-          })
-        })
-        filterRemoveClassNameList.forEach(className => util.addClass(className, el))
+        const filterRemoveClassNameList: string[] = [];
+        utilAnimationRemoveClassNames.forEach((item) => {
+          classNameList.forEach((className) => {
+            const pushClassName = item.includes(className)
+              ? `${stylePrefix}message-${className}`
+              : className;
+            filterRemoveClassNameList.push(pushClassName);
+          });
+        });
+        filterRemoveClassNameList.forEach((className) =>
+          util.addClass(className, el)
+        );
       } else {
         let filterRemoveClassName = removeClassName;
-        if (utilAnimationRemoveClassNames.some(item => item.includes(removeClassName))) {
-          filterRemoveClassName = stylePrefix + 'message-' + removeClassName;
+        if (
+          utilAnimationRemoveClassNames.some((item) =>
+            item.includes(removeClassName)
+          )
+        ) {
+          filterRemoveClassName = `${stylePrefix}message-${removeClassName}`;
         }
         util.addClass(filterRemoveClassName, el);
       }
 
-      util.on(el, 'animationend', () => {
-        el.parentElement?.removeChild(el);
-      })
+      util.on(el, "animationend", () => el.parentElement?.removeChild(el));
     } else {
       el.parentElement?.removeChild(el);
     }
@@ -210,32 +244,26 @@ export class Message {
     }
     const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
     const maxDuration = this.options.maxDuration || 10000;
-    const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
+    const normalizeMaxDuration =
+      !util.isNumber(maxDuration) || maxDuration <= normalizeTime
+        ? normalizeTime
+        : maxDuration;
     const container = this.checkContainer(this.options.container);
-    setTimeout(
-      () => {
-        if (element instanceof NodeList || element instanceof HTMLCollection) {
-          util.toArray(element).forEach(item => {
-            if (
-              util.isDom(item) &&
-              util.isDom(item.parentElement) &&
-              util.isFunction(item.parentElement?.removeChild)
-            ) {
-              this.animationRemoveNode(item as HTMLElement);
-            }
-          });
-        } else {
-          if (
-            util.isDom(element) &&
-            util.isDom(element.parentElement) &&
-            util.isFunction(element.parentElement?.removeChild)
-          ) {
-            this.animationRemoveNode(element);
+    setTimeout(() => {
+      if (element instanceof NodeList || element instanceof HTMLCollection) {
+        util.toArray(element).forEach((item) => {
+          if (util.isRemoveNode(item as HTMLElement)) {
+            this.animationRemoveNode(item as HTMLElement);
           }
+        });
+      } else {
+        if (util.isRemoveNode(element)) {
+          this.animationRemoveNode(element);
         }
-        this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
-      },
-      Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration)
-    );
+      }
+      this.setTop(
+        util.$$("." + this.options.stylePrefix + "message", container)
+      );
+    }, Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration));
   }
 }

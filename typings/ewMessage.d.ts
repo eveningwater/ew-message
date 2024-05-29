@@ -1,4 +1,5 @@
 export interface ewMessageUtils {
+  isRemoveNode: (item: HTMLElement) => boolean;
   isFunction: <T>(v: T) => boolean;
   isDom: <T>(v: T) => boolean;
   isObject: <T>(v: T) => boolean;
@@ -15,21 +16,21 @@ export interface ewMessageUtils {
     type: string,
     handler: EventListenerOrEventListenerObject,
     useCapture?: boolean
-  ) => void
+  ) => void;
   off: (
     element: HTMLElement | Document | Element | Window,
     type: string,
     handler: EventListenerOrEventListenerObject,
     useCapture?: boolean
-  ) => void
-  addClass: (v: string, el: HTMLElement) => void
-  removeClass: (v: string, el: HTMLElement) => void
+  ) => void;
+  addClass: (v: string, el: HTMLElement) => void;
+  removeClass: (v: string, el: HTMLElement) => void;
 }
 export enum ewMessageEnumType {
-  success = 'success',
-  info = 'info',
-  warning = 'warning',
-  error = 'error'
+  success = "success",
+  info = "info",
+  warning = "warning",
+  error = "error",
 }
 export type ewMessageType = {
   [prop in ewMessageEnumType]: string;
