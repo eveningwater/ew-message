@@ -79,6 +79,34 @@ export const getOffsetTop = (top?: string | number) => {
 
 export const handleAnimationNode = (
   el: HTMLElement,
-  options: ewMessageOption,
-  container?: HTMLElement
-) => {};
+  className: string,
+  classNameSymbol: string,
+  stylePrefix: string,
+  existClassNames: string[],
+  callback: (v: string | string[]) => void
+) => {
+  const classNameList = className?.split(classNameSymbol);
+  let res: string | string[] = className;
+  if (classNameList.length > 1) {
+    const filterClassNameList: string[] = [];
+    existClassNames.forEach((item) => {
+      classNameList.forEach((className) => {
+        const pushClassName = item.includes(className)
+          ? `${stylePrefix}message-${className}`
+          : className;
+        filterClassNameList.push(pushClassName);
+      });
+    });
+    filterClassNameList.forEach((className) => util.addClass(className, el));
+    res = filterClassNameList;
+  } else {
+    let filterClassName = className;
+    if (existClassNames.some((item) => item.includes(className))) {
+      filterClassName = `${stylePrefix}message-${className}`;
+    }
+    util.addClass(filterClassName, el);
+    res = filterClassName;
+  }
+
+  util.on(el, "animationend", () => callback?.(res));
+};

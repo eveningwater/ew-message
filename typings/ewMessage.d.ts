@@ -1,4 +1,6 @@
 export interface ewMessageUtils {
+  create: (v: string) => HTMLElement;
+  isArray: <T>(v: T) => boolean | undefined;
   isRemoveNode: (item: HTMLElement) => boolean;
   isFunction: <T>(v: T) => boolean;
   isDom: <T>(v: T) => boolean;

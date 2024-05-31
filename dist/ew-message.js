@@ -1,13 +1,13 @@
 /*!
- * ewMeassage.js v0.1.1
- * (c) 2023-2023 eveningwater 
+ * ewMeassage.js v0.1.2
+ * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ewMessage = factory());
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   const typeMap = {
       success: 'success',
@@ -51,26 +51,35 @@
   };
 
   const util = Object.create(null);
-  util.isFunction = (value) => typeof value === 'function';
-  util.isDom = (el) => typeof HTMLElement === 'object'
+  util.isFunction = (value) => typeof value === "function";
+  util.isDom = (el) => typeof HTMLElement === "object"
       ? el instanceof HTMLElement
       : (el &&
-          typeof el === 'object' &&
+          typeof el === "object" &&
           el instanceof Node &&
           el.nodeType === 1 &&
-          typeof el.nodeName === 'string') ||
+          typeof el.nodeName === "string") ||
           el instanceof HTMLCollection ||
           el instanceof NodeList;
   util.warn = (v) => console.warn(v);
   util.toArray = (v) => [].slice.call(v);
-  util.isObject = (v) => typeof v === 'object' && !!v;
-  util.isString = (v) => typeof v === 'string';
-  util.isNumber = (v) => typeof v === 'number' && !Number.isNaN(v);
+  util.isObject = (v) => typeof v === "object" && !!v;
+  util.isString = (v) => typeof v === "string";
+  util.isNumber = (v) => typeof v === "number" && !Number.isNaN(v);
+  util.isArray = (v) => {
+      if (Array.isArray) {
+          return Array.isArray(v);
+      }
+      else {
+          return Object.prototype.toString.call(v).slice(8, -1) === "array";
+      }
+  };
   util.hasOwn = (v, prop) => v.hasOwnProperty(prop);
   util.$$ = (v, el = document) => el.querySelectorAll(v);
   util.$ = (v, el = document) => el.querySelector(v);
+  util.create = (v) => document.createElement(v);
   util.createElement = (temp) => {
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       div.innerHTML = temp;
       return div.firstElementChild;
   };
@@ -86,29 +95,32 @@
           element.removeEventListener(type, handler, useCapture);
       }
   };
+  util.isRemoveNode = (item) => util.isDom(item) &&
+      util.isDom(item.parentElement) &&
+      util.isFunction(item.parentElement?.removeChild);
 
   const normalizeOptions = (option) => {
       let messageOption = defaultMessageOption;
-      if (typeof option === 'string') {
+      if (typeof option === "string") {
           messageOption.content = option;
       }
-      else if (typeof option === 'object' && !!option) {
+      else if (typeof option === "object" && !!option) {
           messageOption = { ...messageOption, ...option };
       }
       return messageOption;
   };
-  const addMessageStyle = (prefix_class = 'ew-', style) => new Promise(resolve => {
+  const addMessageStyle = (prefix_class = "ew-", style) => new Promise((resolve) => {
       const cssText = style || getMessageStyle(prefix_class);
       const styleInject = (css, ref) => {
           if (ref === void 0)
               ref = {};
           const insertAt = ref.insertAt;
-          if (!css || typeof document === 'undefined')
+          if (!css || typeof document === "undefined")
               return;
-          const head = document.head || util.$('head');
-          const style = document.createElement('style');
-          style.type = 'text/css';
-          if (insertAt === 'top') {
+          const head = document.head || util.$("head");
+          const style = document.createElement("style");
+          style.type = "text/css";
+          if (insertAt === "top") {
               if (head.firstChild) {
                   head.insertBefore(style, head.firstChild);
               }
@@ -126,10 +138,10 @@
   });
   const validateHasStyle = () => {
       let isHasStyle = false;
-      const allLinks = util.$$('link');
-      allLinks.forEach(link => {
-          const href = link.getAttribute('href');
-          if (href?.includes('ew-message')) {
+      const allLinks = util.$$("link");
+      allLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href?.includes("ew-message")) {
               isHasStyle = true;
           }
       });
@@ -137,8 +149,8 @@
   };
   const validateAutoHasStyle = (stylePrefix) => {
       let isHasStyle = false;
-      const allStyles = util.$$('style');
-      allStyles.forEach(style => {
+      const allStyles = util.$$("style");
+      allStyles.forEach((style) => {
           const text = style.textContent;
           if (text === getMessageStyle(stylePrefix)) {
               isHasStyle = true;
@@ -152,11 +164,38 @@
       }
       if (util.isString(top)) {
           const regExp = /[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]/g;
-          if (util.isNumber(Number(top.replace(regExp, ''))) && top) {
+          if (util.isNumber(Number(top.replace(regExp, ""))) &&
+              top) {
               return top;
           }
       }
       return baseTopUnit;
+  };
+  const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existClassNames, callback) => {
+      const classNameList = className?.split(classNameSymbol);
+      let res = className;
+      if (classNameList.length > 1) {
+          const filterClassNameList = [];
+          existClassNames.forEach((item) => {
+              classNameList.forEach((className) => {
+                  const pushClassName = item.includes(className)
+                      ? `${stylePrefix}message-${className}`
+                      : className;
+                  filterClassNameList.push(pushClassName);
+              });
+          });
+          filterClassNameList.forEach((className) => util.addClass(className, el));
+          res = filterClassNameList;
+      }
+      else {
+          let filterClassName = className;
+          if (existClassNames.some((item) => item.includes(className))) {
+              filterClassName = `${stylePrefix}message-${className}`;
+          }
+          util.addClass(filterClassName, el);
+          res = filterClassName;
+      }
+      util.on(el, "animationend", () => callback?.(res));
   };
 
   const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
@@ -173,13 +212,16 @@
       'Can not find the dom element,make sure to pass a correct dom element';
 
   class Message {
+      options;
+      el;
+      closeBtnEl;
       constructor(options) {
           this.options = this.normalizeOptions(options);
           this.el = null;
           this.closeBtnEl = null;
           let isHasStyle = this.validateHasStyle();
           if (isHasStyle) {
-              this.options.stylePrefix = 'ew-';
+              this.options.stylePrefix = "ew-";
           }
           if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
               this.addMessageStyle(this.options.stylePrefix);
@@ -195,7 +237,7 @@
       }
       destroy() {
           if (this.el) {
-              this.close(this.el, 0);
+              this.close(this.el, 0, true);
           }
       }
       validateHasStyle() {
@@ -231,47 +273,53 @@
       }
       render(opt) {
           const options = opt || this.options;
-          if ((!util.isNumber(options.duration) || options.duration <= 0) && !options.showClose) {
+          const { duration, showClose, content, container: optionContainer, stylePrefix, } = options;
+          if ((!util.isNumber(duration) || duration <= 0) && !showClose) {
               {
                   util.warn(MESSAGE_CLOSE_PARAM_WARNING);
               }
               options.showClose = true;
           }
-          if (!options.content && true) {
+          if (!util.isString(content) && true) {
               util.warn(MESSAGE_CONTENT_PARAM_WARNING);
           }
-          const container = this.checkContainer(options.container);
+          const container = this.checkContainer(optionContainer);
           const el = this.create(options);
           this.animationAddNode(el, container);
-          this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
-          if (util.isNumber(options.duration) &&
-              options.duration > 0 &&
+          this.setTop(util.$$("." + stylePrefix + "message", container));
+          if (util.isNumber(duration) &&
+              duration > 0 &&
               this.el instanceof HTMLElement) {
-              this.close(this.el, options.duration);
+              this.close(this.el, duration);
           }
           if (this.closeBtnEl) {
-              util.on(this.closeBtnEl, 'click', () => {
+              util.on(this.closeBtnEl, "click", () => {
                   this.close(this.closeBtnEl.parentElement, 0);
               });
           }
       }
       create(options) {
-          let element = document.createElement('div');
-          element.className = `${this.options.stylePrefix}message ${this.options.stylePrefix}message-${options.type}`;
-          if (options.center) {
-              element.classList.add(this.options.stylePrefix + 'message-center');
+          const { stylePrefix, type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = options || this.options;
+          let element = util.create("div");
+          element.className = `${stylePrefix}message ${stylePrefix}message-${type}`;
+          if (center) {
+              util.addClass(stylePrefix + "message-center", element);
           }
-          const p = document.createElement('p');
-          p.innerHTML = options.content;
-          if (options.showTypeIcon) {
-              const icon = options.typeIcon ? options.typeIcon : typeIconMap[options.type || 'info'](this.options.stylePrefix);
+          const p = util.create("p");
+          p.innerHTML = content;
+          if (showTypeIcon) {
+              const icon = typeIcon
+                  ? typeIcon
+                  : typeIconMap[type || "info"](stylePrefix);
               element.appendChild(util.createElement(icon));
           }
           element.appendChild(p);
-          if (options.showClose) {
-              this.closeBtnEl = document.createElement('i');
-              this.closeBtnEl.classList.add(this.options.stylePrefix + 'message-close');
-              this.closeBtnEl.innerHTML = this.options.closeIcon ? this.options.closeIcon : closeIcon(this.options.stylePrefix);
+          if (showClose) {
+              this.closeBtnEl = util.create("i");
+              util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
+              this.closeBtnEl.innerHTML = optionCloseIcon
+                  ? optionCloseIcon
+                  : closeIcon(stylePrefix);
               element.appendChild(this.closeBtnEl);
           }
           this.el = element;
@@ -284,110 +332,69 @@
           const height = element[0].offsetHeight;
           for (let i = 0, len = element.length; i < len; i++) {
               const item = element[i];
-              item.setAttribute('style', `top:${getOffsetTop(top) !== baseTopUnit ? top : `${(baseTopUnit * (i + 1) + height * i)}px`};`);
+              item.setAttribute("style", `top:${getOffsetTop(top) !== baseTopUnit
+                ? top
+                : `${baseTopUnit * (i + 1) + height * i}px`};`);
           }
       }
       animationAddNode(el, container) {
           const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
           if (startClassName) {
-              const classNameList = startClassName?.split(startClassNameSymbol);
-              if (classNameList.length > 1) {
-                  const filterAddClassNameList = [];
-                  utilAnimationAddClassNames.forEach(item => {
-                      classNameList.forEach(className => {
-                          if (item.includes(className)) {
-                              filterAddClassNameList.push(stylePrefix + 'message-' + className);
-                          }
-                          else {
-                              filterAddClassNameList.push(className);
-                          }
-                      });
-                  });
-                  filterAddClassNameList.forEach(className => util.addClass(className, el));
-                  setTimeout(() => {
-                      util.on(el, 'animationend', () => {
-                          filterAddClassNameList.forEach(className => util.removeClass(className, el));
-                      });
-                  }, 1000);
-              }
-              else {
-                  let filterStartClassName = startClassName;
-                  if (utilAnimationAddClassNames.some(item => item.includes(startClassName))) {
-                      filterStartClassName = stylePrefix + 'message-' + startClassName;
+              handleAnimationNode(el, startClassName, startClassNameSymbol, stylePrefix, utilAnimationAddClassNames, (res) => {
+                  if (util.isArray(res)) {
+                      res.forEach((className) => util.removeClass(className, el));
                   }
-                  util.addClass(filterStartClassName, el);
-                  setTimeout(() => {
-                      util.on(el, 'animationend', () => {
-                          util.removeClass(filterStartClassName, el);
-                      });
-                  }, 1000);
-              }
+                  else {
+                      util.removeClass(res, el);
+                  }
+              });
           }
           container.appendChild(el);
       }
-      animationRemoveNode(el) {
+      animationRemoveNode(el, isDestroy = false) {
           const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
-          if (removeClassName) {
-              const classNameList = removeClassName?.split(removeClassNameSymbol);
-              if (classNameList.length > 1) {
-                  const filterRemoveClassNameList = [];
-                  utilAnimationRemoveClassNames.forEach(item => {
-                      classNameList.forEach(className => {
-                          if (item.includes(className)) {
-                              filterRemoveClassNameList.push(stylePrefix + 'message-' + className);
-                          }
-                          else {
-                              filterRemoveClassNameList.push(className);
-                          }
-                      });
-                  });
-                  filterRemoveClassNameList.forEach(className => util.addClass(className, el));
-              }
-              else {
-                  let filterRemoveClassName = removeClassName;
-                  if (utilAnimationRemoveClassNames.some(item => item.includes(removeClassName))) {
-                      filterRemoveClassName = stylePrefix + 'message-' + removeClassName;
-                  }
-                  util.addClass(filterRemoveClassName, el);
-              }
-              util.on(el, 'animationend', () => {
-                  el.parentElement?.removeChild(el);
-              });
+          if (removeClassName && !isDestroy) {
+              handleAnimationNode(el, removeClassName, removeClassNameSymbol, stylePrefix, utilAnimationRemoveClassNames, () => el.parentElement?.removeChild(el));
           }
           else {
               el.parentElement?.removeChild(el);
           }
       }
-      close(element, time) {
-          if ( !util.isNumber(time)) {
+      close(element, time, isDestroy = false) {
+          if (!util.isNumber(time)) {
               util.warn(MESSAGE_CLOSE_DURATION_WARNING);
           }
-          if ( !util.isNumber(this.options.maxDuration)) {
+          if (!util.isNumber(this.options.maxDuration)) {
               util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
           }
           const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
           const maxDuration = this.options.maxDuration || 10000;
-          const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime ? normalizeTime : maxDuration;
+          const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime
+              ? normalizeTime
+              : maxDuration;
           const container = this.checkContainer(this.options.container);
-          setTimeout(() => {
+          const delay = Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration);
+          const closeHandler = () => {
               if (element instanceof NodeList || element instanceof HTMLCollection) {
-                  util.toArray(element).forEach(item => {
-                      if (util.isDom(item) &&
-                          util.isDom(item.parentElement) &&
-                          util.isFunction(item.parentElement?.removeChild)) {
-                          this.animationRemoveNode(item);
+                  util.toArray(element).forEach((item) => {
+                      if (util.isRemoveNode(item)) {
+                          this.animationRemoveNode(item, isDestroy);
                       }
                   });
               }
               else {
-                  if (util.isDom(element) &&
-                      util.isDom(element.parentElement) &&
-                      util.isFunction(element.parentElement?.removeChild)) {
-                      this.animationRemoveNode(element);
+                  if (util.isRemoveNode(element)) {
+                      this.animationRemoveNode(element, isDestroy);
                   }
               }
-              this.setTop(util.$$('.' + this.options.stylePrefix + 'message', container));
-          }, Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration));
+              this.setTop(util.$$("." + this.options.stylePrefix + "message", container));
+          };
+          if (isDestroy) {
+              closeHandler();
+          }
+          else {
+              setTimeout(closeHandler, delay);
+          }
       }
   }
 
@@ -407,4 +414,4 @@
 
   return ewMessage;
 
-})));
+}));

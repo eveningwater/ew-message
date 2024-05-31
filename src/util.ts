@@ -17,10 +17,18 @@ util.toArray = <T>(v: ArrayLike<T>): Array<T> => [].slice.call(v);
 util.isObject = <T>(v: T) => typeof v === "object" && !!v;
 util.isString = <T>(v: T) => typeof v === "string";
 util.isNumber = <T>(v: T) => typeof v === "number" && !Number.isNaN(v);
+util.isArray = <T>(v: T) => {
+  if (Array.isArray) {
+    return Array.isArray(v);
+  } else {
+    return Object.prototype.toString.call(v).slice(8, -1) === "array";
+  }
+};
 util.hasOwn = <T extends object>(v: T, prop: string) => v.hasOwnProperty(prop);
 util.$$ = (v: string, el: Element | Document = document) =>
   el.querySelectorAll(v);
 util.$ = (v: string, el: Element | Document = document) => el.querySelector(v);
+util.create = (v: string) => document.createElement(v);
 util.createElement = (temp: string) => {
   const div = document.createElement("div");
   div.innerHTML = temp;

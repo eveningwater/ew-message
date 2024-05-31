@@ -10,6 +10,7 @@ import { closeIcon, typeIconMap } from "./icon";
 import {
   addMessageStyle,
   getOffsetTop,
+  handleAnimationNode,
   normalizeOptions,
   validateAutoHasStyle,
   validateHasStyle,
@@ -87,28 +88,32 @@ export class Message {
   }
   render(opt?: ewMessageOption) {
     const options = opt || this.options;
-    if (
-      (!util.isNumber(options.duration) || (options.duration as number) <= 0) &&
-      !options.showClose
-    ) {
+    const {
+      duration,
+      showClose,
+      content,
+      container: optionContainer,
+      stylePrefix,
+    } = options;
+    if ((!util.isNumber(duration) || duration! <= 0) && !showClose) {
       if (__DEV__) {
         util.warn(MESSAGE_CLOSE_PARAM_WARNING);
       }
       options.showClose = true;
     }
-    if (!util.isString(options.content) && __DEV__) {
+    if (!util.isString(content) && __DEV__) {
       util.warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
-    const container = this.checkContainer(options.container);
+    const container = this.checkContainer(optionContainer);
     const el = this.create(options);
     this.animationAddNode(el, container);
-    this.setTop(util.$$("." + this.options.stylePrefix + "message", container));
+    this.setTop(util.$$("." + stylePrefix + "message", container));
     if (
-      util.isNumber(options.duration) &&
-      (options.duration as number) > 0 &&
+      util.isNumber(duration) &&
+      duration! > 0 &&
       this.el instanceof HTMLElement
     ) {
-      this.close(this.el, options.duration as number);
+      this.close(this.el, duration!);
     }
     if (this.closeBtnEl) {
       util.on(this.closeBtnEl, "click", () => {
@@ -117,29 +122,36 @@ export class Message {
     }
   }
   create(options: ewMessageOption) {
-    let element = document.createElement("div");
-    element.className = `${this.options.stylePrefix}message ${this.options.stylePrefix}message-${options.type}`;
-    if (options.center) {
-      element.classList.add(this.options.stylePrefix + "message-center");
+    const {
+      stylePrefix,
+      type,
+      center,
+      content,
+      showTypeIcon,
+      typeIcon,
+      showClose,
+      closeIcon: optionCloseIcon,
+    } = options || this.options;
+    let element = util.create("div");
+    element.className = `${stylePrefix}message ${stylePrefix}message-${type}`;
+    if (center) {
+      util.addClass(stylePrefix + "message-center", element);
     }
-    const p = document.createElement("p");
-    p.innerHTML = options.content;
-    if (options.showTypeIcon) {
-      const icon = options.typeIcon
-        ? options.typeIcon
-        : typeIconMap[options.type || "info"](this.options.stylePrefix);
+    const p = util.create("p");
+    p.innerHTML = content;
+    if (showTypeIcon) {
+      const icon = typeIcon
+        ? typeIcon
+        : typeIconMap[type || "info"](stylePrefix);
       element.appendChild(util.createElement(icon));
     }
     element.appendChild(p);
-    if (options.showClose) {
-      this.closeBtnEl = document.createElement("i");
-      util.addClass(
-        `${this.options.stylePrefix}message-close`,
-        this.closeBtnEl
-      );
-      this.closeBtnEl.innerHTML = this.options.closeIcon
-        ? this.options.closeIcon
-        : closeIcon(this.options.stylePrefix!);
+    if (showClose) {
+      this.closeBtnEl = util.create("i");
+      util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
+      this.closeBtnEl.innerHTML = optionCloseIcon
+        ? optionCloseIcon
+        : closeIcon(stylePrefix!);
       element.appendChild(this.closeBtnEl);
     }
     this.el = element;
@@ -153,9 +165,10 @@ export class Message {
       const item = element[i] as HTMLElement;
       item.setAttribute(
         "style",
-        `top:${getOffsetTop(top) !== baseTopUnit
-          ? top
-          : `${baseTopUnit * (i + 1) + height * i}px`
+        `top:${
+          getOffsetTop(top) !== baseTopUnit
+            ? top
+            : `${baseTopUnit * (i + 1) + height * i}px`
         };`
       );
     }
@@ -163,78 +176,46 @@ export class Message {
   animationAddNode(el: HTMLElement, container: HTMLElement) {
     const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
     if (startClassName) {
-      const classNameList = startClassName?.split(startClassNameSymbol!);
-      if (classNameList.length > 1) {
-        const filterAddClassNameList: string[] = [];
-        utilAnimationAddClassNames.forEach((item) => {
-          classNameList.forEach((className) => {
-            const pushClassName = item.includes(className)
-              ? `${stylePrefix}message-${className}`
-              : className;
-            filterAddClassNameList.push(pushClassName);
-          });
-        });
-        filterAddClassNameList.forEach((className) =>
-          util.addClass(className, el)
-        );
-        util.on(el, "animationend", () => {
-          filterAddClassNameList.forEach((className) =>
-            util.removeClass(className, el)
-          );
-        });
-      } else {
-        let filterStartClassName = startClassName;
-        if (
-          utilAnimationAddClassNames.some((item) =>
-            item.includes(startClassName)
-          )
-        ) {
-          filterStartClassName = `${stylePrefix}message-${startClassName}`;
+      handleAnimationNode(
+        el,
+        startClassName,
+        startClassNameSymbol!,
+        stylePrefix!,
+        utilAnimationAddClassNames,
+        (res) => {
+          if (util.isArray(res)) {
+            (res as string[]).forEach((className) =>
+              util.removeClass(className, el)
+            );
+          } else {
+            util.removeClass(res as string, el);
+          }
         }
-        util.addClass(filterStartClassName, el);
-        util.on(el, "animationend", () =>
-          util.removeClass(filterStartClassName, el)
-        );
-      }
+      );
     }
     container.appendChild(el);
   }
-  animationRemoveNode(el: HTMLElement) {
+  animationRemoveNode(el: HTMLElement, isDestroy = false) {
     const { removeClassName, stylePrefix, removeClassNameSymbol } =
       this.options;
-    if (removeClassName) {
-      const classNameList = removeClassName?.split(removeClassNameSymbol!);
-      if (classNameList.length > 1) {
-        const filterRemoveClassNameList: string[] = [];
-        utilAnimationRemoveClassNames.forEach((item) => {
-          classNameList.forEach((className) => {
-            const pushClassName = item.includes(className)
-              ? `${stylePrefix}message-${className}`
-              : className;
-            filterRemoveClassNameList.push(pushClassName);
-          });
-        });
-        filterRemoveClassNameList.forEach((className) =>
-          util.addClass(className, el)
-        );
-      } else {
-        let filterRemoveClassName = removeClassName;
-        if (
-          utilAnimationRemoveClassNames.some((item) =>
-            item.includes(removeClassName)
-          )
-        ) {
-          filterRemoveClassName = `${stylePrefix}message-${removeClassName}`;
-        }
-        util.addClass(filterRemoveClassName, el);
-      }
-
-      util.on(el, "animationend", () => el.parentElement?.removeChild(el));
+    if (removeClassName && !isDestroy) {
+      handleAnimationNode(
+        el,
+        removeClassName,
+        removeClassNameSymbol!,
+        stylePrefix!,
+        utilAnimationRemoveClassNames,
+        () => el.parentElement?.removeChild(el)
+      );
     } else {
       el.parentElement?.removeChild(el);
     }
   }
-  close(element: HTMLElement | NodeList | HTMLCollection, time: number, isDestroy = false) {
+  close(
+    element: HTMLElement | NodeList | HTMLCollection,
+    time: number,
+    isDestroy = false
+  ) {
     if (__DEV__ && !util.isNumber(time)) {
       util.warn(MESSAGE_CLOSE_DURATION_WARNING);
     }
@@ -248,21 +229,30 @@ export class Message {
         ? normalizeTime
         : maxDuration;
     const container = this.checkContainer(this.options.container);
-    setTimeout(() => {
+    const delay = Math.min(
+      normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime,
+      normalizeMaxDuration
+    );
+    const closeHandler = () => {
       if (element instanceof NodeList || element instanceof HTMLCollection) {
         util.toArray(element).forEach((item) => {
           if (util.isRemoveNode(item as HTMLElement)) {
-            this.animationRemoveNode(item as HTMLElement);
+            this.animationRemoveNode(item as HTMLElement, isDestroy);
           }
         });
       } else {
         if (util.isRemoveNode(element)) {
-          this.animationRemoveNode(element);
+          this.animationRemoveNode(element, isDestroy);
         }
       }
       this.setTop(
         util.$$("." + this.options.stylePrefix + "message", container)
       );
-    }, Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration));
+    };
+    if (isDestroy) {
+      closeHandler();
+    } else {
+      setTimeout(closeHandler, delay);
+    }
   }
 }
