@@ -206,9 +206,6 @@ const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
     'Can not find the dom element,make sure to pass a correct dom element';
 
 class Message {
-    options;
-    el;
-    closeBtnEl;
     constructor(options) {
         this.options = this.normalizeOptions(options);
         this.el = null;
@@ -300,7 +297,7 @@ class Message {
             util.addClass(stylePrefix + "message-center", element);
         }
         const p = util.create("p");
-        p.innerHTML = content;
+        p.insertAdjacentHTML('afterbegin', content);
         if (showTypeIcon) {
             const icon = typeIcon
                 ? typeIcon
@@ -311,9 +308,9 @@ class Message {
         if (showClose) {
             this.closeBtnEl = util.create("i");
             util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
-            this.closeBtnEl.innerHTML = optionCloseIcon
+            this.closeBtnEl?.appendChild(util.createElement(optionCloseIcon
                 ? optionCloseIcon
-                : closeIcon(stylePrefix);
+                : closeIcon(stylePrefix)));
             element.appendChild(this.closeBtnEl);
         }
         this.el = element;
@@ -355,10 +352,10 @@ class Message {
         }
     }
     close(element, time, isDestroy = false) {
-        if (!util.isNumber(time)) {
+        if ( !util.isNumber(time)) {
             util.warn(MESSAGE_CLOSE_DURATION_WARNING);
         }
-        if (!util.isNumber(this.options.maxDuration)) {
+        if ( !util.isNumber(this.options.maxDuration)) {
             util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
         }
         const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -392,6 +389,7 @@ class Message {
     }
 }
 
+// import './styles/index.scss';
 const ewMessage = (options) => new Message(options);
 ewMessage.util = util;
 for (let key in typeMap) {
@@ -406,4 +404,4 @@ for (let key in typeMap) {
     };
 }
 
-export { ewMessage as default };
+export default ewMessage;

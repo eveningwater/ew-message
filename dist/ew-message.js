@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ewMessage = factory());
-})(this, (function () { 'use strict';
+}(this, (function () { 'use strict';
 
   const typeMap = {
       success: 'success',
@@ -212,9 +212,6 @@
       'Can not find the dom element,make sure to pass a correct dom element';
 
   class Message {
-      options;
-      el;
-      closeBtnEl;
       constructor(options) {
           this.options = this.normalizeOptions(options);
           this.el = null;
@@ -306,7 +303,7 @@
               util.addClass(stylePrefix + "message-center", element);
           }
           const p = util.create("p");
-          p.innerHTML = content;
+          p.insertAdjacentHTML('afterbegin', content);
           if (showTypeIcon) {
               const icon = typeIcon
                   ? typeIcon
@@ -317,9 +314,9 @@
           if (showClose) {
               this.closeBtnEl = util.create("i");
               util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
-              this.closeBtnEl.innerHTML = optionCloseIcon
+              this.closeBtnEl?.appendChild(util.createElement(optionCloseIcon
                   ? optionCloseIcon
-                  : closeIcon(stylePrefix);
+                  : closeIcon(stylePrefix)));
               element.appendChild(this.closeBtnEl);
           }
           this.el = element;
@@ -361,10 +358,10 @@
           }
       }
       close(element, time, isDestroy = false) {
-          if (!util.isNumber(time)) {
+          if ( !util.isNumber(time)) {
               util.warn(MESSAGE_CLOSE_DURATION_WARNING);
           }
-          if (!util.isNumber(this.options.maxDuration)) {
+          if ( !util.isNumber(this.options.maxDuration)) {
               util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
           }
           const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -398,6 +395,7 @@
       }
   }
 
+  // import './styles/index.scss';
   const ewMessage = (options) => new Message(options);
   ewMessage.util = util;
   for (let key in typeMap) {
@@ -414,4 +412,4 @@
 
   return ewMessage;
 
-}));
+})));

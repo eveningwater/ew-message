@@ -35,11 +35,11 @@ export default {
       exclude: 'node_modules/**' // 只编译我们的源代码
     }),
     rollupTypescript(),
-    scss({
-      include: ['/**/*.css', '/**/*.scss', '/**/*.sass'],
-      output: 'dist/ew-message.min.css',
-      failOnError: true,
-      outputStyle: 'compressed' //压缩
-    })
+    // scss({
+    //   include: ['/**/*.css', '/**/*.scss', '/**/*.sass'],
+    //   output: 'dist/ew-message.min.css',
+    //   failOnError: true,
+    //   outputStyle: 'compressed' //压缩
+    // })
   ]
 };
