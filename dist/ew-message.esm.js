@@ -78,6 +78,7 @@ util.createElement = (temp) => {
     return div.firstElementChild;
 };
 util.addClass = (v, el) => el.classList.add(v);
+util.hasClass = (v, el) => el.classList.contains(v);
 util.removeClass = (v, el) => el.classList.remove(v);
 util.on = (element, type, handler, useCapture = false) => {
     if (element && type && handler) {
@@ -92,6 +93,17 @@ util.off = (element, type, handler, useCapture = false) => {
 util.isRemoveNode = (item) => util.isDom(item) &&
     util.isDom(item.parentElement) &&
     util.isFunction(item.parentElement?.removeChild);
+util.removeNode = (item) => {
+    if (!item) {
+        return;
+    }
+    if (item.parentElement) {
+        item.parentElement.removeChild(item);
+    }
+    else {
+        item.remove();
+    }
+};
 
 const normalizeOptions = (option) => {
     let messageOption = defaultMessageOption;
@@ -190,6 +202,19 @@ const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existC
         res = filterClassName;
     }
     util.on(el, "animationend", () => callback?.(res));
+    // 如果未触发animationend事件，则在1.2s后强行触发回调
+    setTimeout(() => {
+        if (util.isArray(res)) {
+            if (res.some((item) => util.hasClass(item, el))) {
+                callback?.(res);
+            }
+        }
+        else {
+            if (util.hasClass(res, el)) {
+                callback?.(res);
+            }
+        }
+    }, 1200);
 };
 
 const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
@@ -206,6 +231,9 @@ const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
     'Can not find the dom element,make sure to pass a correct dom element';
 
 class Message {
+    options;
+    el;
+    closeBtnEl;
     constructor(options) {
         this.options = this.normalizeOptions(options);
         this.el = null;
@@ -297,7 +325,7 @@ class Message {
             util.addClass(stylePrefix + "message-center", element);
         }
         const p = util.create("p");
-        p.insertAdjacentHTML('afterbegin', content);
+        p.insertAdjacentHTML("afterbegin", content);
         if (showTypeIcon) {
             const icon = typeIcon
                 ? typeIcon
@@ -308,9 +336,7 @@ class Message {
         if (showClose) {
             this.closeBtnEl = util.create("i");
             util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
-            this.closeBtnEl?.appendChild(util.createElement(optionCloseIcon
-                ? optionCloseIcon
-                : closeIcon(stylePrefix)));
+            this.closeBtnEl?.appendChild(util.createElement(optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix)));
             element.appendChild(this.closeBtnEl);
         }
         this.el = element;
@@ -345,17 +371,17 @@ class Message {
     animationRemoveNode(el, isDestroy = false) {
         const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
         if (removeClassName && !isDestroy) {
-            handleAnimationNode(el, removeClassName, removeClassNameSymbol, stylePrefix, utilAnimationRemoveClassNames, () => el.parentElement?.removeChild(el));
+            handleAnimationNode(el, removeClassName, removeClassNameSymbol, stylePrefix, utilAnimationRemoveClassNames, () => util.removeNode(el));
         }
         else {
-            el.parentElement?.removeChild(el);
+            util.removeNode(el);
         }
     }
     close(element, time, isDestroy = false) {
-        if ( !util.isNumber(time)) {
+        if (!util.isNumber(time)) {
             util.warn(MESSAGE_CLOSE_DURATION_WARNING);
         }
-        if ( !util.isNumber(this.options.maxDuration)) {
+        if (!util.isNumber(this.options.maxDuration)) {
             util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
         }
         const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
@@ -404,4 +430,4 @@ for (let key in typeMap) {
     };
 }
 
-export default ewMessage;
+export { ewMessage as default };

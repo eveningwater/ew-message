@@ -138,7 +138,7 @@ export class Message {
       util.addClass(stylePrefix + "message-center", element);
     }
     const p = util.create("p");
-    p.insertAdjacentHTML('afterbegin', content);
+    p.insertAdjacentHTML("afterbegin", content);
     if (showTypeIcon) {
       const icon = typeIcon
         ? typeIcon
@@ -149,9 +149,11 @@ export class Message {
     if (showClose) {
       this.closeBtnEl = util.create("i");
       util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
-      this.closeBtnEl?.appendChild(util.createElement(optionCloseIcon
-        ? optionCloseIcon
-        : closeIcon(stylePrefix!)));
+      this.closeBtnEl?.appendChild(
+        util.createElement(
+          optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix!)
+        )
+      );
       element.appendChild(this.closeBtnEl);
     }
     this.el = element;
@@ -165,9 +167,10 @@ export class Message {
       const item = element[i] as HTMLElement;
       item.setAttribute(
         "style",
-        `top:${getOffsetTop(top) !== baseTopUnit
-          ? top
-          : `${baseTopUnit * (i + 1) + height * i}px`
+        `top:${
+          getOffsetTop(top) !== baseTopUnit
+            ? top
+            : `${baseTopUnit * (i + 1) + height * i}px`
         };`
       );
     }
@@ -204,10 +207,10 @@ export class Message {
         removeClassNameSymbol!,
         stylePrefix!,
         utilAnimationRemoveClassNames,
-        () => el.parentElement?.removeChild(el)
+        () => util.removeNode(el)
       );
     } else {
-      el.parentElement?.removeChild(el);
+      util.removeNode(el);
     }
   }
   close(

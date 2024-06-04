@@ -109,4 +109,16 @@ export const handleAnimationNode = (
   }
 
   util.on(el, "animationend", () => callback?.(res));
+  // 如果未触发animationend事件，则在1.2s后强行触发回调
+  setTimeout(() => {
+    if (util.isArray(res)) {
+      if ((res as string[]).some((item) => util.hasClass(item, el))) {
+        callback?.(res);
+      }
+    } else {
+      if (util.hasClass(res as string, el)) {
+        callback?.(res);
+      }
+    }
+  }, 1200);
 };

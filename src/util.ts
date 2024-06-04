@@ -35,6 +35,7 @@ util.createElement = (temp: string) => {
   return div.firstElementChild as HTMLElement;
 };
 util.addClass = (v: string, el: HTMLElement) => el.classList.add(v);
+util.hasClass = (v: string, el: HTMLElement) => el.classList.contains(v);
 util.removeClass = (v: string, el: HTMLElement) => el.classList.remove(v);
 util.on = (
   element: HTMLElement | Document | Element | Window,
@@ -60,4 +61,14 @@ util.isRemoveNode = (item: HTMLElement) =>
   util.isDom(item) &&
   util.isDom(item.parentElement) &&
   util.isFunction(item.parentElement?.removeChild);
+util.removeNode = (item: HTMLElement) => {
+  if (!item) {
+    return;
+  }
+  if (item.parentElement) {
+    item.parentElement.removeChild(item);
+  } else {
+    item.remove();
+  }
+};
 export default util;
