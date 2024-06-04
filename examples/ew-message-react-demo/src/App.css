@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+
+/* 默认的0.2s时间太短，导致在react中无法触发animationend事件 */
+.ew-message.ew-message-fadeIn {
+   animation-duration: 1s;
+}
+/* .ew-message.ew-message-fadeOut {
+  animation-duration: 2s;
+} */
