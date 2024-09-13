@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.1.2
+ * ewMeassage.js v0.1.3
  * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
@@ -421,7 +421,6 @@
       }
   }
 
-  // import './styles/index.scss';
   const ewMessage = (options) => new Message(options);
   ewMessage.util = util;
   for (let key in typeMap) {

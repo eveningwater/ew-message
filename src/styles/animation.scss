@@ -1,5 +1,6 @@
-@import './variable.scss';
 @use 'sass:map';
+@import './variable.scss';
+
 
 $animation-remove-key-list: (
   'fadeOut': 'opacity',

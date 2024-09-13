@@ -4,7 +4,7 @@ import { Message } from './message';
 import { normalizeOptions } from './method';
 import util from './util';
 import { MESSAGE_TYPE_WARNING } from './warn';
-// import './styles/index.scss';
+import './styles/index.scss';
 
 const ewMessage = (options: ewMessageOption | string) => new Message(options);
 ewMessage.util = util;
