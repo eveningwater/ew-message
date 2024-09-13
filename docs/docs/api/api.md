@@ -75,7 +75,7 @@ const msg = ewMessage({
   content: "这是一个默认的消息提示框",
   center: true,
   type: "success",
-  duration: 120000,
+  duration: 12000,
   maxDuration: 10000, // 最大关闭时间设置的是10s，因此消息提示框将在10s后关闭，而不是12s后关闭
 });
 ```
@@ -229,7 +229,7 @@ const msg = ewMessage({
 
 ### messageZIndex(0.1.0 新增)
 
-用于自定义消息提示框的显示层级，是一个 number 值，用于覆盖默认得到 z-index:1000，无默认值。如:
+用于自定义消息提示框的显示层级，是一个 number 值，用于覆盖默认的 z-index:1000，无默认值。如:
 
 ```ts
 const msg = ewMessage({
