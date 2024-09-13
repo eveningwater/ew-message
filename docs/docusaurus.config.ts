@@ -11,7 +11,7 @@ const config: Config = {
   url: 'https://eveningwater.github.io/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/ew-message/',
+  baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/ew-message/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.

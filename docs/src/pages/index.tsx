@@ -6,7 +6,6 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 import "ew-message/dist/ew-message.min.css"
 import ewMessage from 'ew-message';
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './index.module.css';
 
 function HomepageHeader() {
@@ -48,15 +47,13 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <BrowserOnly>
-      {() => <Layout
-        title={`Hello from ${siteConfig.title}`}
-        description="Description will go into a meta tag in <head />">
-        <HomepageHeader />
-        <main>
-          <HomepageFeatures />
-        </main>
-      </Layout>}
-    </BrowserOnly>
+    <Layout
+      title={`Hello from ${siteConfig.title}`}
+      description="Description will go into a meta tag in <head />">
+      <HomepageHeader />
+      <main>
+        <HomepageFeatures />
+      </main>
+    </Layout>
   );
 }
