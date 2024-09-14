@@ -1,28 +1,28 @@
-import type { ewMessageOption } from "../typings/ewMessage";
+import type { ewMessageOption } from "../../typings/ewMessage";
 import {
   baseTopUnit,
   defaultMessageOption,
   typeMap,
   utilAnimationAddClassNames,
   utilAnimationRemoveClassNames,
-} from "./config";
-import { closeIcon, typeIconMap } from "./icon";
+} from "../const/config";
+import { closeIcon, typeIconMap } from "../const/icon";
 import {
   addMessageStyle,
+  checkContainer,
   getOffsetTop,
   handleAnimationNode,
   normalizeOptions,
   validateAutoHasStyle,
   validateHasStyle,
 } from "./method";
-import util from "./util";
+import { isNumber, isString, warn, $$, on, addClass, createElement, isRemoveNode, create, isArray, removeClass, removeNode, toArray } from "../utils/util";
 import {
   MESSAGE_CLOSE_DURATION_WARNING,
   MESSAGE_CLOSE_MAX_DURATION_WARNING,
   MESSAGE_CLOSE_PARAM_WARNING,
-  MESSAGE_CONTAINER_WARNING,
   MESSAGE_CONTENT_PARAM_WARNING,
-} from "./warn";
+} from "../const/warn";
 
 export class Message {
   options: ewMessageOption;
@@ -36,15 +36,16 @@ export class Message {
     if (isHasStyle) {
       this.options.stylePrefix = "ew-";
     }
-    if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
-      this.addMessageStyle(this.options.stylePrefix);
+    const { stylePrefix,immediate } = this.options;
+    if (!isHasStyle && !validateAutoHasStyle(stylePrefix)) {
+      this.addMessageStyle(stylePrefix);
     }
     this.addZIndex();
-    this.options.immediate && this.render(this.options);
+    immediate && this.render(this.options);
   }
   addZIndex() {
     const { messageZIndex, stylePrefix } = this.options;
-    if (util.isNumber(messageZIndex) && messageZIndex! > 0) {
+    if (isNumber(messageZIndex) && messageZIndex! > 0) {
       this.addMessageStyle(
         stylePrefix,
         `.${stylePrefix}message{z-index:${messageZIndex}}`
@@ -71,21 +72,6 @@ export class Message {
   addMessageStyle(prefix_class?: string, style?: string) {
     return addMessageStyle(prefix_class, style);
   }
-  checkContainer(el?: string | HTMLElement) {
-    if (util.isDom(el)) {
-      return el as HTMLElement;
-    } else if (util.isString(el)) {
-      const container = util.$(el as string) as HTMLElement;
-      if (!container) {
-        if (__DEV__) {
-          util.warn(MESSAGE_CONTAINER_WARNING);
-        }
-        return document.body;
-      }
-      return container;
-    }
-    return document.body;
-  }
   render(opt?: ewMessageOption) {
     const options = opt || this.options;
     const {
@@ -95,28 +81,28 @@ export class Message {
       container: optionContainer,
       stylePrefix,
     } = options;
-    if ((!util.isNumber(duration) || duration! <= 0) && !showClose) {
+    if ((!isNumber(duration) || duration! <= 0) && !showClose) {
       if (__DEV__) {
-        util.warn(MESSAGE_CLOSE_PARAM_WARNING);
+        warn(MESSAGE_CLOSE_PARAM_WARNING);
       }
       options.showClose = true;
     }
-    if (!util.isString(content) && __DEV__) {
-      util.warn(MESSAGE_CONTENT_PARAM_WARNING);
+    if (!isString(content) && __DEV__) {
+      warn(MESSAGE_CONTENT_PARAM_WARNING);
     }
-    const container = this.checkContainer(optionContainer);
+    const container = checkContainer(optionContainer);
     const el = this.create(options);
     this.animationAddNode(el, container);
-    this.setTop(util.$$("." + stylePrefix + "message", container));
+    this.setTop($$("." + stylePrefix + "message", container));
     if (
-      util.isNumber(duration) &&
+      isNumber(duration) &&
       duration! > 0 &&
       this.el instanceof HTMLElement
     ) {
       this.close(this.el, duration!);
     }
     if (this.closeBtnEl) {
-      util.on(this.closeBtnEl, "click", () => {
+      on(this.closeBtnEl, "click", () => {
         this.close(<HTMLElement>this.closeBtnEl!.parentElement, 0);
       });
     }
@@ -132,25 +118,25 @@ export class Message {
       showClose,
       closeIcon: optionCloseIcon,
     } = options || this.options;
-    let element = util.create("div");
+    let element = create("div");
     element.className = `${stylePrefix}message ${stylePrefix}message-${type}`;
     if (center) {
-      util.addClass(stylePrefix + "message-center", element);
+      addClass(stylePrefix + "message-center", element);
     }
-    const p = util.create("p");
+    const p = create("p");
     p.insertAdjacentHTML("afterbegin", content);
     if (showTypeIcon) {
       const icon = typeIcon
         ? typeIcon
         : typeIconMap[type || "info"](stylePrefix);
-      element.appendChild(util.createElement(icon));
+      element.appendChild(createElement(icon));
     }
     element.appendChild(p);
     if (showClose) {
-      this.closeBtnEl = util.create("i");
-      util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
+      this.closeBtnEl = create("i");
+      addClass(`${stylePrefix}message-close`, this.closeBtnEl);
       this.closeBtnEl?.appendChild(
-        util.createElement(
+        createElement(
           optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix!)
         )
       );
@@ -167,10 +153,9 @@ export class Message {
       const item = element[i] as HTMLElement;
       item.setAttribute(
         "style",
-        `top:${
-          getOffsetTop(top) !== baseTopUnit
-            ? top
-            : `${baseTopUnit * (i + 1) + height * i}px`
+        `top:${getOffsetTop(top) !== baseTopUnit
+          ? top
+          : `${baseTopUnit * (i + 1) + height * i}px`
         };`
       );
     }
@@ -185,12 +170,12 @@ export class Message {
         stylePrefix!,
         utilAnimationAddClassNames,
         (res) => {
-          if (util.isArray(res)) {
-            (res as string[]).forEach((className) =>
-              util.removeClass(className, el)
+          if (isArray(res)) {
+            res.forEach((className) =>
+              removeClass(className, el)
             );
           } else {
-            util.removeClass(res as string, el);
+            removeClass(res, el);
           }
         }
       );
@@ -207,10 +192,10 @@ export class Message {
         removeClassNameSymbol!,
         stylePrefix!,
         utilAnimationRemoveClassNames,
-        () => util.removeNode(el)
+        () => removeNode(el)
       );
     } else {
-      util.removeNode(el);
+      removeNode(el);
     }
   }
   close(
@@ -218,37 +203,38 @@ export class Message {
     time: number,
     isDestroy = false
   ) {
-    if (__DEV__ && !util.isNumber(time)) {
-      util.warn(MESSAGE_CLOSE_DURATION_WARNING);
+    const { maxDuration, container } = this.options;
+    if (__DEV__ && !isNumber(time)) {
+      warn(MESSAGE_CLOSE_DURATION_WARNING);
     }
-    if (__DEV__ && !util.isNumber(this.options.maxDuration)) {
-      util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
+    if (__DEV__ && !isNumber(maxDuration)) {
+      warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
     }
-    const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
-    const maxDuration = this.options.maxDuration || 10000;
+    const normalizeTime = !isNumber(time) || time <= 0 ? 100 : time;
+    const maxDurationValue = maxDuration || 10000;
     const normalizeMaxDuration =
-      !util.isNumber(maxDuration) || maxDuration <= normalizeTime
+      !isNumber(maxDurationValue) || maxDurationValue <= normalizeTime
         ? normalizeTime
-        : maxDuration;
-    const container = this.checkContainer(this.options.container);
+        : maxDurationValue;
+    const mountedContainer = checkContainer(container);
     const delay = Math.min(
       normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime,
       normalizeMaxDuration
     );
     const closeHandler = () => {
       if (element instanceof NodeList || element instanceof HTMLCollection) {
-        util.toArray(element).forEach((item) => {
-          if (util.isRemoveNode(item as HTMLElement)) {
+        toArray(element).forEach((item) => {
+          if (isRemoveNode(item as HTMLElement)) {
             this.animationRemoveNode(item as HTMLElement, isDestroy);
           }
         });
       } else {
-        if (util.isRemoveNode(element)) {
+        if (isRemoveNode(element)) {
           this.animationRemoveNode(element, isDestroy);
         }
       }
       this.setTop(
-        util.$$("." + this.options.stylePrefix + "message", container)
+        $$("." + this.options.stylePrefix + "message", mountedContainer)
       );
     };
     if (isDestroy) {

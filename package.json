@@ -10,7 +10,8 @@
     "publish": "npm publish .",
     "publicPublish": "npm publish . --access public",
     "deploy": "npm run build:docs & gh-pages -d gh-pages",
-    "release-docs": "gh-pages -d gh-pages"
+    "release-docs": "gh-pages -d gh-pages",
+    "dev:demo": "live-server ./examples/test.html"
   },
   "main": "dist/ew-message.min.js",
   "module": "dist/ew-message.esm.min.js",
@@ -50,6 +51,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "live-server": "^1.2.2",
     "sass": "^1.78.0"
   }
 }

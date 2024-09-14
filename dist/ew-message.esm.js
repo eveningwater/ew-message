@@ -44,23 +44,24 @@ const typeIconMap = {
     error: errorIcon
 };
 
-const util = Object.create(null);
-util.isFunction = (value) => typeof value === "function";
-util.isDom = (el) => typeof HTMLElement === "object"
-    ? el instanceof HTMLElement
-    : (el &&
-        typeof el === "object" &&
-        el instanceof Node &&
-        el.nodeType === 1 &&
-        typeof el.nodeName === "string") ||
-        el instanceof HTMLCollection ||
-        el instanceof NodeList;
-util.warn = (v) => console.warn(v);
-util.toArray = (v) => [].slice.call(v);
-util.isObject = (v) => typeof v === "object" && !!v;
-util.isString = (v) => typeof v === "string";
-util.isNumber = (v) => typeof v === "number" && !Number.isNaN(v);
-util.isArray = (v) => {
+const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
+const MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
+const MESSAGE_CLOSE_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
+    'Message need a close time to auto close or a close button to close by yourself!';
+const MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
+    'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
+const MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
+    '"Duration" property value is not a number,make sure to use a number';
+const MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
+    '"maxDuration" property value is not a number,make sure to use a number';
+const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
+    'Can not find the dom element,make sure to pass a correct dom element';
+
+const isUndef = (v) => v === undefined;
+const isString = (v) => typeof v === "string";
+const isNumber = (v) => typeof v === "number" && !Number.isNaN(v);
+const isObject$1 = (v) => typeof v === "object" && !!v;
+const isArray = (v) => {
     if (Array.isArray) {
         return Array.isArray(v);
     }
@@ -68,36 +69,53 @@ util.isArray = (v) => {
         return Object.prototype.toString.call(v).slice(8, -1) === "array";
     }
 };
-util.hasOwn = (v, prop) => v.hasOwnProperty(prop);
-util.$$ = (v, el = document) => el.querySelectorAll(v);
-util.$ = (v, el = document) => el.querySelector(v);
-util.create = (v) => document.createElement(v);
-util.createElement = (temp) => {
+const isFunction = (value) => typeof value === "function";
+/**
+ * 检测是否是Dom元素
+ * @param el
+ * @returns
+ */
+const isDom = (el) => {
+    if (isObject$1(HTMLElement)) {
+        return el instanceof HTMLElement;
+    }
+    else {
+        const isHTMLElement = isObject$1(el) && el.nodeType === 1 && isString(el.nodeName);
+        return isHTMLElement || el instanceof HTMLCollection || el instanceof NodeList;
+    }
+};
+const toArray = (v) => [].slice.call(v);
+const hasOwn$1 = (v, prop) => v.hasOwnProperty(prop);
+const $$ = (v, el = document) => el.querySelectorAll(v);
+const $ = (v, el = document) => el.querySelector(v);
+const create = (v) => document.createElement(v);
+const createElement = (temp) => {
     const div = document.createElement("div");
     div.innerHTML = temp;
     return div.firstElementChild;
 };
-util.addClass = (v, el) => el.classList.add(v);
-util.hasClass = (v, el) => el.classList.contains(v);
-util.removeClass = (v, el) => el.classList.remove(v);
-util.on = (element, type, handler, useCapture = false) => {
+const addClass = (v, el) => el.classList.add(v);
+const hasClass = (v, el) => el.classList.contains(v);
+const removeClass = (v, el) => el.classList.remove(v);
+const on = (element, type, handler, useCapture = false) => {
     if (element && type && handler) {
         element.addEventListener(type, handler, useCapture);
     }
 };
-util.off = (element, type, handler, useCapture = false) => {
+const off = (element, type, handler, useCapture = false) => {
     if (element && type && handler) {
         element.removeEventListener(type, handler, useCapture);
     }
 };
-util.isRemoveNode = (item) => util.isDom(item) &&
-    util.isDom(item.parentElement) &&
-    util.isFunction(item.parentElement?.removeChild);
-util.removeNode = (item) => {
+const warn$1 = (v) => console.warn(v);
+const isRemoveNode = (item) => isDom(item) &&
+    isDom(item.parentElement) &&
+    isFunction(item.parentElement?.removeChild);
+const removeNode = (item) => {
     if (!item) {
         return;
     }
-    if (item.parentElement) {
+    if (isRemoveNode(item)) {
         item.parentElement.removeChild(item);
     }
     else {
@@ -105,12 +123,37 @@ util.removeNode = (item) => {
     }
 };
 
+var util = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  isUndef: isUndef,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject$1,
+  isArray: isArray,
+  isFunction: isFunction,
+  isDom: isDom,
+  toArray: toArray,
+  hasOwn: hasOwn$1,
+  $$: $$,
+  $: $,
+  create: create,
+  createElement: createElement,
+  addClass: addClass,
+  hasClass: hasClass,
+  removeClass: removeClass,
+  on: on,
+  off: off,
+  warn: warn$1,
+  isRemoveNode: isRemoveNode,
+  removeNode: removeNode
+});
+
 const normalizeOptions = (option) => {
     let messageOption = defaultMessageOption;
-    if (typeof option === "string") {
+    if (isString(option)) {
         messageOption.content = option;
     }
-    else if (typeof option === "object" && !!option) {
+    else if (isObject$1(option)) {
         messageOption = { ...messageOption, ...option };
     }
     return messageOption;
@@ -121,9 +164,9 @@ const addMessageStyle = (prefix_class = "ew-", style) => new Promise((resolve) =
         if (ref === void 0)
             ref = {};
         const insertAt = ref.insertAt;
-        if (!css || typeof document === "undefined")
+        if (!css || isUndef(document))
             return;
-        const head = document.head || util.$("head");
+        const head = document.head || $("head");
         const style = document.createElement("style");
         style.type = "text/css";
         if (insertAt === "top") {
@@ -144,7 +187,7 @@ const addMessageStyle = (prefix_class = "ew-", style) => new Promise((resolve) =
 });
 const validateHasStyle = () => {
     let isHasStyle = false;
-    const allLinks = util.$$("link");
+    const allLinks = $$("link");
     allLinks.forEach((link) => {
         const href = link.getAttribute("href");
         if (href?.includes("ew-message")) {
@@ -155,7 +198,7 @@ const validateHasStyle = () => {
 };
 const validateAutoHasStyle = (stylePrefix) => {
     let isHasStyle = false;
-    const allStyles = util.$$("style");
+    const allStyles = $$("style");
     allStyles.forEach((style) => {
         const text = style.textContent;
         if (text === getMessageStyle(stylePrefix)) {
@@ -165,12 +208,12 @@ const validateAutoHasStyle = (stylePrefix) => {
     return isHasStyle;
 };
 const getOffsetTop = (top) => {
-    if (util.isNumber(top)) {
+    if (isNumber(top)) {
         return `${top}px`;
     }
-    if (util.isString(top)) {
+    if (isString(top)) {
         const regExp = /[px|%|rem|em|vh|vw|ex|rem|ch|vmin|vmax]/g;
-        if (util.isNumber(Number(top.replace(regExp, ""))) &&
+        if (isNumber(Number(top.replace(regExp, ""))) &&
             top) {
             return top;
         }
@@ -190,7 +233,7 @@ const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existC
                 filterClassNameList.push(pushClassName);
             });
         });
-        filterClassNameList.forEach((className) => util.addClass(className, el));
+        filterClassNameList.forEach((className) => addClass(className, el));
         res = filterClassNameList;
     }
     else {
@@ -198,37 +241,40 @@ const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existC
         if (existClassNames.some((item) => item.includes(className))) {
             filterClassName = `${stylePrefix}message-${className}`;
         }
-        util.addClass(filterClassName, el);
+        addClass(filterClassName, el);
         res = filterClassName;
     }
-    util.on(el, "animationend", () => callback?.(res));
+    on(el, "animationend", () => callback?.(res));
     // 如果未触发animationend事件，则在1.2s后强行触发回调
     setTimeout(() => {
-        if (util.isArray(res)) {
-            if (res.some((item) => util.hasClass(item, el))) {
+        if (isArray(res)) {
+            if (res.some(item => hasClass(item, el))) {
                 callback?.(res);
             }
         }
         else {
-            if (util.hasClass(res, el)) {
+            if (hasClass(res, el)) {
                 callback?.(res);
             }
         }
     }, 1200);
 };
-
-const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
-const MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
-const MESSAGE_CLOSE_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
-    'Message need a close time to auto close or a close button to close by yourself!';
-const MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
-    'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
-const MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
-    '"Duration" property value is not a number,make sure to use a number';
-const MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
-    '"maxDuration" property value is not a number,make sure to use a number';
-const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
-    'Can not find the dom element,make sure to pass a correct dom element';
+const checkContainer = (el) => {
+    if (isDom(el)) {
+        return el;
+    }
+    else if (isString(el)) {
+        const container = $(el);
+        if (!container) {
+            {
+                warn$1(MESSAGE_CONTAINER_WARNING);
+            }
+            return document.body;
+        }
+        return container;
+    }
+    return document.body;
+};
 
 class Message {
     options;
@@ -242,15 +288,16 @@ class Message {
         if (isHasStyle) {
             this.options.stylePrefix = "ew-";
         }
-        if (!isHasStyle && !validateAutoHasStyle(this.options.stylePrefix)) {
-            this.addMessageStyle(this.options.stylePrefix);
+        const { stylePrefix, immediate } = this.options;
+        if (!isHasStyle && !validateAutoHasStyle(stylePrefix)) {
+            this.addMessageStyle(stylePrefix);
         }
         this.addZIndex();
-        this.options.immediate && this.render(this.options);
+        immediate && this.render(this.options);
     }
     addZIndex() {
         const { messageZIndex, stylePrefix } = this.options;
-        if (util.isNumber(messageZIndex) && messageZIndex > 0) {
+        if (isNumber(messageZIndex) && messageZIndex > 0) {
             this.addMessageStyle(stylePrefix, `.${stylePrefix}message{z-index:${messageZIndex}}`);
         }
     }
@@ -274,69 +321,53 @@ class Message {
     addMessageStyle(prefix_class, style) {
         return addMessageStyle(prefix_class, style);
     }
-    checkContainer(el) {
-        if (util.isDom(el)) {
-            return el;
-        }
-        else if (util.isString(el)) {
-            const container = util.$(el);
-            if (!container) {
-                {
-                    util.warn(MESSAGE_CONTAINER_WARNING);
-                }
-                return document.body;
-            }
-            return container;
-        }
-        return document.body;
-    }
     render(opt) {
         const options = opt || this.options;
         const { duration, showClose, content, container: optionContainer, stylePrefix, } = options;
-        if ((!util.isNumber(duration) || duration <= 0) && !showClose) {
+        if ((!isNumber(duration) || duration <= 0) && !showClose) {
             {
-                util.warn(MESSAGE_CLOSE_PARAM_WARNING);
+                warn$1(MESSAGE_CLOSE_PARAM_WARNING);
             }
             options.showClose = true;
         }
-        if (!util.isString(content) && true) {
-            util.warn(MESSAGE_CONTENT_PARAM_WARNING);
+        if (!isString(content) && true) {
+            warn$1(MESSAGE_CONTENT_PARAM_WARNING);
         }
-        const container = this.checkContainer(optionContainer);
+        const container = checkContainer(optionContainer);
         const el = this.create(options);
         this.animationAddNode(el, container);
-        this.setTop(util.$$("." + stylePrefix + "message", container));
-        if (util.isNumber(duration) &&
+        this.setTop($$("." + stylePrefix + "message", container));
+        if (isNumber(duration) &&
             duration > 0 &&
             this.el instanceof HTMLElement) {
             this.close(this.el, duration);
         }
         if (this.closeBtnEl) {
-            util.on(this.closeBtnEl, "click", () => {
+            on(this.closeBtnEl, "click", () => {
                 this.close(this.closeBtnEl.parentElement, 0);
             });
         }
     }
     create(options) {
         const { stylePrefix, type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = options || this.options;
-        let element = util.create("div");
+        let element = create("div");
         element.className = `${stylePrefix}message ${stylePrefix}message-${type}`;
         if (center) {
-            util.addClass(stylePrefix + "message-center", element);
+            addClass(stylePrefix + "message-center", element);
         }
-        const p = util.create("p");
+        const p = create("p");
         p.insertAdjacentHTML("afterbegin", content);
         if (showTypeIcon) {
             const icon = typeIcon
                 ? typeIcon
                 : typeIconMap[type || "info"](stylePrefix);
-            element.appendChild(util.createElement(icon));
+            element.appendChild(createElement(icon));
         }
         element.appendChild(p);
         if (showClose) {
-            this.closeBtnEl = util.create("i");
-            util.addClass(`${stylePrefix}message-close`, this.closeBtnEl);
-            this.closeBtnEl?.appendChild(util.createElement(optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix)));
+            this.closeBtnEl = create("i");
+            addClass(`${stylePrefix}message-close`, this.closeBtnEl);
+            this.closeBtnEl?.appendChild(createElement(optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix)));
             element.appendChild(this.closeBtnEl);
         }
         this.el = element;
@@ -358,11 +389,11 @@ class Message {
         const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
         if (startClassName) {
             handleAnimationNode(el, startClassName, startClassNameSymbol, stylePrefix, utilAnimationAddClassNames, (res) => {
-                if (util.isArray(res)) {
-                    res.forEach((className) => util.removeClass(className, el));
+                if (isArray(res)) {
+                    res.forEach((className) => removeClass(className, el));
                 }
                 else {
-                    util.removeClass(res, el);
+                    removeClass(res, el);
                 }
             });
         }
@@ -371,40 +402,41 @@ class Message {
     animationRemoveNode(el, isDestroy = false) {
         const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
         if (removeClassName && !isDestroy) {
-            handleAnimationNode(el, removeClassName, removeClassNameSymbol, stylePrefix, utilAnimationRemoveClassNames, () => util.removeNode(el));
+            handleAnimationNode(el, removeClassName, removeClassNameSymbol, stylePrefix, utilAnimationRemoveClassNames, () => removeNode(el));
         }
         else {
-            util.removeNode(el);
+            removeNode(el);
         }
     }
     close(element, time, isDestroy = false) {
-        if (!util.isNumber(time)) {
-            util.warn(MESSAGE_CLOSE_DURATION_WARNING);
+        const { maxDuration, container } = this.options;
+        if (!isNumber(time)) {
+            warn$1(MESSAGE_CLOSE_DURATION_WARNING);
         }
-        if (!util.isNumber(this.options.maxDuration)) {
-            util.warn(MESSAGE_CLOSE_MAX_DURATION_WARNING);
+        if (!isNumber(maxDuration)) {
+            warn$1(MESSAGE_CLOSE_MAX_DURATION_WARNING);
         }
-        const normalizeTime = !util.isNumber(time) || time <= 0 ? 100 : time;
-        const maxDuration = this.options.maxDuration || 10000;
-        const normalizeMaxDuration = !util.isNumber(maxDuration) || maxDuration <= normalizeTime
+        const normalizeTime = !isNumber(time) || time <= 0 ? 100 : time;
+        const maxDurationValue = maxDuration || 10000;
+        const normalizeMaxDuration = !isNumber(maxDurationValue) || maxDurationValue <= normalizeTime
             ? normalizeTime
-            : maxDuration;
-        const container = this.checkContainer(this.options.container);
+            : maxDurationValue;
+        const mountedContainer = checkContainer(container);
         const delay = Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration);
         const closeHandler = () => {
             if (element instanceof NodeList || element instanceof HTMLCollection) {
-                util.toArray(element).forEach((item) => {
-                    if (util.isRemoveNode(item)) {
+                toArray(element).forEach((item) => {
+                    if (isRemoveNode(item)) {
                         this.animationRemoveNode(item, isDestroy);
                     }
                 });
             }
             else {
-                if (util.isRemoveNode(element)) {
+                if (isRemoveNode(element)) {
                     this.animationRemoveNode(element, isDestroy);
                 }
             }
-            this.setTop(util.$$("." + this.options.stylePrefix + "message", container));
+            this.setTop($$("." + this.options.stylePrefix + "message", mountedContainer));
         };
         if (isDestroy) {
             closeHandler();
@@ -415,15 +447,16 @@ class Message {
     }
 }
 
+const { hasOwn, isObject, warn } = util;
 const ewMessage = (options) => new Message(options);
 ewMessage.util = util;
 for (let key in typeMap) {
     ewMessage[key] = (option) => {
         const messageOption = normalizeOptions(option);
-        if (util.isObject(option) &&
-            util.hasOwn(option, 'type') &&
+        if (isObject(option) &&
+            hasOwn(option, 'type') &&
             true) {
-            util.warn(MESSAGE_TYPE_WARNING);
+            warn(MESSAGE_TYPE_WARNING);
         }
         return new Message({ ...messageOption, type: key });
     };
