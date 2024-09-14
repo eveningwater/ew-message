@@ -45,7 +45,7 @@ export class Message {
   }
   addZIndex() {
     const { messageZIndex, stylePrefix } = this.options;
-    if (isNumber(messageZIndex) && messageZIndex! > 0) {
+    if (isNumber(messageZIndex) && messageZIndex > 0) {
       this.addMessageStyle(
         stylePrefix,
         `.${stylePrefix}message{z-index:${messageZIndex}}`

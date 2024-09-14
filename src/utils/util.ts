@@ -12,11 +12,6 @@ export const isArray = <T>(v: unknown): v is Array<T> => {
   }
 };
 export const isFunction = (value: unknown): value is Function => typeof value === "function";
-/**
- * 检测是否是Dom元素
- * @param el 
- * @returns 
- */
 export const isDom = (el: unknown): el is HTMLElement | HTMLCollection | NodeList => {
   if (isObject<HTMLElement>(HTMLElement)) {
     return el instanceof HTMLElement;
