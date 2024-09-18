@@ -1,3 +1,10 @@
+export enum Position {
+  FIXED = 'fixed', 
+  ABSOLUTE = 'absolute',
+  RELATIVE = 'relative',
+  STICKY = 'sticky', 
+  STATIC = 'static'
+}
 export interface ewMessageUtils {
   removeNode: (item: HTMLElement) => void;
   hasClass: (v: string, el: HTMLElement) => boolean;
@@ -58,8 +65,9 @@ export interface ewMessageOption {
   removeClassNameSymbol?: string;
   messageZIndex?: number;
   top?: number | string;
+  position?: Position;
 }
-export type AnyObj = Record<string, any>;
+export type AnyObj<T extends unknown> = Record<string, T>;
 export interface ewMessageStyleRefType extends AnyObj {
   insertAt?: string;
 }

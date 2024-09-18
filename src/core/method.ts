@@ -17,7 +17,7 @@ export const normalizeOptions = (
   return messageOption;
 };
 export const addMessageStyle = (prefix_class = "ew-", style?: string) =>
-  new Promise((resolve) => {
+  new Promise<boolean>((resolve) => {
     const cssText = style || getMessageStyle(prefix_class);
     const styleInject = (css: string, ref?: ewMessageStyleRefType) => {
       if (ref === void 0) ref = {};

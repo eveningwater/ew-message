@@ -87,3 +87,4 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 - 0.1.0: 修复了 ts 类型错误，新增了 messageZIndex 属性。
 - 0.1.1: 新增了 top 属性,新增了 startClassName 与 startClassNameSymbol 属性,新增了 removeClass 方法。
 - 0.1.2: 修改了销毁消息提示框逻辑,增加了 isArray、isRemoveNode 方法。
+- 0.1.3: 调整了代码结构，新增了position属性，新增了isUndef方法。

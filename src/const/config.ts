@@ -1,5 +1,11 @@
 import type { ewMessageOption, ewMessageType } from "../../typings/ewMessage";
-
+export enum Position {
+  FIXED = 'fixed', 
+  ABSOLUTE = 'absolute',
+  RELATIVE = 'relative',
+  STICKY = 'sticky', 
+  STATIC = 'static'
+}
 export const typeMap: ewMessageType = {
   success: 'success',
   info: 'info',
@@ -20,7 +26,8 @@ export const defaultMessageOption: ewMessageOption = {
   removeClassName: '',
   removeClassNameSymbol: ' ',
   startClassName: '',
-  startClassNameSymbol: ' '
+  startClassNameSymbol: ' ',
+  position: Position.FIXED
 };
 
 export const getMessageStyle = (prefix_class: string = 'ew-') => `
@@ -31,3 +38,8 @@ export const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];
 export const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
 
 export const baseTopUnit = 25;
+
+export const positionList = Object.keys(Position).reduce<string []>((res, key) => {
+  res.push(Position[key as keyof typeof Position]);
+  return res;
+}, []);

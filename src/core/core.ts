@@ -2,6 +2,7 @@ import type { ewMessageOption } from "../../typings/ewMessage";
 import {
   baseTopUnit,
   defaultMessageOption,
+  positionList,
   typeMap,
   utilAnimationAddClassNames,
   utilAnimationRemoveClassNames,
@@ -41,7 +42,17 @@ export class Message {
       this.addMessageStyle(stylePrefix);
     }
     this.addZIndex();
+    this.addPosition()
     immediate && this.render(this.options);
+  }
+  addPosition(){
+    const { position, stylePrefix, type } = this.options;
+    if(isString(position) && positionList.includes(position)){
+      this.addMessageStyle(
+        stylePrefix,
+        `.${stylePrefix}message.${stylePrefix}message-${type}{position:${position}}}`
+      );
+    }
   }
   addZIndex() {
     const { messageZIndex, stylePrefix } = this.options;
