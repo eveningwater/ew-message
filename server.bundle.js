@@ -210,6 +210,10 @@ const toc = [{
   "value": "startClassNameSymbol(0.1.1 新增)",
   "id": "startclassnamesymbol011-新增",
   "level": 3
+}, {
+  "value": "position(0.1.3 新增)",
+  "id": "position013-新增",
+  "level": 3
 }];
 function _createMdxContent(props) {
   const _components = {
@@ -502,6 +506,20 @@ function _createMdxContent(props) {
         className: "language-ts",
         children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  startClassName: 'fadeIn+scaleDown' // 或者也可以传入ew-message-fadeIn ew-message-scaleDown\n  startClassNameSymbol: '+'\n  // 这里是使用+隔开\n});\n"
       })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
+      id: "position013-新增",
+      children: "position(0.1.3 新增)"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
+      children: "用于指定消息提示框的定位方式，支持的定位方式有 absolute、fixed、relative、sticky，默认值是 fixed。如:"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
+      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        className: "language-ts",
+        children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  position: 'absolute'\n});\n"
+      })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
+      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
+        children: "注: 如无必要，不需要使用该属性，该属性仅提供一个方便。"
+      }), "\n"]
     })]
   });
 }
@@ -929,6 +947,10 @@ const toc = [{
   "value": "isRemoveNode(0.1.2 新增)",
   "id": "isremovenode012-新增",
   "level": 2
+}, {
+  "value": "isUndef(0.1.3新增)",
+  "id": "isundef013新增",
+  "level": 2
 }];
 function _createMdxContent(props) {
   const _components = {
@@ -1123,6 +1145,16 @@ function _createMdxContent(props) {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
         children: "const test = document.getElementById('test');\nutil.isRemoveNode(test); // true\n"
+      })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h2, {
+      id: "isundef013新增",
+      children: "isUndef(0.1.3新增)"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
+      children: "该方法用于判断一个值是否是undefined，参数是任意javascript值。如:"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
+      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        className: "language-ts",
+        children: "util.isUndef(undefined); // true\nutil.isUndef(123); // false\n"
       })
     })]
   });
