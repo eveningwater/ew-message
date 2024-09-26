@@ -1,4 +1,3 @@
-import type { ewMessageOption } from "../../typings/ewMessage";
 import {
   baseTopUnit,
   defaultMessageOption,
@@ -24,6 +23,7 @@ import {
   MESSAGE_CLOSE_PARAM_WARNING,
   MESSAGE_CONTENT_PARAM_WARNING,
 } from "../const/warn";
+import { ewMessageOption } from "../const/options";
 
 export class Message {
   options: ewMessageOption;

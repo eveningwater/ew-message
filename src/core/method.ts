@@ -1,8 +1,5 @@
-import type {
-  ewMessageOption,
-  ewMessageStyleRefType,
-} from "../../typings/ewMessage";
 import { baseTopUnit, defaultMessageOption, getMessageStyle } from "../const/config";
+import { ewMessageOption } from "../const/options";
 import { MESSAGE_CONTAINER_WARNING } from "../const/warn";
 import { $, addClass, $$, isNumber, isString, isUndef, on, isArray, hasClass, isDom, warn, isObject } from '../utils/util';
 export const normalizeOptions = (

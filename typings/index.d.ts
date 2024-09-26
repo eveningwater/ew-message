@@ -1,11 +1,9 @@
-import type { ewMessageOption, ewMessageType } from '../typings/ewMessage';
-import { Message } from './message';
-export type ewMessageStaticProps = {
-    [prop in keyof ewMessageType]: (options: ewMessageOption | string) => Message;
-};
-export interface ewGlobalMessage extends ewMessageStaticProps {
+import { Message } from './core/core';
+import * as util from './utils/util';
+import './styles/index.scss';
+import { ewMessageOption } from './const/options';
+declare const ewMessage: {
     (options: ewMessageOption | string): Message;
-    util: import("./ewMessage").ewMessageUtils;
-}
-declare const ewMessage: ewGlobalMessage;
+    util: typeof util;
+};
 export default ewMessage;

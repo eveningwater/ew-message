@@ -1,11 +1,10 @@
-import type { ewMessageOption, ewMessageType } from "../../typings/ewMessage";
-export enum Position {
-  FIXED = 'fixed', 
-  ABSOLUTE = 'absolute',
-  RELATIVE = 'relative',
-  STICKY = 'sticky', 
-  STATIC = 'static'
-}
+import { Position, ewMessageEnumType } from "./enum";
+import { ewMessageOption } from "./options";
+
+type ewMessageType = {
+  [prop in ewMessageEnumType]: string;
+};
+
 export const typeMap: ewMessageType = {
   success: 'success',
   info: 'info',
@@ -40,6 +39,6 @@ export const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
 export const baseTopUnit = 25;
 
 export const positionList = Object.keys(Position).reduce<string []>((res, key) => {
-  res.push(Position[key as keyof typeof Position]);
+  res.push(Position[key]);
   return res;
 }, []);
