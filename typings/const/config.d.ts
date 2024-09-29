@@ -1,6 +1,6 @@
 import { ewMessageEnumType } from "./enum";
 import { ewMessageOption } from "./options";
-type ewMessageType = {
+export type ewMessageType = {
     [prop in ewMessageEnumType]: string;
 };
 export declare const typeMap: ewMessageType;
@@ -10,4 +10,3 @@ export declare const utilAnimationRemoveClassNames: string[];
 export declare const utilAnimationAddClassNames: string[];
 export declare const baseTopUnit = 25;
 export declare const positionList: string[];
-export {};

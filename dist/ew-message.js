@@ -26,10 +26,10 @@
     })(ewMessageEnumType || (ewMessageEnumType = {}));
 
     const typeMap = {
-        success: 'success',
-        info: 'info',
-        warning: 'warning',
-        error: 'error'
+        success: ewMessageEnumType.success,
+        info: ewMessageEnumType.info,
+        warning: ewMessageEnumType.warning,
+        error: ewMessageEnumType.error
     };
     const defaultMessageOption = {
         content: '',

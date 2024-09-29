@@ -9,12 +9,7 @@ export declare class Message {
     destroy(): void;
     validateHasStyle(): boolean;
     normalizeOptions(options: ewMessageOption | string): ewMessageOption;
-    getMessageType(): {
-        success: string;
-        info: string;
-        warning: string;
-        error: string;
-    };
+    getMessageType(): import("../const/config").ewMessageType;
     getDefaultOption(): ewMessageOption;
     addMessageStyle(prefix_class?: string, style?: string): Promise<boolean>;
     render(opt?: ewMessageOption): void;

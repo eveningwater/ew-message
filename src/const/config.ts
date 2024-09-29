@@ -1,15 +1,15 @@
 import { Position, ewMessageEnumType } from "./enum";
 import { ewMessageOption } from "./options";
 
-type ewMessageType = {
+export type ewMessageType = {
   [prop in ewMessageEnumType]: string;
 };
 
 export const typeMap: ewMessageType = {
-  success: 'success',
-  info: 'info',
-  warning: 'warning',
-  error: 'error'
+  success: ewMessageEnumType.success,
+  info: ewMessageEnumType.info,
+  warning: ewMessageEnumType.warning,
+  error: ewMessageEnumType.error
 };
 export const defaultMessageOption: ewMessageOption = {
   content: '',

@@ -22,4 +22,5 @@ for (let key in typeMap) {
     return new Message({ ...messageOption, type: key });
   };
 }
+
 export default ewMessage;
