@@ -11,6 +11,14 @@ var Position;
     Position["STICKY"] = "sticky";
     Position["STATIC"] = "static";
 })(Position || (Position = {}));
+var ewMessageEnumType;
+(function (ewMessageEnumType) {
+    ewMessageEnumType["success"] = "success";
+    ewMessageEnumType["info"] = "info";
+    ewMessageEnumType["warning"] = "warning";
+    ewMessageEnumType["error"] = "error";
+})(ewMessageEnumType || (ewMessageEnumType = {}));
+
 const typeMap = {
     success: 'success',
     info: 'info',
@@ -98,9 +106,10 @@ const $$ = (v, el = document) => el.querySelectorAll(v);
 const $ = (v, el = document) => el.querySelector(v);
 const create = (v) => document.createElement(v);
 const createElement = (temp) => {
-    const div = document.createElement("div");
-    div.innerHTML = temp;
-    return div.firstElementChild;
+    const node = document
+        .createRange()
+        .createContextualFragment(temp);
+    return node;
 };
 const addClass = (v, el) => el.classList.add(v);
 const hasClass = (v, el) => el.classList.contains(v);
@@ -132,28 +141,28 @@ const removeNode = (item) => {
 };
 
 var util = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  isUndef: isUndef,
-  isString: isString,
-  isNumber: isNumber,
-  isObject: isObject$1,
-  isArray: isArray,
-  isFunction: isFunction,
-  isDom: isDom,
-  toArray: toArray,
-  hasOwn: hasOwn$1,
-  $$: $$,
-  $: $,
-  create: create,
-  createElement: createElement,
-  addClass: addClass,
-  hasClass: hasClass,
-  removeClass: removeClass,
-  on: on,
-  off: off,
-  warn: warn$1,
-  isRemoveNode: isRemoveNode,
-  removeNode: removeNode
+    __proto__: null,
+    isUndef: isUndef,
+    isString: isString,
+    isNumber: isNumber,
+    isObject: isObject$1,
+    isArray: isArray,
+    isFunction: isFunction,
+    isDom: isDom,
+    toArray: toArray,
+    hasOwn: hasOwn$1,
+    $$: $$,
+    $: $,
+    create: create,
+    createElement: createElement,
+    addClass: addClass,
+    hasClass: hasClass,
+    removeClass: removeClass,
+    on: on,
+    off: off,
+    warn: warn$1,
+    isRemoveNode: isRemoveNode,
+    removeNode: removeNode
 });
 
 const normalizeOptions = (option) => {
@@ -371,7 +380,7 @@ class Message {
             addClass(stylePrefix + "message-center", element);
         }
         const p = create("p");
-        p.insertAdjacentHTML("afterbegin", content);
+        p.appendChild(createElement(content));
         if (showTypeIcon) {
             const icon = typeIcon
                 ? typeIcon

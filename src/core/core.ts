@@ -135,7 +135,7 @@ export class Message {
       addClass(stylePrefix + "message-center", element);
     }
     const p = create("p");
-    p.insertAdjacentHTML("afterbegin", content);
+    p.appendChild(createElement(content));
     if (showTypeIcon) {
       const icon = typeIcon
         ? typeIcon

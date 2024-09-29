@@ -27,9 +27,12 @@ export const $$ = (v: string, el: Element | Document = document) =>
 export const $ = (v: string, el: Element | Document = document) => el.querySelector(v);
 export const create = (v: string) => document.createElement(v);
 export const createElement = (temp: string) => {
-  const div = document.createElement("div");
-  div.innerHTML = temp;
-  return div.firstElementChild as HTMLElement;
+  const node = document
+    .createRange()
+    .createContextualFragment(
+      temp
+    );
+  return node
 };
 export const addClass = (v: string, el: HTMLElement) => el.classList.add(v);
 export const hasClass = (v: string, el: HTMLElement) => el.classList.contains(v);
