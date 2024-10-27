@@ -11,3 +11,4 @@ src/*
 tsconfig.json
 .babelrc
 gh-pages
+live-server-config.js
