@@ -1,3 +1,5 @@
 describe('ewMessage:',() => {
-    // todo
+    test('ewMessage',() => {
+        // todo
+    })
 })
