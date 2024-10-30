@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/eveningwater/ew-message/issues"
   },
-  "homepage": "https://github.com/eveningwater/ew-message#readme",
+  "homepage": "https://eveningwater.github.io/ew-message/",
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@rollup/plugin-alias": "^4.0.4",
