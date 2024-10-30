@@ -163,8 +163,8 @@ const toc = [{
   "id": "showclose",
   "level": 3
 }, {
-  "value": "stylePrefix",
-  "id": "styleprefix",
+  "value": "stylePrefix （0.1.4版本已移除）",
+  "id": "styleprefix-014版本已移除",
   "level": 3
 }, {
   "value": "showTypeIcon (0.0.8)新增",
@@ -209,10 +209,6 @@ const toc = [{
 }, {
   "value": "startClassNameSymbol(0.1.1 新增)",
   "id": "startclassnamesymbol011-新增",
-  "level": 3
-}, {
-  "value": "position(0.1.3 新增)",
-  "id": "position013-新增",
   "level": 3
 }];
 function _createMdxContent(props) {
@@ -335,8 +331,8 @@ function _createMdxContent(props) {
         children: "ps: 需要注意的是如果将 duration 的值设置为 0,showClose 设置为 false,则在开发环境下会提供警告，然后自动开启消息提示框的关闭按钮。"
       }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "styleprefix",
-      children: "stylePrefix"
+      id: "styleprefix-014版本已移除",
+      children: "stylePrefix （0.1.4版本已移除）"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "该属性是一个字符串，表示样式类名的前缀，默认是'ew-',可以自定义类名，方便自己修改样式。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -506,20 +502,6 @@ function _createMdxContent(props) {
         className: "language-ts",
         children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  startClassName: 'fadeIn+scaleDown' // 或者也可以传入ew-message-fadeIn ew-message-scaleDown\n  startClassNameSymbol: '+'\n  // 这里是使用+隔开\n});\n"
       })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "position013-新增",
-      children: "position(0.1.3 新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "用于指定消息提示框的定位方式，支持的定位方式有 absolute、fixed、relative、sticky，默认值是 fixed。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  position: 'absolute'\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-        children: "注: 如无必要，不需要使用该属性，该属性仅提供一个方便。"
-      }), "\n"]
     })]
   });
 }
@@ -947,10 +929,6 @@ const toc = [{
   "value": "isRemoveNode(0.1.2 新增)",
   "id": "isremovenode012-新增",
   "level": 2
-}, {
-  "value": "isUndef(0.1.3新增)",
-  "id": "isundef013新增",
-  "level": 2
 }];
 function _createMdxContent(props) {
   const _components = {
@@ -1146,16 +1124,6 @@ function _createMdxContent(props) {
         className: "language-ts",
         children: "const test = document.getElementById('test');\nutil.isRemoveNode(test); // true\n"
       })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h2, {
-      id: "isundef013新增",
-      children: "isUndef(0.1.3新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该方法用于判断一个值是否是undefined，参数是任意javascript值。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "util.isUndef(undefined); // true\nutil.isUndef(123); // false\n"
-      })
     })]
   });
 }
@@ -1252,8 +1220,10 @@ function _createMdxContent(props) {
     h3: "h3",
     header: "header",
     img: "img",
+    li: "li",
     p: "p",
     pre: "pre",
+    ul: "ul",
     ...(0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__/* .useMDXComponents */ .R)(),
     ...props.components
   };
@@ -1299,7 +1269,7 @@ function _createMdxContent(props) {
       children: "安装"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        children: "npm install ew-message --save-dev//或者 yarn add ew-message 或者 pnpm add ew-message\n"
+        children: "npm install ew-message --save-dev//或者 yarn add ew-message\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
       id: "引入",
@@ -1321,7 +1291,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "interface ewMessageOption {\n  content: string; //消息提示框内容，必传参数\n  center?: boolean; //消息提示框内容是否居中\n  type?: string; //消息提示框类型，有四种: info,success,warning,error\n  duration?: number; //消息提示框消失时间\n  showClose?: boolean; //是否显示关闭按钮\n  stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效\n  showTypeIcon?: boolean; // 是否显示类型图标，默认为true\n  typeIcon?: string; // 自定义类型图标\n  closeIcon?: string; // 自定义关闭按钮图标\n  container?: string | HTMLElement; // 挂载元素\n  immediate?: boolean; // 是否立即渲染消息提示框\n  removeClassName?: string; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown\n  removeClassNameSymbol?: string; // 指定多个移除动画类名并且分隔符不是空白时传入\n  messageZIndex?: number; // 指定消息提示框的显示层级\n}\n"
+        children: "interface ewMessageOption {\n  content: string; //消息提示框内容，必传参数\n  center?: boolean; //消息提示框内容是否居中\n  type?: string; //消息提示框类型，有四种: info,success,warning,error\n  duration?: number; //消息提示框消失时间\n  showClose?: boolean; //是否显示关闭按钮\n  stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效 0.1.4 移除\n  showTypeIcon?: boolean; // 是否显示类型图标，默认为true\n  typeIcon?: string; // 自定义类型图标\n  closeIcon?: string; // 自定义关闭按钮图标\n  container?: string | HTMLElement; // 挂载元素\n  immediate?: boolean; // 是否立即渲染消息提示框\n  removeClassName?: string; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown\n  removeClassNameSymbol?: string; // 指定多个移除动画类名并且分隔符不是空白时传入\n  messageZIndex?: number; // 指定消息提示框的显示层级\n  top?: number; // 用于自定义配置每个消息提示框的top偏移值\n}\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
       children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
@@ -1345,6 +1315,10 @@ function _createMdxContent(props) {
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
+      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
+        children: "特别说明: 0.1.4版本为减少包的体积，移除了是否导入样式的检测以及自动添加样式的逻辑，也无法自定义添加类名前缀样式，需额外引入css文件。"
+      }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["更多详情参阅文档官网介绍", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         href: "https://eveningwater.github.io/ew-message/",
@@ -1353,11 +1327,30 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h1, {
       id: "更新日志",
       children: "更新日志"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
-      children: ["详情可参考", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
-        href: "https://www.npmjs.com/package/ew-message",
-        children: "更新日志"
-      }), "。"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.ul, {
+      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.0.5: 修改了 ts 类型导入。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.0.6: 消息提示框添加了销毁 destroy 方法。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.0.7: 完善了 ts 类型,新增了最大关闭时间属性 maxDuration,修改了默认关闭时间。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.0.8: 新增了 showTypeIcon 和 typeIcon 属性以及 closeIcon，用于配置图标,新增了工具方法 createElement。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.0.9: 新增了 container、immediate、removeClassName、removeClassNameSymbol 配置属性，新增了 on,off,addClass 工具方法。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.1.0: 修复了 ts 类型错误，新增了 messageZIndex 属性。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.1.1: 新增了 top 属性,新增了 startClassName 与 startClassNameSymbol 属性,新增了 removeClass 方法。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.1.2: 修改了销毁消息提示框逻辑,增加了 isArray、isRemoveNode 方法。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.1.3: 调整了代码结构，新增了position属性，新增了isUndef方法。"
+      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
+        children: "0.1.4: 移除stylePrefix以及监听样式是否加载的逻辑。"
+      }), "\n"]
     })]
   });
 }
