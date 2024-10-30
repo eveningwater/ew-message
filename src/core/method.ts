@@ -13,16 +13,22 @@ export const normalizeOptions = (
   }
   return messageOption;
 };
-export const addMessageStyle = (prefix_class = "ew-", style?: string) =>
+export const addMessageStyle = (prefix_class = "ew-", style?: string,ref?: ewMessageStyleRefType) =>
   new Promise<boolean>((resolve) => {
     const cssText = style || getMessageStyle(prefix_class);
     const styleInject = (css: string, ref?: ewMessageStyleRefType) => {
-      if (ref === void 0) ref = {};
+      if (ref === void 0){
+        ref = {};
+      }
       const insertAt = ref.insertAt;
-      if (!css || isUndef(document)) return;
+      if (!css || isUndef(document)){
+        resolve(false);
+        return;
+      }
       const head = document.head || $("head");
       const style = document.createElement("style");
       style.type = "text/css";
+      style.appendChild(document.createTextNode(css));
       if (insertAt === "top") {
         if (head.firstChild) {
           head.insertBefore(style, head.firstChild);
@@ -32,10 +38,9 @@ export const addMessageStyle = (prefix_class = "ew-", style?: string) =>
       } else {
         head.appendChild(style);
       }
-      style.appendChild(document.createTextNode(css));
       resolve(true);
     };
-    styleInject(cssText);
+    styleInject(cssText,ref);
   });
 export const validateHasStyle = () => {
   let isHasStyle = false;

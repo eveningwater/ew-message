@@ -175,17 +175,21 @@ const normalizeOptions = (option) => {
     }
     return messageOption;
 };
-const addMessageStyle = (prefix_class = "ew-", style) => new Promise((resolve) => {
+const addMessageStyle = (prefix_class = "ew-", style, ref) => new Promise((resolve) => {
     const cssText = style || getMessageStyle(prefix_class);
     const styleInject = (css, ref) => {
-        if (ref === void 0)
+        if (ref === void 0) {
             ref = {};
+        }
         const insertAt = ref.insertAt;
-        if (!css || isUndef(document))
+        if (!css || isUndef(document)) {
+            resolve(false);
             return;
+        }
         const head = document.head || $("head");
         const style = document.createElement("style");
         style.type = "text/css";
+        style.appendChild(document.createTextNode(css));
         if (insertAt === "top") {
             if (head.firstChild) {
                 head.insertBefore(style, head.firstChild);
@@ -197,10 +201,9 @@ const addMessageStyle = (prefix_class = "ew-", style) => new Promise((resolve) =
         else {
             head.appendChild(style);
         }
-        style.appendChild(document.createTextNode(css));
         resolve(true);
     };
-    styleInject(cssText);
+    styleInject(cssText, ref);
 });
 const validateHasStyle = () => {
     let isHasStyle = false;
