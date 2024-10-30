@@ -1,32 +1,12 @@
-import { MESSAGE_CONTAINER_WARNING } from "../../const/warn";
-import { isDom, isString, $, warn } from "../../utils/util";
-/**
- * 重写的checkContainer方法,__DEV__为全局设置变量，在这里默认是true,会打印警告信息
- * @param el 
- * @returns 
- */
-const checkContainer = (el?: string | HTMLElement) => {
-    if (isDom(el)) {
-        return el;
-    } else if (isString(el)) {
-        const container = $(el);
-        if (!container) {
-            // 默认当前是开发环境
-            if (true) {
-                warn(MESSAGE_CONTAINER_WARNING);
-            }
-            return document.body;
-        }
-        return container as HTMLElement;
-    }
-    return document.body;
-}
+import { checkContainer } from "../method";
 
 describe('checkContainer', () => {
     let el: string | HTMLElement | undefined;
 
     beforeEach(() => {
         el = undefined;
+        // @ts-ignore
+        global.__DEV__ = true; // 或 false，根据需要设置
     });
 
     test('When el is undefined, should return document.body', () => {
