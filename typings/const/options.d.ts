@@ -5,7 +5,6 @@ export interface ewMessageOption {
     type?: string;
     duration?: number;
     showClose?: boolean;
-    stylePrefix?: string;
     maxDuration?: number;
     showTypeIcon?: boolean;
     typeIcon?: string;

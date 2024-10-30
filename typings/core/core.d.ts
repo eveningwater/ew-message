@@ -3,15 +3,14 @@ export declare class Message {
     options: ewMessageOption;
     el: HTMLElement | null;
     closeBtnEl: HTMLElement | null;
+    stylePrefix: string;
     constructor(options: ewMessageOption | string);
     addPosition(): void;
     addZIndex(): void;
     destroy(): void;
-    validateHasStyle(): boolean;
     normalizeOptions(options: ewMessageOption | string): ewMessageOption;
     getMessageType(): import("../const/config").ewMessageType;
     getDefaultOption(): ewMessageOption;
-    addMessageStyle(prefix_class?: string, style?: string): Promise<boolean>;
     render(opt?: ewMessageOption): void;
     create(options: ewMessageOption): HTMLElement;
     setTop(element: NodeList | HTMLCollection): void;

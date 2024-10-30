@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.1.3
+ * ewMeassage.js v0.1.4
  * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
@@ -31,7 +31,6 @@ const defaultMessageOption = {
     type: 'info',
     duration: 100,
     showClose: true,
-    stylePrefix: 'ew-',
     maxDuration: 10000,
     showTypeIcon: true,
     immediate: true,
@@ -42,9 +41,6 @@ const defaultMessageOption = {
     startClassNameSymbol: ' ',
     position: Position.FIXED
 };
-const getMessageStyle = (prefix_class = 'ew-') => `
-.${prefix_class}message-fadeOut{animation:fadeOut 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes fadeOut{0%{opacity:1}25%{opacity:0.8}50%{opacity:0.6}75%{opacity:0.4}100%{opacity:0}}.${prefix_class}message-scaleDown{animation:scaleDown 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes scaleDown{0%{transform:scale(1)}25%{transform:scale(0.8)}50%{transform:scale(0.6)}75%{transform:scale(0.4)}100%{transform:scale(0)}}.${prefix_class}message-fadeIn{animation:fadeIn 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes fadeIn{0%{opacity:1}25%{opacity:0.8}50%{opacity:0.6}75%{opacity:0.4}100%{opacity:0}}.${prefix_class}message-scaleUp{animation:scaleUp 0.2s cubic-bezier(0.075, 0.82, 0.165, 1)}@keyframes scaleUp{0%{transform:scale(1)}25%{transform:scale(0.8)}50%{transform:scale(0.6)}75%{transform:scale(0.4)}100%{transform:scale(0)}}.${prefix_class}message{min-width:300px;border:1px solid #ebeef5;position:fixed;left:50%;background-color:#edf2fc;transform:translateX(-50%);display:flex;align-items:center;padding:10px 15px;overflow:hidden;transition:transform 0.4s;border-radius:4px;top:25px;box-sizing:border-box;margin:0;z-index:1000}.${prefix_class}message-icon{width:1em;height:1em;margin-right:5px}.${prefix_class}message p{padding:0;padding-right:15px;line-height:1;font-size:14px;color:#909399;margin:0}.${prefix_class}message-close{position:absolute;top:50%;right:5px;transform:translateY(-50%);cursor:pointer;color:#909399;font-size:20px;font-style:normal}.${prefix_class}message-close:hover,.${prefix_class}message-close:active{color:#909399}.${prefix_class}message-close-icon{width:1em;height:1em}.${prefix_class}message-center{justify-content:center}.${prefix_class}message-success{background-color:#e1f3d8;border-color:#e1f3d8}.${prefix_class}message-success p,.${prefix_class}message-success .${prefix_class}message-close{color:#67c23a}.${prefix_class}message-success .${prefix_class}message-close:hover,.${prefix_class}message-success .${prefix_class}message-close:active{color:#67c23a}.${prefix_class}message-warning{background-color:#faecd8;border-color:#fdfce6}.${prefix_class}message-warning p,.${prefix_class}message-warning .${prefix_class}message-close{color:#e6a23c}.${prefix_class}message-warning .${prefix_class}message-close:hover,.${prefix_class}message-warning .${prefix_class}message-close:active{color:#e6a23c}.${prefix_class}message-error{background-color:#fef0f0;border-color:#fde2e2}.${prefix_class}message-error p,.${prefix_class}message-error .${prefix_class}message-close{color:#f56c6c}.${prefix_class}message-error .${prefix_class}message-close:hover,.${prefix_class}message-error .${prefix_class}message-close:active{color:#f56c6c};
-`;
 const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];
 const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
 const baseTopUnit = 25;
@@ -175,8 +171,7 @@ const normalizeOptions = (option) => {
     }
     return messageOption;
 };
-const addMessageStyle = (prefix_class = "ew-", style, ref) => new Promise((resolve) => {
-    const cssText = style || getMessageStyle(prefix_class);
+const addMessageStyle = (style, ref) => new Promise((resolve) => {
     const styleInject = (css, ref) => {
         if (ref === void 0) {
             ref = {};
@@ -203,30 +198,8 @@ const addMessageStyle = (prefix_class = "ew-", style, ref) => new Promise((resol
         }
         resolve(true);
     };
-    styleInject(cssText, ref);
+    styleInject(style, ref);
 });
-const validateHasStyle = () => {
-    let isHasStyle = false;
-    const allLinks = $$("link");
-    allLinks.forEach((link) => {
-        const href = link.getAttribute("href");
-        if (href?.includes("ew-message")) {
-            isHasStyle = true;
-        }
-    });
-    return isHasStyle;
-};
-const validateAutoHasStyle = (stylePrefix) => {
-    let isHasStyle = false;
-    const allStyles = $$("style");
-    allStyles.forEach((style) => {
-        const text = style.textContent;
-        if (text === getMessageStyle(stylePrefix)) {
-            isHasStyle = true;
-        }
-    });
-    return isHasStyle;
-};
 const getOffsetTop = (top) => {
     if (isNumber(top)) {
         return `${top}px`;
@@ -265,7 +238,6 @@ const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existC
         res = filterClassName;
     }
     on(el, "animationend", () => callback?.(res));
-    // 如果未触发animationend事件，则在1.2s后强行触发回调
     setTimeout(() => {
         if (isArray(res)) {
             if (res.some(item => hasClass(item, el))) {
@@ -300,41 +272,32 @@ class Message {
     options;
     el;
     closeBtnEl;
+    stylePrefix = 'ew-';
     constructor(options) {
         this.options = this.normalizeOptions(options);
         this.el = null;
         this.closeBtnEl = null;
-        let isHasStyle = this.validateHasStyle();
-        if (isHasStyle) {
-            this.options.stylePrefix = "ew-";
-        }
-        const { stylePrefix, immediate } = this.options;
-        if (!isHasStyle && !validateAutoHasStyle(stylePrefix)) {
-            this.addMessageStyle(stylePrefix);
-        }
+        const { immediate } = this.options;
         this.addZIndex();
         this.addPosition();
         immediate && this.render(this.options);
     }
     addPosition() {
-        const { position, stylePrefix, type } = this.options;
+        const { position, type } = this.options;
         if (isString(position) && positionList.includes(position)) {
-            this.addMessageStyle(stylePrefix, `.${stylePrefix}message.${stylePrefix}message-${type}{position:${position}}}`);
+            addMessageStyle(`.${this.stylePrefix}message.${this.stylePrefix}message-${type}{position:${position}}}`);
         }
     }
     addZIndex() {
-        const { messageZIndex, stylePrefix } = this.options;
+        const { messageZIndex } = this.options;
         if (isNumber(messageZIndex) && messageZIndex > 0) {
-            this.addMessageStyle(stylePrefix, `.${stylePrefix}message{z-index:${messageZIndex}}`);
+            addMessageStyle(`.${this.stylePrefix}message{z-index:${messageZIndex}}`);
         }
     }
     destroy() {
         if (this.el) {
             this.close(this.el, 0, true);
         }
-    }
-    validateHasStyle() {
-        return validateHasStyle();
     }
     normalizeOptions(options) {
         return normalizeOptions(options);
@@ -345,12 +308,9 @@ class Message {
     getDefaultOption() {
         return defaultMessageOption;
     }
-    addMessageStyle(prefix_class, style) {
-        return addMessageStyle(prefix_class, style);
-    }
     render(opt) {
         const options = opt || this.options;
-        const { duration, showClose, content, container: optionContainer, stylePrefix, } = options;
+        const { duration, showClose, content, container: optionContainer, } = options;
         if ((!isNumber(duration) || duration <= 0) && !showClose) {
             {
                 warn$1(MESSAGE_CLOSE_PARAM_WARNING);
@@ -363,7 +323,7 @@ class Message {
         const container = checkContainer(optionContainer);
         const el = this.create(options);
         this.animationAddNode(el, container);
-        this.setTop($$("." + stylePrefix + "message", container));
+        this.setTop($$("." + this.stylePrefix + "message", container));
         if (isNumber(duration) &&
             duration > 0 &&
             this.el instanceof HTMLElement) {
@@ -376,25 +336,25 @@ class Message {
         }
     }
     create(options) {
-        const { stylePrefix, type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = options || this.options;
+        const { type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = options || this.options;
         let element = create("div");
-        element.className = `${stylePrefix}message ${stylePrefix}message-${type}`;
+        element.className = `${this.stylePrefix}message ${this.stylePrefix}message-${type}`;
         if (center) {
-            addClass(stylePrefix + "message-center", element);
+            addClass(this.stylePrefix + "message-center", element);
         }
         const p = create("p");
         p.appendChild(createElement(content));
         if (showTypeIcon) {
             const icon = typeIcon
                 ? typeIcon
-                : typeIconMap[type || "info"](stylePrefix);
+                : typeIconMap[type || "info"](this.stylePrefix);
             element.appendChild(createElement(icon));
         }
         element.appendChild(p);
         if (showClose) {
             this.closeBtnEl = create("i");
-            addClass(`${stylePrefix}message-close`, this.closeBtnEl);
-            this.closeBtnEl?.appendChild(createElement(optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix)));
+            addClass(`${this.stylePrefix}message-close`, this.closeBtnEl);
+            this.closeBtnEl?.appendChild(createElement(optionCloseIcon ? optionCloseIcon : closeIcon(this.stylePrefix)));
             element.appendChild(this.closeBtnEl);
         }
         this.el = element;
@@ -413,9 +373,9 @@ class Message {
         }
     }
     animationAddNode(el, container) {
-        const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
+        const { startClassName, startClassNameSymbol } = this.options;
         if (startClassName) {
-            handleAnimationNode(el, startClassName, startClassNameSymbol, stylePrefix, utilAnimationAddClassNames, (res) => {
+            handleAnimationNode(el, startClassName, startClassNameSymbol, this.stylePrefix, utilAnimationAddClassNames, (res) => {
                 if (isArray(res)) {
                     res.forEach((className) => removeClass(className, el));
                 }
@@ -427,9 +387,9 @@ class Message {
         container.appendChild(el);
     }
     animationRemoveNode(el, isDestroy = false) {
-        const { removeClassName, stylePrefix, removeClassNameSymbol } = this.options;
+        const { removeClassName, removeClassNameSymbol } = this.options;
         if (removeClassName && !isDestroy) {
-            handleAnimationNode(el, removeClassName, removeClassNameSymbol, stylePrefix, utilAnimationRemoveClassNames, () => removeNode(el));
+            handleAnimationNode(el, removeClassName, removeClassNameSymbol, this.stylePrefix, utilAnimationRemoveClassNames, () => removeNode(el));
         }
         else {
             removeNode(el);
@@ -463,7 +423,7 @@ class Message {
                     this.animationRemoveNode(element, isDestroy);
                 }
             }
-            this.setTop($$("." + this.options.stylePrefix + "message", mountedContainer));
+            this.setTop($$("." + this.stylePrefix + "message", mountedContainer));
         };
         if (isDestroy) {
             closeHandler();

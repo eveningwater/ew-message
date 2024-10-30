@@ -13,8 +13,6 @@ import {
   getOffsetTop,
   handleAnimationNode,
   normalizeOptions,
-  validateAutoHasStyle,
-  validateHasStyle,
 } from "./method";
 import { isNumber, isString, warn, $$, on, addClass, createElement, isRemoveNode, create, isArray, removeClass, removeNode, toArray } from "../utils/util";
 import {
@@ -29,37 +27,29 @@ export class Message {
   options: ewMessageOption;
   el: HTMLElement | null;
   closeBtnEl: HTMLElement | null;
+  stylePrefix: string = 'ew-';
   constructor(options: ewMessageOption | string) {
     this.options = this.normalizeOptions(options);
     this.el = null;
     this.closeBtnEl = null;
-    let isHasStyle = this.validateHasStyle();
-    if (isHasStyle) {
-      this.options.stylePrefix = "ew-";
-    }
-    const { stylePrefix,immediate } = this.options;
-    if (!isHasStyle && !validateAutoHasStyle(stylePrefix)) {
-      this.addMessageStyle(stylePrefix);
-    }
+    const { immediate } = this.options;
     this.addZIndex();
     this.addPosition()
     immediate && this.render(this.options);
   }
   addPosition(){
-    const { position, stylePrefix, type } = this.options;
+    const { position, type } = this.options;
     if(isString(position) && positionList.includes(position)){
-      this.addMessageStyle(
-        stylePrefix,
-        `.${stylePrefix}message.${stylePrefix}message-${type}{position:${position}}}`
+      addMessageStyle(
+        `.${this.stylePrefix}message.${this.stylePrefix}message-${type}{position:${position}}}`
       );
     }
   }
   addZIndex() {
-    const { messageZIndex, stylePrefix } = this.options;
+    const { messageZIndex } = this.options;
     if (isNumber(messageZIndex) && messageZIndex > 0) {
-      this.addMessageStyle(
-        stylePrefix,
-        `.${stylePrefix}message{z-index:${messageZIndex}}`
+      addMessageStyle(
+        `.${this.stylePrefix}message{z-index:${messageZIndex}}`
       );
     }
   }
@@ -68,9 +58,7 @@ export class Message {
       this.close(this.el, 0, true);
     }
   }
-  validateHasStyle() {
-    return validateHasStyle();
-  }
+
   normalizeOptions(options: ewMessageOption | string) {
     return normalizeOptions(options);
   }
@@ -80,9 +68,6 @@ export class Message {
   getDefaultOption() {
     return defaultMessageOption;
   }
-  addMessageStyle(prefix_class?: string, style?: string) {
-    return addMessageStyle(prefix_class, style);
-  }
   render(opt?: ewMessageOption) {
     const options = opt || this.options;
     const {
@@ -90,7 +75,6 @@ export class Message {
       showClose,
       content,
       container: optionContainer,
-      stylePrefix,
     } = options;
     if ((!isNumber(duration) || duration! <= 0) && !showClose) {
       if (__DEV__) {
@@ -104,7 +88,7 @@ export class Message {
     const container = checkContainer(optionContainer);
     const el = this.create(options);
     this.animationAddNode(el, container);
-    this.setTop($$("." + stylePrefix + "message", container));
+    this.setTop($$("." + this.stylePrefix + "message", container));
     if (
       isNumber(duration) &&
       duration! > 0 &&
@@ -120,7 +104,6 @@ export class Message {
   }
   create(options: ewMessageOption) {
     const {
-      stylePrefix,
       type,
       center,
       content,
@@ -130,25 +113,25 @@ export class Message {
       closeIcon: optionCloseIcon,
     } = options || this.options;
     let element = create("div");
-    element.className = `${stylePrefix}message ${stylePrefix}message-${type}`;
+    element.className = `${this.stylePrefix}message ${this.stylePrefix}message-${type}`;
     if (center) {
-      addClass(stylePrefix + "message-center", element);
+      addClass(this.stylePrefix + "message-center", element);
     }
     const p = create("p");
     p.appendChild(createElement(content));
     if (showTypeIcon) {
       const icon = typeIcon
         ? typeIcon
-        : typeIconMap[type || "info"](stylePrefix);
+        : typeIconMap[type || "info"](this.stylePrefix);
       element.appendChild(createElement(icon));
     }
     element.appendChild(p);
     if (showClose) {
       this.closeBtnEl = create("i");
-      addClass(`${stylePrefix}message-close`, this.closeBtnEl);
+      addClass(`${this.stylePrefix}message-close`, this.closeBtnEl);
       this.closeBtnEl?.appendChild(
         createElement(
-          optionCloseIcon ? optionCloseIcon : closeIcon(stylePrefix!)
+          optionCloseIcon ? optionCloseIcon : closeIcon(this.stylePrefix)
         )
       );
       element.appendChild(this.closeBtnEl);
@@ -172,13 +155,13 @@ export class Message {
     }
   }
   animationAddNode(el: HTMLElement, container: HTMLElement) {
-    const { startClassName, stylePrefix, startClassNameSymbol } = this.options;
+    const { startClassName,startClassNameSymbol } = this.options;
     if (startClassName) {
       handleAnimationNode(
         el,
         startClassName,
         startClassNameSymbol!,
-        stylePrefix!,
+        this.stylePrefix,
         utilAnimationAddClassNames,
         (res) => {
           if (isArray(res)) {
@@ -194,14 +177,14 @@ export class Message {
     container.appendChild(el);
   }
   animationRemoveNode(el: HTMLElement, isDestroy = false) {
-    const { removeClassName, stylePrefix, removeClassNameSymbol } =
+    const { removeClassName, removeClassNameSymbol } =
       this.options;
     if (removeClassName && !isDestroy) {
       handleAnimationNode(
         el,
         removeClassName,
         removeClassNameSymbol!,
-        stylePrefix!,
+        this.stylePrefix,
         utilAnimationRemoveClassNames,
         () => removeNode(el)
       );
@@ -245,7 +228,7 @@ export class Message {
         }
       }
       this.setTop(
-        $$("." + this.options.stylePrefix + "message", mountedContainer)
+        $$("." + this.stylePrefix + "message", mountedContainer)
       );
     };
     if (isDestroy) {

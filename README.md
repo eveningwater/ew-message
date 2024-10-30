@@ -40,7 +40,7 @@ interface ewMessageOption {
   type?: string; //消息提示框类型，有四种: info,success,warning,error
   duration?: number; //消息提示框消失时间
   showClose?: boolean; //是否显示关闭按钮
-  stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效
+  stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效 0.1.4 移除
   showTypeIcon?: boolean; // 是否显示类型图标，默认为true
   typeIcon?: string; // 自定义类型图标
   closeIcon?: string; // 自定义关闭按钮图标
@@ -74,6 +74,8 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 
 当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。
 
+> 特别说明: 0.1.4版本为减少包的体积，移除了是否导入样式的检测以及自动添加样式的逻辑，也无法自定义添加类名前缀样式，需额外引入css文件。
+
 更多详情参阅文档官网介绍[ew-message](https://eveningwater.github.io/ew-message/);
 
 # 更新日志
@@ -88,3 +90,4 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 - 0.1.1: 新增了 top 属性,新增了 startClassName 与 startClassNameSymbol 属性,新增了 removeClass 方法。
 - 0.1.2: 修改了销毁消息提示框逻辑,增加了 isArray、isRemoveNode 方法。
 - 0.1.3: 调整了代码结构，新增了position属性，新增了isUndef方法。
+- 0.1.4: 移除stylePrefix以及监听样式是否加载的逻辑。

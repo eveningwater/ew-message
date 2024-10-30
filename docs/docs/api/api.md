@@ -97,7 +97,7 @@ const msg = ewMessage({
 
 > ps: 需要注意的是如果将 duration 的值设置为 0,showClose 设置为 false,则在开发环境下会提供警告，然后自动开启消息提示框的关闭按钮。
 
-### stylePrefix
+### stylePrefix （0.1.4版本已移除）
 
 该属性是一个字符串，表示样式类名的前缀，默认是'ew-',可以自定义类名，方便自己修改样式。如:
 

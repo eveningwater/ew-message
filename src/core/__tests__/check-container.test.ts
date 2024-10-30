@@ -30,11 +30,13 @@ describe('checkContainer', () => {
     test('When el is a string and container is not found, should return document.body and log warning in dev mode', () => {
         el = '#nonExistingContainer';
         // @ts-ignore
-        global.__DEV__ = true; // 或 false，根据需要设置
+        global.__DEV__ = true;
         const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => { });
         const result = checkContainer(el);
         expect(result).toEqual(document.body);
         expect(warnSpy).toHaveBeenCalledTimes(1);
         warnSpy.mockRestore();
+        // @ts-ignore
+        global.__DEV__ = undefined;
     });
 });

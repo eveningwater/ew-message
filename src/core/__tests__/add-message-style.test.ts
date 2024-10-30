@@ -2,10 +2,6 @@ import { addMessageStyle } from '../method'
 
 import { isUndef } from '../../utils/util';
 
-jest.mock('../../const/config.ts', () => ({
-    getMessageStyle: jest.fn(() => '.ew-message { color: red; }')
-}));
-
 jest.mock('../../utils/util.ts');
 
 describe('addMessageStyle', () => {
@@ -15,19 +11,11 @@ describe('addMessageStyle', () => {
     });
 
     test('should inject CSS from style parameter', async () => {
-        await addMessageStyle("ew-", ".test { color: blue; }");
+        await addMessageStyle(".test { color: blue; }");
 
         const styleTags = document.head.getElementsByTagName('style');
         expect(styleTags.length).toBe(1);
         expect(styleTags[0].innerHTML).toBe('.test { color: blue; }');
-    });
-
-    test('should inject CSS from getMessageStyle', async () => {
-        await addMessageStyle("ew-");
-
-        const styleTags = document.head.getElementsByTagName('style');
-        expect(styleTags.length).toBe(1);
-        expect(styleTags[0].innerHTML).toBe('.ew-message { color: red; }');
     });
 
     test('should not inject CSS if document is undefined', async () => {
@@ -39,7 +27,7 @@ describe('addMessageStyle', () => {
         // @ts-ignore
         isUndef.mockImplementation(() => true);
 
-        await addMessageStyle("ew-", ".test { color: blue; }");
+        await addMessageStyle(".test { color: blue; }");
 
         global.document = originalDocument;
 
@@ -50,7 +38,7 @@ describe('addMessageStyle', () => {
     test('should handle insertAt option', async () => {
         // @ts-ignore
         isUndef.mockImplementation(() => false);
-        await addMessageStyle("ew-", ".first { color: green; }", { insertAt: "top" });
+        await addMessageStyle(".first { color: green; }", { insertAt: "top" });
 
         const styleTags = document.head.getElementsByTagName('style');
         expect(styleTags.length).toBe(1);

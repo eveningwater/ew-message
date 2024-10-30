@@ -1,7 +1,7 @@
-import { baseTopUnit, defaultMessageOption, getMessageStyle } from "../const/config";
+import { baseTopUnit, defaultMessageOption } from "../const/config";
 import { ewMessageOption } from "../const/options";
 import { MESSAGE_CONTAINER_WARNING } from "../const/warn";
-import { $, addClass, $$, isNumber, isString, isUndef, on, isArray, hasClass, isDom, warn, isObject } from '../utils/util';
+import { $, addClass, isNumber, isString, isUndef, on, isArray, hasClass, isDom, warn, isObject } from '../utils/util';
 export const normalizeOptions = (
   option: string | ewMessageOption
 ): ewMessageOption => {
@@ -13,9 +13,8 @@ export const normalizeOptions = (
   }
   return messageOption;
 };
-export const addMessageStyle = (prefix_class = "ew-", style?: string,ref?: ewMessageStyleRefType) =>
+export const addMessageStyle = (style: string,ref?: ewMessageStyleRefType) =>
   new Promise<boolean>((resolve) => {
-    const cssText = style || getMessageStyle(prefix_class);
     const styleInject = (css: string, ref?: ewMessageStyleRefType) => {
       if (ref === void 0){
         ref = {};
@@ -40,30 +39,9 @@ export const addMessageStyle = (prefix_class = "ew-", style?: string,ref?: ewMes
       }
       resolve(true);
     };
-    styleInject(cssText,ref);
+    styleInject(style,ref);
   });
-export const validateHasStyle = () => {
-  let isHasStyle = false;
-  const allLinks = $$("link");
-  allLinks.forEach((link) => {
-    const href = link.getAttribute("href");
-    if (href?.includes("ew-message")) {
-      isHasStyle = true;
-    }
-  });
-  return isHasStyle;
-};
-export const validateAutoHasStyle = (stylePrefix?: string) => {
-  let isHasStyle = false;
-  const allStyles = $$("style");
-  allStyles.forEach((style) => {
-    const text = style.textContent;
-    if (text === getMessageStyle(stylePrefix)) {
-      isHasStyle = true;
-    }
-  });
-  return isHasStyle;
-};
+
 export const getOffsetTop = (top?: string | number) => {
   if (isNumber(top)) {
     return `${top}px`;
@@ -112,7 +90,6 @@ export const handleAnimationNode = (
   }
 
   on(el, "animationend", () => callback?.(res));
-  // 如果未触发animationend事件，则在1.2s后强行触发回调
   setTimeout(() => {
     if (isArray(res)) {
       if (res.some(item => hasClass(item, el))) {
