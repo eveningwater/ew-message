@@ -12963,7 +12963,7 @@ __webpack_require__.r(__webpack_exports__);
         {
           "position": "left",
           "label": "接口",
-          "to": "/docs/api"
+          "to": "/docs/core-api/api"
         },
         {
           "to": "/docs/log",
