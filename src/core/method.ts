@@ -38,7 +38,7 @@ export const normalizeOptions = (
   return messageOption as Required<ewMessageOption>;
 };
 export const getOffsetTop = (top?: string | number) => {
-  if (isNumber(top)) {
+  if (isNumber(Number(top))) {
     return `${top}px`;
   }
   if (isString(top)) {
@@ -76,11 +76,6 @@ export const handleAnimationNode = (
   }
 
   on(el, "animationend", () => callback?.(res));
-  setTimeout(() => {
-    if (res.some(item => hasClass(item, el))) {
-      callback?.(res);
-    }
-  }, 1200);
 };
 
 export const checkContainer = (el?: string | HTMLElement) => {

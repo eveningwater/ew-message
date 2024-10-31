@@ -181,7 +181,7 @@
         return messageOption;
     };
     const getOffsetTop = (top) => {
-        if (isNumber(top)) {
+        if (isNumber(Number(top))) {
             return `${top}px`;
         }
         if (isString(top)) {
@@ -209,11 +209,6 @@
             res = filterClassNameList;
         }
         on(el, "animationend", () => callback?.(res));
-        setTimeout(() => {
-            if (res.some(item => hasClass(item, el))) {
-                callback?.(res);
-            }
-        }, 1200);
     };
     const checkContainer = (el) => {
         if (isDom(el)) {
