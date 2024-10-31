@@ -1,4 +1,3 @@
-export declare const isUndef: (v: unknown) => v is undefined;
 export declare const isString: (v: unknown) => v is string;
 export declare const isNumber: (v: unknown) => v is number;
 export declare const isObject: <T extends object>(v: unknown) => v is T;
@@ -16,6 +15,6 @@ export declare const hasClass: (v: string, el: HTMLElement) => boolean;
 export declare const removeClass: (v: string, el: HTMLElement) => void;
 export declare const on: (element: HTMLElement | Document | Element | Window, type: string, handler: EventListenerOrEventListenerObject, useCapture?: boolean) => void;
 export declare const off: (element: HTMLElement | Document | Element | Window, type: string, handler: EventListenerOrEventListenerObject, useCapture?: boolean) => void;
-export declare const warn: (v: string) => void;
 export declare const isRemoveNode: (item: HTMLElement) => boolean;
 export declare const removeNode: (item: HTMLElement) => void;
+export * from './assert';

@@ -8,4 +8,3 @@ export declare const defaultMessageOption: ewMessageOption;
 export declare const utilAnimationRemoveClassNames: string[];
 export declare const utilAnimationAddClassNames: string[];
 export declare const baseTopUnit = 25;
-export declare const positionList: string[];
