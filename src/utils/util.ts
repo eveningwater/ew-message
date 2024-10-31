@@ -57,7 +57,6 @@ export const off = (
     element.removeEventListener(type, handler, useCapture);
   }
 };
-export const warn = (v: string) => console.warn(v);
 export const isRemoveNode = (item: HTMLElement) =>
   isDom(item) &&
   isDom(item.parentElement) &&
@@ -73,3 +72,4 @@ export const removeNode = (item: HTMLElement) => {
   }
 };
 
+export * from './assert';
