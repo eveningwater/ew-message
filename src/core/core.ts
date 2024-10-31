@@ -10,7 +10,7 @@ import {
   handleAnimationNode,
   normalizeOptions,
 } from "./method";
-import { $$, on, log,addClass, createElement, isRemoveNode, create, removeClass, removeNode, toArray } from "../utils/util";
+import { $$, on,addClass, createElement, isRemoveNode, create, removeClass, removeNode, toArray } from "../utils/util";
 import { ewMessageOption } from "../const/options";
 
 export class Message {

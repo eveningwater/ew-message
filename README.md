@@ -40,15 +40,12 @@ interface ewMessageOption {
   type?: string; //消息提示框类型，有四种: info,success,warning,error
   duration?: number; //消息提示框消失时间
   showClose?: boolean; //是否显示关闭按钮
-  stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效 0.1.4 移除
   showTypeIcon?: boolean; // 是否显示类型图标，默认为true
   typeIcon?: string; // 自定义类型图标
   closeIcon?: string; // 自定义关闭按钮图标
   container?: string | HTMLElement; // 挂载元素
-  immediate?: boolean; // 是否立即渲染消息提示框
-  removeClassName?: string; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown
-  removeClassNameSymbol?: string; // 指定多个移除动画类名并且分隔符不是空白时传入
-  messageZIndex?: number; // 指定消息提示框的显示层级
+  removeClassName?: string[]; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown
+  startClassName?: string[]; // 添加消息提示框动画类名，目前内置动画类名值: fadeIn与scaleUp
   top?: number; // 用于自定义配置每个消息提示框的top偏移值
 }
 ```
@@ -71,10 +68,6 @@ import ewMessage from 'ewMessage';
 import 'ew-message/dist/ew-message.min.css';
 const msg = ewMessage(option); //option为配置对象，详情见前述
 ```
-
-当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。
-
-> 特别说明: 0.1.4版本为减少包的体积，移除了是否导入样式的检测以及自动添加样式的逻辑，也无法自定义添加类名前缀样式，需额外引入css文件。
 
 更多详情参阅文档官网介绍[ew-message](https://eveningwater.github.io/ew-message/);
 

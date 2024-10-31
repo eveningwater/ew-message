@@ -12,7 +12,7 @@ export const normalizeOptions = (
     messageOption = { ...messageOption, ...option };
   }
   const { duration, showClose, content, removeClassName, startClassName } = messageOption;
-  if ((!isNumber(duration) || duration! <= 0) && !showClose) {
+  if ((!isNumber(duration) || duration <= 0) && !showClose) {
     if (__DEV__) {
       warn(MESSAGE_CLOSE_PARAM_WARNING);
     }
