@@ -80,7 +80,7 @@ const config: Config = {
           {
             position: 'left',
             label: '接口',
-            to: '/docs/api'
+            to: '/docs/core-api/api'
           },
           { to: '/docs/log', label: '更新日志', position: 'left' },
           {
