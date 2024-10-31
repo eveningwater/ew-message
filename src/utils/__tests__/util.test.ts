@@ -1,4 +1,4 @@
-import { hasOwn, isDom, isNumber, isObject, isString, isUndef } from "../util";
+import { hasOwn, isDom, isNumber, isObject, isString } from "../util";
 
 
 
@@ -12,15 +12,6 @@ describe('utils', () => {
     expect(isObject([])).toBe(true);
     expect(isObject(null)).toBe(false);
   });
-  test('isUndef', () => {
-    expect(isUndef(undefined)).toBe(true);
-    expect(isUndef(null)).toBe(false);
-    expect(isUndef([])).toBe(false);
-    expect(isUndef(true)).toBe(false);
-    expect(isUndef({})).toBe(false);
-    expect(isUndef('')).toBe(false);
-    expect(isUndef(123)).toBe(false);
-  })
 
   test('isString', () => {
     expect(isString('')).toEqual(true);

@@ -1,47 +1,28 @@
 import { baseTopUnit, defaultMessageOption } from "../const/config";
 import { ewMessageOption } from "../const/options";
-import { MESSAGE_CONTAINER_WARNING } from "../const/warn";
-import { $, addClass, isNumber, isString, isUndef, on, isArray, hasClass, isDom, warn, isObject } from '../utils/util';
+import { MESSAGE_CLOSE_PARAM_WARNING, MESSAGE_CONTAINER_WARNING, MESSAGE_CONTENT_PARAM_WARNING, MESSAGE_TYPE_WARNING } from "../const/warn";
+import { $, addClass, isNumber, isString, on, isArray, hasClass, isDom, warn, isObject, hasOwn } from '../utils/util';
 export const normalizeOptions = (
   option: string | ewMessageOption
-): ewMessageOption => {
+) => {
   let messageOption = defaultMessageOption;
   if (isString(option)) {
     messageOption.content = option;
   } else if (isObject(option)) {
     messageOption = { ...messageOption, ...option };
   }
-  return messageOption;
+  const { duration, showClose, content } = messageOption;
+  if ((!isNumber(duration) || duration! <= 0) && !showClose) {
+    if (__DEV__) {
+      warn(MESSAGE_CLOSE_PARAM_WARNING);
+    }
+    messageOption.showClose = true;
+  }
+  if (!isString(content) && __DEV__) {
+    warn(MESSAGE_CONTENT_PARAM_WARNING);
+  }
+  return messageOption as Required<ewMessageOption>;
 };
-export const addMessageStyle = (style: string,ref?: ewMessageStyleRefType) =>
-  new Promise<boolean>((resolve) => {
-    const styleInject = (css: string, ref?: ewMessageStyleRefType) => {
-      if (ref === void 0){
-        ref = {};
-      }
-      const insertAt = ref.insertAt;
-      if (!css || isUndef(document)){
-        resolve(false);
-        return;
-      }
-      const head = document.head || $("head");
-      const style = document.createElement("style");
-      style.type = "text/css";
-      style.appendChild(document.createTextNode(css));
-      if (insertAt === "top") {
-        if (head.firstChild) {
-          head.insertBefore(style, head.firstChild);
-        } else {
-          head.appendChild(style);
-        }
-      } else {
-        head.appendChild(style);
-      }
-      resolve(true);
-    };
-    styleInject(style,ref);
-  });
-
 export const getOffsetTop = (top?: string | number) => {
   if (isNumber(top)) {
     return `${top}px`;

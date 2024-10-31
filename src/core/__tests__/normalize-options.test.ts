@@ -1,5 +1,5 @@
 import { defaultMessageOption } from '../../const/config';
-import { normalizeOptions } from '../method'
+import { normalizeOptions } from '../method';
 
 describe('Normalize the options', () => {
     it('should handle string option', () => {

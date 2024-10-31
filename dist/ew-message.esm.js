@@ -3,14 +3,6 @@
  * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
-var Position;
-(function (Position) {
-    Position["FIXED"] = "fixed";
-    Position["ABSOLUTE"] = "absolute";
-    Position["RELATIVE"] = "relative";
-    Position["STICKY"] = "sticky";
-    Position["STATIC"] = "static";
-})(Position || (Position = {}));
 var ewMessageEnumType;
 (function (ewMessageEnumType) {
     ewMessageEnumType["success"] = "success";
@@ -31,23 +23,16 @@ const defaultMessageOption = {
     type: 'info',
     duration: 100,
     showClose: true,
-    maxDuration: 10000,
     showTypeIcon: true,
-    immediate: true,
     container: document.body,
     removeClassName: '',
     removeClassNameSymbol: ' ',
     startClassName: '',
-    startClassNameSymbol: ' ',
-    position: Position.FIXED
+    startClassNameSymbol: ' '
 };
 const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];
 const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
 const baseTopUnit = 25;
-const positionList = Object.keys(Position).reduce((res, key) => {
-    res.push(Position[key]);
-    return res;
-}, []);
 
 const successIcon = (prefix) => `<svg t="1695191725930" class="${prefix}message-icon ${prefix}message-success-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4394"><path d="M512 97.52381c228.912762 0 414.47619 185.563429 414.47619 414.47619s-185.563429 414.47619-414.47619 414.47619S97.52381 740.912762 97.52381 512 283.087238 97.52381 512 97.52381z m193.194667 218.331428L447.21981 581.315048l-103.936-107.812572-52.662858 50.761143 156.379429 162.230857 310.662095-319.683047-52.467809-50.956191z" p-id="4395" fill="#1afa29"></path></svg>`;
 const warningIcon = (prefix) => `<svg t="1695191794405" class="${prefix}message-icon ${prefix}message-warning-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5405"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296z m32 440c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z" p-id="5406" fill="#faad14"></path></svg>`;
@@ -62,30 +47,27 @@ const typeIconMap = {
 };
 
 const MESSAGE_WARNING_PREFIX = '[Message Warning]: ';
-const MESSAGE_TYPE_WARNING = MESSAGE_WARNING_PREFIX + 'Message type need not to pass!';
-const MESSAGE_CLOSE_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
-    'Message need a close time to auto close or a close button to close by yourself!';
-const MESSAGE_CONTENT_PARAM_WARNING = MESSAGE_WARNING_PREFIX +
-    'Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!';
-const MESSAGE_CLOSE_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
-    '"Duration" property value is not a number,make sure to use a number';
-const MESSAGE_CLOSE_MAX_DURATION_WARNING = MESSAGE_WARNING_PREFIX +
-    '"maxDuration" property value is not a number,make sure to use a number';
-const MESSAGE_CONTAINER_WARNING = MESSAGE_WARNING_PREFIX +
-    'Can not find the dom element,make sure to pass a correct dom element';
+const MESSAGE_TYPE_WARNING = `${MESSAGE_WARNING_PREFIX}Message type need not to pass!`;
+const MESSAGE_CLOSE_PARAM_WARNING = `${MESSAGE_WARNING_PREFIX}Message need a close time to auto close or a close button to close by yourself!`;
+const MESSAGE_CONTENT_PARAM_WARNING = `${MESSAGE_WARNING_PREFIX}Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!`;
+const MESSAGE_CONTAINER_WARNING = `${MESSAGE_WARNING_PREFIX}Can not find the dom element,make sure to pass a correct dom element`;
 
-const isUndef = (v) => v === undefined;
+const assertLists = ['warn', 'error', 'log'];
+const noop = () => { };
+const assert = {
+    log: noop,
+    warn: noop,
+    error: noop
+};
+assertLists.forEach(key => assert[key] = (...v) => console[key](...v));
+const warn$1 = assert.warn;
+const error = assert.error;
+const log = assert.log;
+
 const isString = (v) => typeof v === "string";
 const isNumber = (v) => typeof v === "number" && !Number.isNaN(v);
 const isObject$1 = (v) => typeof v === "object" && !!v;
-const isArray = (v) => {
-    if (Array.isArray) {
-        return Array.isArray(v);
-    }
-    else {
-        return Object.prototype.toString.call(v).slice(8, -1) === "array";
-    }
-};
+const isArray = (v) => Array.isArray(v);
 const isFunction = (value) => typeof value === "function";
 const isDom = (el) => {
     if (isObject$1(HTMLElement)) {
@@ -101,12 +83,9 @@ const hasOwn$1 = (v, prop) => v.hasOwnProperty(prop);
 const $$ = (v, el = document) => el.querySelectorAll(v);
 const $ = (v, el = document) => el.querySelector(v);
 const create = (v) => document.createElement(v);
-const createElement = (temp) => {
-    const node = document
-        .createRange()
-        .createContextualFragment(temp);
-    return node;
-};
+const createElement = (temp) => document
+    .createRange()
+    .createContextualFragment(temp);
 const addClass = (v, el) => el.classList.add(v);
 const hasClass = (v, el) => el.classList.contains(v);
 const removeClass = (v, el) => el.classList.remove(v);
@@ -120,16 +99,15 @@ const off = (element, type, handler, useCapture = false) => {
         element.removeEventListener(type, handler, useCapture);
     }
 };
-const warn$1 = (v) => console.warn(v);
 const isRemoveNode = (item) => isDom(item) &&
     isDom(item.parentElement) &&
-    isFunction(item.parentElement?.removeChild);
+    isFunction(item.parentElement.removeChild);
 const removeNode = (item) => {
     if (!item) {
         return;
     }
     if (isRemoveNode(item)) {
-        item.parentElement.removeChild(item);
+        item.parentElement?.removeChild(item);
     }
     else {
         item.remove();
@@ -138,7 +116,6 @@ const removeNode = (item) => {
 
 var util = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    isUndef: isUndef,
     isString: isString,
     isNumber: isNumber,
     isObject: isObject$1,
@@ -156,9 +133,11 @@ var util = /*#__PURE__*/Object.freeze({
     removeClass: removeClass,
     on: on,
     off: off,
-    warn: warn$1,
     isRemoveNode: isRemoveNode,
-    removeNode: removeNode
+    removeNode: removeNode,
+    warn: warn$1,
+    error: error,
+    log: log
 });
 
 const normalizeOptions = (option) => {
@@ -169,37 +148,18 @@ const normalizeOptions = (option) => {
     else if (isObject$1(option)) {
         messageOption = { ...messageOption, ...option };
     }
+    const { duration, showClose, content } = messageOption;
+    if ((!isNumber(duration) || duration <= 0) && !showClose) {
+        {
+            warn$1(MESSAGE_CLOSE_PARAM_WARNING);
+        }
+        messageOption.showClose = true;
+    }
+    if (!isString(content) && true) {
+        warn$1(MESSAGE_CONTENT_PARAM_WARNING);
+    }
     return messageOption;
 };
-const addMessageStyle = (style, ref) => new Promise((resolve) => {
-    const styleInject = (css, ref) => {
-        if (ref === void 0) {
-            ref = {};
-        }
-        const insertAt = ref.insertAt;
-        if (!css || isUndef(document)) {
-            resolve(false);
-            return;
-        }
-        const head = document.head || $("head");
-        const style = document.createElement("style");
-        style.type = "text/css";
-        style.appendChild(document.createTextNode(css));
-        if (insertAt === "top") {
-            if (head.firstChild) {
-                head.insertBefore(style, head.firstChild);
-            }
-            else {
-                head.appendChild(style);
-            }
-        }
-        else {
-            head.appendChild(style);
-        }
-        resolve(true);
-    };
-    styleInject(style, ref);
-});
 const getOffsetTop = (top) => {
     if (isNumber(top)) {
         return `${top}px`;
@@ -272,110 +232,78 @@ class Message {
     options;
     el;
     closeBtnEl;
-    stylePrefix = 'ew-';
+    container;
+    instances;
     constructor(options) {
-        this.options = this.normalizeOptions(options);
+        this.options = normalizeOptions(options);
         this.el = null;
         this.closeBtnEl = null;
-        const { immediate } = this.options;
-        this.addZIndex();
-        this.addPosition();
-        immediate && this.render(this.options);
-    }
-    addPosition() {
-        const { position, type } = this.options;
-        if (isString(position) && positionList.includes(position)) {
-            addMessageStyle(`.${this.stylePrefix}message.${this.stylePrefix}message-${type}{position:${position}}}`);
-        }
-    }
-    addZIndex() {
-        const { messageZIndex } = this.options;
-        if (isNumber(messageZIndex) && messageZIndex > 0) {
-            addMessageStyle(`.${this.stylePrefix}message{z-index:${messageZIndex}}`);
-        }
+        this.instances = null;
+        this.container = checkContainer(this.options.container);
+        this.render();
     }
     destroy() {
         if (this.el) {
-            this.close(this.el, 0, true);
+            this.close([this.el], 0, true);
         }
-    }
-    normalizeOptions(options) {
-        return normalizeOptions(options);
-    }
-    getMessageType() {
-        return typeMap;
-    }
-    getDefaultOption() {
-        return defaultMessageOption;
     }
     render(opt) {
-        const options = opt || this.options;
-        const { duration, showClose, content, container: optionContainer, } = options;
-        if ((!isNumber(duration) || duration <= 0) && !showClose) {
-            {
-                warn$1(MESSAGE_CLOSE_PARAM_WARNING);
-            }
-            options.showClose = true;
+        this.options = Object.assign({}, this.options, opt);
+        const { duration } = this.options;
+        const { element: el, closeBtnEl } = this.createMessage();
+        this.instances = $$(".ew-message", this.container);
+        this.animationAddNode(el, this.container);
+        this.setTop(this.instances);
+        if (duration > 0) {
+            this.close([el], duration);
         }
-        if (!isString(content) && true) {
-            warn$1(MESSAGE_CONTENT_PARAM_WARNING);
-        }
-        const container = checkContainer(optionContainer);
-        const el = this.create(options);
-        this.animationAddNode(el, container);
-        this.setTop($$("." + this.stylePrefix + "message", container));
-        if (isNumber(duration) &&
-            duration > 0 &&
-            this.el instanceof HTMLElement) {
-            this.close(this.el, duration);
-        }
-        if (this.closeBtnEl) {
-            on(this.closeBtnEl, "click", () => {
-                this.close(this.closeBtnEl.parentElement, 0);
-            });
+        if (closeBtnEl) {
+            on(closeBtnEl, "click", () => this.close([el], 0));
         }
     }
-    create(options) {
-        const { type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = options || this.options;
-        let element = create("div");
-        element.className = `${this.stylePrefix}message ${this.stylePrefix}message-${type}`;
+    createMessage() {
+        const { type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = this.options;
+        const element = create("div");
+        element.className = `ew-message ew-message-${type}`;
         if (center) {
-            addClass(this.stylePrefix + "message-center", element);
+            addClass("ew-message-center", element);
         }
         const p = create("p");
         p.appendChild(createElement(content));
         if (showTypeIcon) {
-            const icon = typeIcon
-                ? typeIcon
-                : typeIconMap[type || "info"](this.stylePrefix);
+            const icon = isString(typeIcon) && typeIcon ? typeIcon : typeIconMap[type || "info"]('ew-');
             element.appendChild(createElement(icon));
         }
         element.appendChild(p);
         if (showClose) {
             this.closeBtnEl = create("i");
-            addClass(`${this.stylePrefix}message-close`, this.closeBtnEl);
-            this.closeBtnEl?.appendChild(createElement(optionCloseIcon ? optionCloseIcon : closeIcon(this.stylePrefix)));
+            addClass(`ew-message-close`, this.closeBtnEl);
+            this.closeBtnEl.appendChild(createElement(optionCloseIcon ? optionCloseIcon : closeIcon("ew-")));
             element.appendChild(this.closeBtnEl);
         }
         this.el = element;
-        return element;
+        return {
+            element,
+            closeBtnEl: this.closeBtnEl,
+        };
     }
-    setTop(element) {
-        if (!element || !element.length)
+    setTop(nodeList) {
+        const nodes = toArray(nodeList);
+        if (nodes.length === 0)
             return;
         const { top } = this.options;
-        const height = element[0].offsetHeight;
-        for (let i = 0, len = element.length; i < len; i++) {
-            const item = element[i];
-            item.setAttribute("style", `top:${getOffsetTop(top) !== baseTopUnit
-                ? top
-                : `${baseTopUnit * (i + 1) + height * i}px`};`);
+        const height = nodes[0].offsetHeight;
+        const getFinalTop = (i) => `top:${getOffsetTop(top) !== baseTopUnit
+            ? top
+            : `${baseTopUnit * (i + 1) + height * i}px`};`;
+        for (let i = 0, len = nodes.length; i < len; i++) {
+            nodes[i].setAttribute("style", getFinalTop(i));
         }
     }
     animationAddNode(el, container) {
         const { startClassName, startClassNameSymbol } = this.options;
         if (startClassName) {
-            handleAnimationNode(el, startClassName, startClassNameSymbol, this.stylePrefix, utilAnimationAddClassNames, (res) => {
+            handleAnimationNode(el, startClassName, startClassNameSymbol, "ew-", utilAnimationAddClassNames, (res) => {
                 if (isArray(res)) {
                     res.forEach((className) => removeClass(className, el));
                 }
@@ -389,41 +317,21 @@ class Message {
     animationRemoveNode(el, isDestroy = false) {
         const { removeClassName, removeClassNameSymbol } = this.options;
         if (removeClassName && !isDestroy) {
-            handleAnimationNode(el, removeClassName, removeClassNameSymbol, this.stylePrefix, utilAnimationRemoveClassNames, () => removeNode(el));
+            handleAnimationNode(el, removeClassName, removeClassNameSymbol, "ew-", utilAnimationRemoveClassNames, () => removeNode(el));
         }
         else {
             removeNode(el);
         }
     }
-    close(element, time, isDestroy = false) {
-        const { maxDuration, container } = this.options;
-        if (!isNumber(time)) {
-            warn$1(MESSAGE_CLOSE_DURATION_WARNING);
-        }
-        if (!isNumber(maxDuration)) {
-            warn$1(MESSAGE_CLOSE_MAX_DURATION_WARNING);
-        }
-        const normalizeTime = !isNumber(time) || time <= 0 ? 100 : time;
-        const maxDurationValue = maxDuration || 10000;
-        const normalizeMaxDuration = !isNumber(maxDurationValue) || maxDurationValue <= normalizeTime
-            ? normalizeTime
-            : maxDurationValue;
-        const mountedContainer = checkContainer(container);
-        const delay = Math.min(normalizeTime < 1000 ? normalizeTime * 10 : normalizeTime, normalizeMaxDuration);
+    close(nodes = [], time, isDestroy = false) {
+        const delay = Math.min(10000, time);
         const closeHandler = () => {
-            if (element instanceof NodeList || element instanceof HTMLCollection) {
-                toArray(element).forEach((item) => {
-                    if (isRemoveNode(item)) {
-                        this.animationRemoveNode(item, isDestroy);
-                    }
-                });
-            }
-            else {
-                if (isRemoveNode(element)) {
-                    this.animationRemoveNode(element, isDestroy);
+            nodes.forEach((item) => {
+                if (isRemoveNode(item)) {
+                    this.animationRemoveNode(item, isDestroy);
                 }
-            }
-            this.setTop($$("." + this.stylePrefix + "message", mountedContainer));
+            });
+            this.setTop(this.instances);
         };
         if (isDestroy) {
             closeHandler();

@@ -1,4 +1,4 @@
-import { Position, ewMessageEnumType } from "./enum";
+import { ewMessageEnumType } from "./enum";
 import { ewMessageOption } from "./options";
 
 export type ewMessageType = {
@@ -17,23 +17,15 @@ export const defaultMessageOption: ewMessageOption = {
   type: 'info',
   duration: 100,
   showClose: true,
-  maxDuration: 10000,
   showTypeIcon: true,
-  immediate: true,
   container: document.body,
   removeClassName: '',
   removeClassNameSymbol: ' ',
   startClassName: '',
-  startClassNameSymbol: ' ',
-  position: Position.FIXED
+  startClassNameSymbol: ' '
 };
 
 export const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];
 export const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
 
 export const baseTopUnit = 25;
-
-export const positionList = Object.keys(Position).reduce<string []>((res, key) => {
-  res.push(Position[key]);
-  return res;
-}, []);
