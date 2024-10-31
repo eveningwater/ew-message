@@ -76,7 +76,7 @@ function MDXContent(props = {}) {
 
 /***/ }),
 
-/***/ 7952:
+/***/ 2218:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -98,16 +98,16 @@ const frontMatter = {
 };
 const contentTitle = '参数接口';
 const metadata = {
-  "id": "api/api",
+  "id": "core-api/api",
   "title": "参数接口",
   "description": "这里主要介绍函数的参数类型。",
-  "source": "@site/docs/api/api.md",
-  "sourceDirName": "api",
-  "slug": "/api/",
-  "permalink": "/ew-message/docs/api/",
+  "source": "@site/docs/core-api/api.md",
+  "sourceDirName": "core-api",
+  "slug": "/core-api/api",
+  "permalink": "/ew-message/docs/core-api/api",
   "draft": false,
   "unlisted": false,
-  "editUrl": "https://github.com/eveningwater/ewMessage/tree/main/docs/api/api.md",
+  "editUrl": "https://github.com/eveningwater/ewMessage/tree/main/docs/core-api/api.md",
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
@@ -121,7 +121,7 @@ const metadata = {
   },
   "next": {
     "title": "实例方法接口",
-    "permalink": "/ew-message/docs/api/instance"
+    "permalink": "/ew-message/docs/core-api/instance"
   }
 };
 const assets = {
@@ -139,76 +139,52 @@ const toc = [{
   "id": "配置对象",
   "level": 2
 }, {
-  "value": "content",
-  "id": "content",
+  "value": "1. content",
+  "id": "1-content",
   "level": 3
 }, {
-  "value": "center",
-  "id": "center",
+  "value": "2. center",
+  "id": "2-center",
   "level": 3
 }, {
-  "value": "type",
-  "id": "type",
+  "value": "3. type",
+  "id": "3-type",
   "level": 3
 }, {
-  "value": "duration",
-  "id": "duration",
+  "value": "4. duration",
+  "id": "4-duration",
   "level": 3
 }, {
-  "value": "maxDuration (0.0.7 版本新增)",
-  "id": "maxduration-007-版本新增",
+  "value": "5. showClose",
+  "id": "5-showclose",
   "level": 3
 }, {
-  "value": "showClose",
-  "id": "showclose",
+  "value": "6. showTypeIcon (0.0.8)新增",
+  "id": "6-showtypeicon-008新增",
   "level": 3
 }, {
-  "value": "stylePrefix （0.1.4版本已移除）",
-  "id": "styleprefix-014版本已移除",
+  "value": "7. typeIcon(0.0.8 新增)",
+  "id": "7-typeicon008-新增",
   "level": 3
 }, {
-  "value": "showTypeIcon (0.0.8)新增",
-  "id": "showtypeicon-008新增",
+  "value": "8. closeIcon(0.0.8 新增)",
+  "id": "8-closeicon008-新增",
   "level": 3
 }, {
-  "value": "typeIcon(0.0.8 新增)",
-  "id": "typeicon008-新增",
+  "value": "9. container(0.0.9 新增)",
+  "id": "9-container009-新增",
   "level": 3
 }, {
-  "value": "closeIcon(0.0.8 新增)",
-  "id": "closeicon008-新增",
+  "value": "10. removeClassName(0.0.9 新增，0.1.5调整为字符串数组)",
+  "id": "10-removeclassname009-新增015调整为字符串数组",
   "level": 3
 }, {
-  "value": "container(0.0.9 新增)",
-  "id": "container009-新增",
+  "value": "11. top(0.1.1 新增)",
+  "id": "11-top011-新增",
   "level": 3
 }, {
-  "value": "immediate(0.0.9 新增)",
-  "id": "immediate009-新增",
-  "level": 3
-}, {
-  "value": "removeClassName(0.0.9 新增)",
-  "id": "removeclassname009-新增",
-  "level": 3
-}, {
-  "value": "removeClassNameSymbol(0.0.9 新增)",
-  "id": "removeclassnamesymbol009-新增",
-  "level": 3
-}, {
-  "value": "messageZIndex(0.1.0 新增)",
-  "id": "messagezindex010-新增",
-  "level": 3
-}, {
-  "value": "top(0.1.1 新增)",
-  "id": "top011-新增",
-  "level": 3
-}, {
-  "value": "startClassName(0.1.1 新增)",
-  "id": "startclassname011-新增",
-  "level": 3
-}, {
-  "value": "startClassNameSymbol(0.1.1 新增)",
-  "id": "startclassnamesymbol011-新增",
+  "value": "12. startClassName(0.1.1 新增,0.1.5调整为字符串数组)",
+  "id": "12-startclassname011-新增015调整为字符串数组",
   "level": 3
 }];
 function _createMdxContent(props) {
@@ -249,8 +225,8 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "配置对象主要有 6 个属性，分别如下:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "content",
-      children: "content"
+      id: "1-content",
+      children: "1. content"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "content 是一个字符串，用作消息提示框的内容，默认为空，如果在开发环境下（即导入的是非生产模式的文件 ewMessage.js），则会在控制台给出警告，如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -259,8 +235,8 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage({ content: \"这是一个默认的消息提示框\" });\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "center",
-      children: "center"
+      id: "2-center",
+      children: "2. center"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "center 属性是一个布尔值，表示是否让消息提示框的内容剧中，默认是 false。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -269,8 +245,8 @@ function _createMdxContent(props) {
         children: "// 消息提示框内容居中\nconst msg = ewMessage({ content: \"这是一个默认的消息提示框\", center: true });\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "type",
-      children: "type"
+      id: "3-type",
+      children: "3. type"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "type 的值虽然是一个字符串，但只支持\"info\" | \"success\" | \"warning\" | \"error\"，表示消息提示框的类型，默认是值是\"info\"。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -279,46 +255,18 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage({\n  content: \"这是一个成功的消息提示框\",\n  center: true,\n  type: \"success\", // 成功消息提示框\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "duration",
-      children: "duration"
+      id: "4-duration",
+      children: "4. duration"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该字段的值是一个数值，表示消息提示框关闭的时间，默认值是 6s，可以自定义修改。如:"
+      children: "该字段的值是一个数值，表示消息提示框关闭的时间，默认值是 2s，可以自定义修改。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  center: true,\n  type: \"success\",\n  duration: 2000, // 消息提示框将在2s后关闭\n});\n"
+        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  center: true,\n  type: \"success\",\n  duration: 3000, // 消息提示框将在2s后关闭\n});\n"
       })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "需要注意的是，插件内部做了一个小小的规范化，如果传入的时间即 duration 的值小于 1000，则会自动乘以 10。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-        children: "ps: 0.0.7 版本做了一个优化，如果 duration 不是一个数值，则会在开发环境下提示警告，如果小于等于 0，则会取 1000 作为默认值，默认值也由 6s 变成了 1s。"
-      }), "\n"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-        children: "ps: 不建议将该值设置的过大。"
-      }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "maxduration-007-版本新增",
-      children: "maxDuration (0.0.7 版本新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该字段的值也是一个数值，表示消息提示框的最大关闭时间，插件内部会将该值与传入的 duration 值做比较，取两者之间的最小值，默认值是 10s。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  center: true,\n  type: \"success\",\n  duration: 12000,\n  maxDuration: 10000, // 最大关闭时间设置的是10s，因此消息提示框将在10s后关闭，而不是12s后关闭\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-        children: "ps: 如果传入的值不是一个数值，也会在开发环境下提示警告，如果小于等于 duration,则会取 duration 作为默认值。"
-      }), "\n"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-        children: "ps: 不建议设置该值。"
-      }), "\n"]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "showclose",
-      children: "showClose"
+      id: "5-showclose",
+      children: "5. showClose"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "该字段的值是一个布尔值，表示是否显示消息提示框的关闭按钮，默认值是 true，可以将值设置为 false。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -331,22 +279,8 @@ function _createMdxContent(props) {
         children: "ps: 需要注意的是如果将 duration 的值设置为 0,showClose 设置为 false,则在开发环境下会提供警告，然后自动开启消息提示框的关闭按钮。"
       }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "styleprefix-014版本已移除",
-      children: "stylePrefix （0.1.4版本已移除）"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该属性是一个字符串，表示样式类名的前缀，默认是'ew-',可以自定义类名，方便自己修改样式。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  stylePrefix: \"el-\",\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "以上代码将会给消息提示框的样式类名前缀变成 el-,比如原本是 ew-message 类名将变成 el-message。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "通常来讲这个属性应该是用不到的，只有在确实需要自定义样式的时候可以用到。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "showtypeicon-008新增",
-      children: "showTypeIcon (0.0.8)新增"
+      id: "6-showtypeicon-008新增",
+      children: "6. showTypeIcon (0.0.8)新增"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "该属性是一个布尔值，表示是否显示图标，会根据相关的类型来匹配相应的图标，比如 info 类型就是 info 类型的图标,默认值是 true。如下所示:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -355,8 +289,8 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  showTypeIcon: true,\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "typeicon008-新增",
-      children: "typeIcon(0.0.8 新增)"
+      id: "7-typeicon008-新增",
+      children: "7. typeIcon(0.0.8 新增)"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["该属性用于自定义图标，需要将 showTypeIcon 设置为 true 才行，如果默认的图标不符合需求，可以自己传入一个 img 标签或者 svg 标签自定义一个图标，或者是任意元素，不过需要自己调整图标样式，可以定义", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "${prefix}-message-${type}-icon"
@@ -367,8 +301,8 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  showTypeIcon: true,\n  typeIcon:\n    '<svg t=\"1695191942528\" class=\"ew-message-icon ew-message-info-icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"7731\" id=\"mx_n_1695191942529\"><path d=\"M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z\" fill=\"#1677ff\" p-id=\"7732\"></path></svg>',\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "closeicon008-新增",
-      children: "closeIcon(0.0.8 新增)"
+      id: "8-closeicon008-新增",
+      children: "8. closeIcon(0.0.8 新增)"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["该属性用于自定义关闭按钮的图标，需要将 showClose 设置为 true 才行，如果默认的关闭按钮图标不符合需求，可以自己传入一个 img 标签或者 svg 标签自定义一个图标，或者是任意元素，不过需要自己调整图标样式，可以定义", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         children: "${prefix}-message-close-icon"
@@ -379,8 +313,8 @@ function _createMdxContent(props) {
         children: "// 不推荐替换默认的图标\nconst msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  showTypeIcon: true,\n  closeIcon:\n    '<svg t=\"1695191942528\" class=\"ew-message-close-icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"7731\" id=\"mx_n_1695191942529\"><path d=\"M512 1024A512 512 0 1 1 512 0a512 512 0 0 1 0 1024zM448 448v384h128V448H448z m0-256v128h128V192H448z\" fill=\"#1677ff\" p-id=\"7732\"></path></svg>',\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "container009-新增",
-      children: "container(0.0.9 新增)"
+      id: "9-container009-新增",
+      children: "9. container(0.0.9 新增)"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "该属性用于设置消息提示框挂载的元素，可以传入一个 dom 元素字符串或者是 dom 元素，不满足则会在开发环境下给出警告提示，默认值是 body 元素。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -389,36 +323,14 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  container: \"#test\",\n});\n// 将消息提示框挂载到页面当中id为test的元素中\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "immediate009-新增",
-      children: "immediate(0.0.9 新增)"
+      id: "10-removeclassname009-新增015调整为字符串数组",
+      children: "10. removeClassName(0.0.9 新增，0.1.5调整为字符串数组)"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该属性用于是否立即渲染消息提示框，如果设置为 false，则需要手动调用 render,render 方法可以传也可以不传参数，方法来渲染消息提示框，默认值是 true。如:"
+      children: "该属性用于卸载消息提示框时添加的动画类名，目前内置有 fadeOut 和 scaleDown 动画效果，如指定了正确的动画类名值，当点击关闭或者是自动关闭消息提示框的时候，会有相应的动画效果,默认值是空数组，即没有动画效果。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  immediate: false,\n});\nmsg.render(); // 内部会自动获取配置对象并渲染\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "removeclassname009-新增",
-      children: "removeClassName(0.0.9 新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该属性用于卸载消息提示框时添加的动画类名，目前内置有 fadeOut 和 scaleDown 动画效果，如指定了正确的动画类名值，当点击关闭或者是自动关闭消息提示框的时候，会有相应的动画效果,默认值是空字符串，即没有动画效果。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: \"fadeOut\", // 或者也可以传入ew-message-fadeOut\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "也可以传入多个类名，多个类名之间可以使用任意值或者空白来隔开，如果不是使用空白隔开，则需要指定 removeClassNameSymbol 的值，例如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: \"fadeOut scaleDown\", // 或者也可以传入ew-message-fadeOut ew-message-scaleDown\n  // 这里是使用空白隔开，因此不需要指定 removeClassNameSymbol\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  removeClassName: 'fadeOut,scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown\n  removeClassNameSymbol: ','\n  // 这里是使用逗号隔开\n});\n"
+        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: [\"fadeOut\"], // 或者也可以传入ew-message-fadeOut\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["我们可以结合", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
@@ -428,31 +340,11 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "// 假设页面引入了animate.css文件\nconst msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: \"animate__animated animate__bounce\",\n});\n"
+        children: "// 假设页面引入了animate.css文件\nconst msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: [\"animate__animated\",\"animate__bounce\"],\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "removeclassnamesymbol009-新增",
-      children: "removeClassNameSymbol(0.0.9 新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "用于指定多个 removeClassName 的分隔符，如果 removeClassName 指定的是单个类名或者是多个以空白隔开的类名，则不需要传入该值。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  removeClassName: 'fadeOut+scaleDown' // 或者也可以传入ew-message-fadeOut ew-message-scaleDown,0.1.1版本更名为scaleUp\n  removeClassNameSymbol: '+'\n  // 这里是使用+隔开\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "messagezindex010-新增",
-      children: "messageZIndex(0.1.0 新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "用于自定义消息提示框的显示层级，是一个 number 值，用于覆盖默认的 z-index:1000，无默认值。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  messageZIndex: 2000,\n});\n// 设置消息提示框的显示层级为2000\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "top011-新增",
-      children: "top(0.1.1 新增)"
+      id: "11-top011-新增",
+      children: "11. top(0.1.1 新增)"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "用于自定义消息提示框的 top 偏移量，是一个 number 值或者字符串值，如示例:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
@@ -461,26 +353,14 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  top: 20,\n});\nconst msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  top: \"15px\",\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "startclassname011-新增",
-      children: "startClassName(0.1.1 新增)"
+      id: "12-startclassname011-新增015调整为字符串数组",
+      children: "12. startClassName(0.1.1 新增,0.1.5调整为字符串数组)"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该属性用于添加消息提示框时添加的动画类名，目前内置有 fadeIn 和 scaleUp 动画效果，如指定了正确的动画类名值，当消息框出现时，会有相应的动画效果,延迟 1s 之后，会移除动画效果类名。默认值是空字符串，即没有动画效果。如:"
+      children: "该属性用于添加消息提示框时添加的动画类名，目前内置有 fadeIn 和 scaleUp 动画效果，如指定了正确的动画类名值，当消息框出现时，会有相应的动画效果,延迟 1s 之后，会移除动画效果类名。默认值是空数组，即没有动画效果。如:"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: \"fadeIn\", // 或者也可以传入ew-message-fadeIn\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "也可以传入多个类名，多个类名之间可以使用任意值或者空白来隔开，如果不是使用空白隔开，则需要指定 startClassNameSymbol 的值，例如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  startClassName: \"fadeIn scaleDown\", // 或者也可以传入ew-message-fadeIn ew-message-scaleDown\n  // 这里是使用空白隔开，因此不需要指定 startClassNameSymbol\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  startClassName: 'fadeIn,scaleDown' // 或者也可以传入ew-message-fadeIn ew-message-scaleDown\n  startClassNameSymbol: ','\n  // 这里是使用逗号隔开\n});\n"
+        children: "const msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  removeClassName: [\"fadeIn\"], // 或者也可以传入ew-message-fadeIn\n});\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["我们可以结合", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
@@ -490,17 +370,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "// 假设页面引入了animate.css文件\nconst msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  startClassName: \"animate__animated animate__bounceIn\",\n});\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "startclassnamesymbol011-新增",
-      children: "startClassNameSymbol(0.1.1 新增)"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "用于指定多个 startClassName 的分隔符，如果 startClassName 指定的是单个类名或者是多个以空白隔开的类名，则不需要传入该值。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage({\n  content: '这是一个默认的消息提示框',\n  startClassName: 'fadeIn+scaleDown' // 或者也可以传入ew-message-fadeIn ew-message-scaleDown\n  startClassNameSymbol: '+'\n  // 这里是使用+隔开\n});\n"
+        children: "// 假设页面引入了animate.css文件\nconst msg = ewMessage({\n  content: \"这是一个默认的消息提示框\",\n  startClassName: [\"animate__animated\",\"animate__bounceIn\"],\n});\n"
       })
     })]
   });
@@ -522,7 +392,7 @@ function MDXContent(props = {}) {
 
 /***/ }),
 
-/***/ 2029:
+/***/ 9955:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -544,16 +414,16 @@ const frontMatter = {
 };
 const contentTitle = '实例方法接口';
 const metadata = {
-  "id": "api/instance",
+  "id": "core-api/instance",
   "title": "实例方法接口",
   "description": "除了属性接口之外，我们也可以使用插件的一些实例方法，总结如下。",
-  "source": "@site/docs/api/instance.md",
-  "sourceDirName": "api",
-  "slug": "/api/instance",
-  "permalink": "/ew-message/docs/api/instance",
+  "source": "@site/docs/core-api/instance.md",
+  "sourceDirName": "core-api",
+  "slug": "/core-api/instance",
+  "permalink": "/ew-message/docs/core-api/instance",
   "draft": false,
   "unlisted": false,
-  "editUrl": "https://github.com/eveningwater/ewMessage/tree/main/docs/api/instance.md",
+  "editUrl": "https://github.com/eveningwater/ewMessage/tree/main/docs/core-api/instance.md",
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
@@ -563,11 +433,11 @@ const metadata = {
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "参数接口",
-    "permalink": "/ew-message/docs/api/"
+    "permalink": "/ew-message/docs/core-api/api"
   },
   "next": {
     "title": "内置工具函数接口",
-    "permalink": "/ew-message/docs/api/utils"
+    "permalink": "/ew-message/docs/core-api/utils"
   }
 };
 const assets = {
@@ -593,6 +463,10 @@ const toc = [{
   "id": "closebtnel",
   "level": 3
 }, {
+  "value": "instance",
+  "id": "instance",
+  "level": 3
+}, {
   "value": "实例方法",
   "id": "实例方法",
   "level": 2
@@ -601,32 +475,12 @@ const toc = [{
   "id": "destroy-006-版本新增",
   "level": 3
 }, {
-  "value": "validateHasStyle",
-  "id": "validatehasstyle",
-  "level": 3
-}, {
-  "value": "normalizeOptions",
-  "id": "normalizeoptions",
-  "level": 3
-}, {
-  "value": "getMessageType",
-  "id": "getmessagetype",
-  "level": 3
-}, {
-  "value": "getDefaultOption",
-  "id": "getdefaultoption",
-  "level": 3
-}, {
-  "value": "addMessageStyle",
-  "id": "addmessagestyle",
-  "level": 3
-}, {
   "value": "render",
   "id": "render",
   "level": 3
 }, {
-  "value": "create",
-  "id": "create",
+  "value": "createMessage",
+  "id": "createmessage",
   "level": 3
 }, {
   "value": "setTop",
@@ -689,6 +543,11 @@ function _createMdxContent(props) {
       children: "closeBtnEl"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
       children: "消息提示框的关闭元素。"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
+      id: "instance",
+      children: "instance"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
+      children: "消息提示框元素集合。"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h2, {
       id: "实例方法",
       children: "实例方法"
@@ -703,41 +562,6 @@ function _createMdxContent(props) {
         children: "const msg = ewMessage(\"这是一个默认的消息提示框\");\nmsg.destroy(); // 页面将不再看到消息提示框\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "validatehasstyle",
-      children: "validateHasStyle"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该方法验证消息提示框是否含有样式，如果通过 link 标签导入样式，则该方法返回 true，否则返回 false。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage(\"这是一个默认的消息提示框\");\nmsg.validateHasStyle(); // 假设页面引入了消息提示框的样式，则返回true\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "normalizeoptions",
-      children: "normalizeOptions"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该方法规范化传入的参数，并和默认配置对象合并，最终返回一个消息提示框的配置对象。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "getmessagetype",
-      children: "getMessageType"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该方法返回消息提示框支持的类型值。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "getdefaultoption",
-      children: "getDefaultOption"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该方法用于获取消息提示框的默认配置对象。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "addmessagestyle",
-      children: "addMessageStyle"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "该方法用于添加消息提示框的样式，如果传入了第二个参数，将会将第二个参数的样式作为最终样式添加到页面中，两个参数都是一个字符串。不同的是，第一个参数代表样式前缀名，第二个参数代表一个样式字符串。如:"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
-      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
-        className: "language-ts",
-        children: "const msg = ewMessage(\"这是一个默认的消息提示框\");\nmsg.addMessageStyle(\"ew-\", `body { background: #2396ef; }`); // 第一个参数实际上就没有什么作用了，页面body元素的背景是蓝色\nmsg.addMessageStyle(\"el-\"); // 会添加消息提示框的默认样式，但类名前缀是el-\n"
-      })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
       id: "render",
       children: "render"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
@@ -746,8 +570,8 @@ function _createMdxContent(props) {
         children: "源码"
       }), "。"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
-      id: "create",
-      children: "create"
+      id: "createmessage",
+      children: "createMessage"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["该方法表示创建一个消息提示框的元素，返回消息提示框的根元素，不需要使用，感兴趣可参看", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         href: "https://github.com/eveningwater/ew-message/blob/main/src/message.ts",
@@ -807,7 +631,7 @@ function MDXContent(props = {}) {
 
 /***/ }),
 
-/***/ 7521:
+/***/ 2791:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -829,16 +653,16 @@ const frontMatter = {
 };
 const contentTitle = '内置工具函数接口';
 const metadata = {
-  "id": "api/utils",
+  "id": "core-api/utils",
   "title": "内置工具函数接口",
   "description": "插件内部提供了一些工具函数可供调用，该工具函数定义在 ewMessage 的静态属性 util 上，我们可以通过如下代码来获取:",
-  "source": "@site/docs/api/utils.md",
-  "sourceDirName": "api",
-  "slug": "/api/utils",
-  "permalink": "/ew-message/docs/api/utils",
+  "source": "@site/docs/core-api/utils.md",
+  "sourceDirName": "core-api",
+  "slug": "/core-api/utils",
+  "permalink": "/ew-message/docs/core-api/utils",
   "draft": false,
   "unlisted": false,
-  "editUrl": "https://github.com/eveningwater/ewMessage/tree/main/docs/api/utils.md",
+  "editUrl": "https://github.com/eveningwater/ewMessage/tree/main/docs/core-api/utils.md",
   "tags": [],
   "version": "current",
   "sidebarPosition": 1,
@@ -848,7 +672,7 @@ const metadata = {
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "实例方法接口",
-    "permalink": "/ew-message/docs/api/instance"
+    "permalink": "/ew-message/docs/core-api/instance"
   },
   "next": {
     "title": "ew-message",
@@ -1180,7 +1004,7 @@ const metadata = {
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "内置工具函数接口",
-    "permalink": "/ew-message/docs/api/utils"
+    "permalink": "/ew-message/docs/core-api/utils"
   }
 };
 const assets = {
@@ -1220,10 +1044,8 @@ function _createMdxContent(props) {
     h3: "h3",
     header: "header",
     img: "img",
-    li: "li",
     p: "p",
     pre: "pre",
-    ul: "ul",
     ...(0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__/* .useMDXComponents */ .R)(),
     ...props.components
   };
@@ -1291,7 +1113,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
         className: "language-ts",
-        children: "interface ewMessageOption {\n  content: string; //消息提示框内容，必传参数\n  center?: boolean; //消息提示框内容是否居中\n  type?: string; //消息提示框类型，有四种: info,success,warning,error\n  duration?: number; //消息提示框消失时间\n  showClose?: boolean; //是否显示关闭按钮\n  stylePrefix?: string; //消息提示框样式前缀，注意插件有检测如果导入了样式文件，则这个配置无效 0.1.4 移除\n  showTypeIcon?: boolean; // 是否显示类型图标，默认为true\n  typeIcon?: string; // 自定义类型图标\n  closeIcon?: string; // 自定义关闭按钮图标\n  container?: string | HTMLElement; // 挂载元素\n  immediate?: boolean; // 是否立即渲染消息提示框\n  removeClassName?: string; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown\n  removeClassNameSymbol?: string; // 指定多个移除动画类名并且分隔符不是空白时传入\n  messageZIndex?: number; // 指定消息提示框的显示层级\n  top?: number; // 用于自定义配置每个消息提示框的top偏移值\n}\n"
+        children: "interface ewMessageOption {\n  content: string; //消息提示框内容，必传参数\n  center?: boolean; //消息提示框内容是否居中\n  type?: string; //消息提示框类型，有四种: info,success,warning,error\n  duration?: number; //消息提示框消失时间\n  showClose?: boolean; //是否显示关闭按钮\n  showTypeIcon?: boolean; // 是否显示类型图标，默认为true\n  typeIcon?: string; // 自定义类型图标\n  closeIcon?: string; // 自定义关闭按钮图标\n  container?: string | HTMLElement; // 挂载元素\n  removeClassName?: string[]; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown\n  startClassName?: string[]; // 添加消息提示框动画类名，目前内置动画类名值: fadeIn与scaleUp\n  top?: number; // 用于自定义配置每个消息提示框的top偏移值\n}\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
       children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
@@ -1313,12 +1135,6 @@ function _createMdxContent(props) {
         className: "language-js",
         children: "import ewMessage from 'ewMessage';\n//  导入样式\nimport 'ew-message/dist/ew-message.min.css';\nconst msg = ewMessage(option); //option为配置对象，详情见前述\n"
       })
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-      children: "当然也可以不引入样式，插件检测了如果不导入样式文件，则会自动添加样式，并且也可以给样式添加类名前缀自定义样式。"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
-        children: "特别说明: 0.1.4版本为减少包的体积，移除了是否导入样式的检测以及自动添加样式的逻辑，也无法自定义添加类名前缀样式，需额外引入css文件。"
-      }), "\n"]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
       children: ["更多详情参阅文档官网介绍", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
         href: "https://eveningwater.github.io/ew-message/",
@@ -1327,30 +1143,11 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h1, {
       id: "更新日志",
       children: "更新日志"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.ul, {
-      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.0.1 ~ 0.0.4: 添加了消息提示框的基本功能。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.0.5: 修改了 ts 类型导入。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.0.6: 消息提示框添加了销毁 destroy 方法。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.0.7: 完善了 ts 类型,新增了最大关闭时间属性 maxDuration,修改了默认关闭时间。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.0.8: 新增了 showTypeIcon 和 typeIcon 属性以及 closeIcon，用于配置图标,新增了工具方法 createElement。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.0.9: 新增了 container、immediate、removeClassName、removeClassNameSymbol 配置属性，新增了 on,off,addClass 工具方法。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.1.0: 修复了 ts 类型错误，新增了 messageZIndex 属性。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.1.1: 新增了 top 属性,新增了 startClassName 与 startClassNameSymbol 属性,新增了 removeClass 方法。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.1.2: 修改了销毁消息提示框逻辑,增加了 isArray、isRemoveNode 方法。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.1.3: 调整了代码结构，新增了position属性，新增了isUndef方法。"
-      }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.li, {
-        children: "0.1.4: 移除stylePrefix以及监听样式是否加载的逻辑。"
-      }), "\n"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.p, {
+      children: ["详情可参考", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.a, {
+        href: "https://www.npmjs.com/package/ew-message",
+        children: "更新日志"
+      }), "。"]
     })]
   });
 }
@@ -1412,7 +1209,7 @@ const metadata = {
   "sidebar": "tutorialSidebar",
   "next": {
     "title": "参数接口",
-    "permalink": "/ew-message/docs/api/"
+    "permalink": "/ew-message/docs/core-api/api"
   }
 };
 const assets = {
@@ -3482,9 +3279,9 @@ function _interopRequireWildcard(e, r) {
 var lib = __webpack_require__(8629);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 ;// CONCATENATED MODULE: ./.docusaurus/routesChunkNames.json
-const routesChunkNames_namespaceObject = /*#__PURE__*/JSON.parse('{"/ew-message/markdown-page-0f5":{"__comp":"1f391b9e","__context":{"plugin":"a7456010"},"content":"393be207"},"/ew-message/docs-fae":{"__comp":"5e95c892","__context":{"plugin":"aba21aa0"}},"/ew-message/docs-e27":{"__comp":"a7bd4aaa","__props":"fd9a9651"},"/ew-message/docs-7bc":{"__comp":"a94703ab"},"/ew-message/docs/api/-e79":{"__comp":"17896441","content":"1b7058c4"},"/ew-message/docs/api/instance-29d":{"__comp":"17896441","content":"1587ea39"},"/ew-message/docs/api/utils-cb1":{"__comp":"17896441","content":"14f5c6aa"},"/ew-message/docs/intro-026":{"__comp":"17896441","content":"0e384e19"},"/ew-message/docs/log-d16":{"__comp":"17896441","content":"938d2211"},"/ew-message/-801":{"__comp":"1df93b7f","__context":{"plugin":"a7456010"},"config":"5e9f5e1a"}}');
+const routesChunkNames_namespaceObject = /*#__PURE__*/JSON.parse('{"/ew-message/markdown-page-0f5":{"__comp":"1f391b9e","__context":{"plugin":"a7456010"},"content":"393be207"},"/ew-message/docs-7e0":{"__comp":"5e95c892","__context":{"plugin":"aba21aa0"}},"/ew-message/docs-ad9":{"__comp":"a7bd4aaa","__props":"fd9a9651"},"/ew-message/docs-03e":{"__comp":"a94703ab"},"/ew-message/docs/core-api/api-568":{"__comp":"17896441","content":"aecb2083"},"/ew-message/docs/core-api/instance-93e":{"__comp":"17896441","content":"04a65878"},"/ew-message/docs/core-api/utils-30c":{"__comp":"17896441","content":"608bd459"},"/ew-message/docs/intro-026":{"__comp":"17896441","content":"0e384e19"},"/ew-message/docs/log-d16":{"__comp":"17896441","content":"938d2211"},"/ew-message/-801":{"__comp":"1df93b7f","__context":{"plugin":"a7456010"},"config":"5e9f5e1a"}}');
 ;// CONCATENATED MODULE: ./.docusaurus/registry.js
-/* harmony default export */ const registry = ({"0e384e19":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7825))),"@site/docs/intro.md",/*require.resolve*/(7825)],"14f5c6aa":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7521))),"@site/docs/api/utils.md",/*require.resolve*/(7521)],"1587ea39":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(2029))),"@site/docs/api/instance.md",/*require.resolve*/(2029)],"17896441":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(9656))),"@theme/DocItem",/*require.resolve*/(9656)],"1b7058c4":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7952))),"@site/docs/api/api.md",/*require.resolve*/(7952)],"1df93b7f":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(3736))),"@site/src/pages/index.tsx",/*require.resolve*/(3736)],"1f391b9e":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(6249))),"@theme/MDXPage",/*require.resolve*/(6249)],"393be207":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(6239))),"@site/src/pages/markdown-page.md",/*require.resolve*/(6239)],"5e95c892":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(296))),"@theme/DocsRoot",/*require.resolve*/(296)],"5e9f5e1a":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(4784))),"@generated/docusaurus.config",/*require.resolve*/(4784)],"938d2211":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(8677))),"@site/docs/log.md",/*require.resolve*/(8677)],"a7456010":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(8552))),"@generated/docusaurus-plugin-content-pages/default/__plugin.json",/*require.resolve*/(8552)],"a7bd4aaa":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(5675))),"@theme/DocVersionRoot",/*require.resolve*/(5675)],"a94703ab":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(9304))),"@theme/DocRoot",/*require.resolve*/(9304)],"aba21aa0":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7093))),"@generated/docusaurus-plugin-content-docs/default/__plugin.json",/*require.resolve*/(7093)],"fd9a9651":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7715))),"@generated/docusaurus-plugin-content-docs/default/p/ew-message-docs-cf0.json",/*require.resolve*/(7715)]});
+/* harmony default export */ const registry = ({"04a65878":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(9955))),"@site/docs/core-api/instance.md",/*require.resolve*/(9955)],"0e384e19":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7825))),"@site/docs/intro.md",/*require.resolve*/(7825)],"17896441":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(9656))),"@theme/DocItem",/*require.resolve*/(9656)],"1df93b7f":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(3736))),"@site/src/pages/index.tsx",/*require.resolve*/(3736)],"1f391b9e":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(6249))),"@theme/MDXPage",/*require.resolve*/(6249)],"393be207":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(6239))),"@site/src/pages/markdown-page.md",/*require.resolve*/(6239)],"5e95c892":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(296))),"@theme/DocsRoot",/*require.resolve*/(296)],"5e9f5e1a":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(4784))),"@generated/docusaurus.config",/*require.resolve*/(4784)],"608bd459":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(2791))),"@site/docs/core-api/utils.md",/*require.resolve*/(2791)],"938d2211":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(8677))),"@site/docs/log.md",/*require.resolve*/(8677)],"a7456010":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(8552))),"@generated/docusaurus-plugin-content-pages/default/__plugin.json",/*require.resolve*/(8552)],"a7bd4aaa":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(5675))),"@theme/DocVersionRoot",/*require.resolve*/(5675)],"a94703ab":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(9304))),"@theme/DocRoot",/*require.resolve*/(9304)],"aba21aa0":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7093))),"@generated/docusaurus-plugin-content-docs/default/__plugin.json",/*require.resolve*/(7093)],"aecb2083":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(2218))),"@site/docs/core-api/api.md",/*require.resolve*/(2218)],"fd9a9651":[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(7715))),"@generated/docusaurus-plugin-content-docs/default/p/ew-message-docs-cf0.json",/*require.resolve*/(7715)]});
 // EXTERNAL MODULE: ./node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js
 var jsx_runtime = __webpack_require__(6070);
 ;// CONCATENATED MODULE: ./node_modules/.pnpm/@docusaurus+core@3.5.2_@docusaurus+types@3.5.2_@mdx-js+react@3.0.1_react-dom@18.3.1_react@18.3.1_typescript@5.5.4/node_modules/@docusaurus/core/lib/client/theme-fallback/Loading/index.js
@@ -3548,7 +3345,7 @@ if(typeof chunk==='object'||typeof chunk==='function'){Object.keys(loadedModule)
 let val=loadedModules;const keyPaths=keyPath.split('.');keyPaths.slice(0,-1).forEach(k=>{val=val[k];});val[keyPaths[keyPaths.length-1]]=chunk;});/* eslint-disable no-underscore-dangle */const Component=loadedModules.__comp;delete loadedModules.__comp;const routeContext=loadedModules.__context;delete loadedModules.__context;const routeProps=loadedModules.__props;delete loadedModules.__props;/* eslint-enable no-underscore-dangle */// Is there any way to put this RouteContextProvider upper in the tree?
 return/*#__PURE__*/(0,jsx_runtime.jsx)(client_routeContext/* RouteContextProvider */.W,{value:routeContext,children:/*#__PURE__*/(0,jsx_runtime.jsx)(Component,{...loadedModules,...routeProps,...props})});}});}
 ;// CONCATENATED MODULE: ./.docusaurus/routes.js
-/* harmony default export */ const routes = ([{path:'/ew-message/markdown-page',component:ComponentCreator('/ew-message/markdown-page','0f5'),exact:true},{path:'/ew-message/docs',component:ComponentCreator('/ew-message/docs','fae'),routes:[{path:'/ew-message/docs',component:ComponentCreator('/ew-message/docs','e27'),routes:[{path:'/ew-message/docs',component:ComponentCreator('/ew-message/docs','7bc'),routes:[{path:'/ew-message/docs/api/',component:ComponentCreator('/ew-message/docs/api/','e79'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/api/instance',component:ComponentCreator('/ew-message/docs/api/instance','29d'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/api/utils',component:ComponentCreator('/ew-message/docs/api/utils','cb1'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/intro',component:ComponentCreator('/ew-message/docs/intro','026'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/log',component:ComponentCreator('/ew-message/docs/log','d16'),exact:true,sidebar:"tutorialSidebar"}]}]}]},{path:'/ew-message/',component:ComponentCreator('/ew-message/','801'),exact:true},{path:'*',component:ComponentCreator('*')}]);
+/* harmony default export */ const routes = ([{path:'/ew-message/markdown-page',component:ComponentCreator('/ew-message/markdown-page','0f5'),exact:true},{path:'/ew-message/docs',component:ComponentCreator('/ew-message/docs','7e0'),routes:[{path:'/ew-message/docs',component:ComponentCreator('/ew-message/docs','ad9'),routes:[{path:'/ew-message/docs',component:ComponentCreator('/ew-message/docs','03e'),routes:[{path:'/ew-message/docs/core-api/api',component:ComponentCreator('/ew-message/docs/core-api/api','568'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/core-api/instance',component:ComponentCreator('/ew-message/docs/core-api/instance','93e'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/core-api/utils',component:ComponentCreator('/ew-message/docs/core-api/utils','30c'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/intro',component:ComponentCreator('/ew-message/docs/intro','026'),exact:true,sidebar:"tutorialSidebar"},{path:'/ew-message/docs/log',component:ComponentCreator('/ew-message/docs/log','d16'),exact:true,sidebar:"tutorialSidebar"}]}]}]},{path:'/ew-message/',component:ComponentCreator('/ew-message/','801'),exact:true},{path:'*',component:ComponentCreator('*')}]);
 
 /***/ }),
 
@@ -3617,7 +3414,7 @@ var react = __webpack_require__(758);
 // EXTERNAL MODULE: ./.docusaurus/docusaurus.config.mjs
 var docusaurus_config = __webpack_require__(4784);
 ;// CONCATENATED MODULE: ./.docusaurus/globalData.json
-const globalData_namespaceObject = /*#__PURE__*/JSON.parse('{"docusaurus-plugin-content-docs":{"default":{"path":"/ew-message/docs","versions":[{"name":"current","label":"Next","isLast":true,"path":"/ew-message/docs","mainDocId":"log","docs":[{"id":"api/api","path":"/ew-message/docs/api/","sidebar":"tutorialSidebar"},{"id":"api/instance","path":"/ew-message/docs/api/instance","sidebar":"tutorialSidebar"},{"id":"api/utils","path":"/ew-message/docs/api/utils","sidebar":"tutorialSidebar"},{"id":"intro","path":"/ew-message/docs/intro","sidebar":"tutorialSidebar"},{"id":"log","path":"/ew-message/docs/log","sidebar":"tutorialSidebar"}],"draftIds":[],"sidebars":{"tutorialSidebar":{"link":{"path":"/ew-message/docs/log","label":"log"}}}}],"breadcrumbs":true}}}');
+const globalData_namespaceObject = /*#__PURE__*/JSON.parse('{"docusaurus-plugin-content-docs":{"default":{"path":"/ew-message/docs","versions":[{"name":"current","label":"Next","isLast":true,"path":"/ew-message/docs","mainDocId":"log","docs":[{"id":"core-api/api","path":"/ew-message/docs/core-api/api","sidebar":"tutorialSidebar"},{"id":"core-api/instance","path":"/ew-message/docs/core-api/instance","sidebar":"tutorialSidebar"},{"id":"core-api/utils","path":"/ew-message/docs/core-api/utils","sidebar":"tutorialSidebar"},{"id":"intro","path":"/ew-message/docs/intro","sidebar":"tutorialSidebar"},{"id":"log","path":"/ew-message/docs/log","sidebar":"tutorialSidebar"}],"draftIds":[],"sidebars":{"tutorialSidebar":{"link":{"path":"/ew-message/docs/log","label":"log"}}}}],"breadcrumbs":true}}}');
 ;// CONCATENATED MODULE: ./.docusaurus/i18n.json
 const i18n_namespaceObject = /*#__PURE__*/JSON.parse('{"defaultLocale":"zh-Hans","locales":["zh-Hans"],"path":"i18n","currentLocale":"zh-Hans","localeConfigs":{"zh-Hans":{"label":"简体中文","direction":"ltr","htmlLang":"zh-Hans","calendar":"gregory","path":"zh-Hans"}}}');
 // EXTERNAL MODULE: ./.docusaurus/codeTranslations.json
@@ -17305,7 +17102,7 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"docusaurus-plugin-content-doc
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"version":{"pluginId":"default","version":"current","label":"Next","banner":null,"badge":false,"noIndex":false,"className":"docs-version-current","isLast":true,"docsSidebars":{"tutorialSidebar":[{"type":"link","label":"log","href":"/ew-message/docs/log","docId":"log","unlisted":false},{"type":"category","label":"参数接口","collapsible":true,"collapsed":true,"items":[{"type":"link","label":"实例方法接口","href":"/ew-message/docs/api/instance","docId":"api/instance","unlisted":false},{"type":"link","label":"内置工具函数接口","href":"/ew-message/docs/api/utils","docId":"api/utils","unlisted":false}],"href":"/ew-message/docs/api/"},{"type":"link","label":"ew-message","href":"/ew-message/docs/intro","docId":"intro","unlisted":false}]},"docs":{"api/api":{"id":"api/api","title":"参数接口","description":"这里主要介绍函数的参数类型。","sidebar":"tutorialSidebar"},"api/instance":{"id":"api/instance","title":"实例方法接口","description":"除了属性接口之外，我们也可以使用插件的一些实例方法，总结如下。","sidebar":"tutorialSidebar"},"api/utils":{"id":"api/utils","title":"内置工具函数接口","description":"插件内部提供了一些工具函数可供调用，该工具函数定义在 ewMessage 的静态属性 util 上，我们可以通过如下代码来获取:","sidebar":"tutorialSidebar"},"intro":{"id":"intro","title":"ew-message","description":"NPM version","sidebar":"tutorialSidebar"},"log":{"id":"log","title":"log","description":"详情可参考更新日志。","sidebar":"tutorialSidebar"}}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"version":{"pluginId":"default","version":"current","label":"Next","banner":null,"badge":false,"noIndex":false,"className":"docs-version-current","isLast":true,"docsSidebars":{"tutorialSidebar":[{"type":"link","label":"log","href":"/ew-message/docs/log","docId":"log","unlisted":false},{"type":"category","label":"core-api","collapsible":true,"collapsed":true,"items":[{"type":"link","label":"参数接口","href":"/ew-message/docs/core-api/api","docId":"core-api/api","unlisted":false},{"type":"link","label":"实例方法接口","href":"/ew-message/docs/core-api/instance","docId":"core-api/instance","unlisted":false},{"type":"link","label":"内置工具函数接口","href":"/ew-message/docs/core-api/utils","docId":"core-api/utils","unlisted":false}]},{"type":"link","label":"ew-message","href":"/ew-message/docs/intro","docId":"intro","unlisted":false}]},"docs":{"core-api/api":{"id":"core-api/api","title":"参数接口","description":"这里主要介绍函数的参数类型。","sidebar":"tutorialSidebar"},"core-api/instance":{"id":"core-api/instance","title":"实例方法接口","description":"除了属性接口之外，我们也可以使用插件的一些实例方法，总结如下。","sidebar":"tutorialSidebar"},"core-api/utils":{"id":"core-api/utils","title":"内置工具函数接口","description":"插件内部提供了一些工具函数可供调用，该工具函数定义在 ewMessage 的静态属性 util 上，我们可以通过如下代码来获取:","sidebar":"tutorialSidebar"},"intro":{"id":"intro","title":"ew-message","description":"NPM version","sidebar":"tutorialSidebar"},"log":{"id":"log","title":"log","description":"详情可参考更新日志。","sidebar":"tutorialSidebar"}}}}');
 
 /***/ }),
 
