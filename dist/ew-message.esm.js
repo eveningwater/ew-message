@@ -21,7 +21,7 @@ const defaultMessageOption = {
     content: '',
     center: false,
     type: 'info',
-    duration: 100,
+    duration: 2000,
     showClose: true,
     showTypeIcon: true,
     container: document.body,
