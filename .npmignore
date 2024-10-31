@@ -13,3 +13,4 @@ tsconfig.json
 gh-pages
 live-server-config.js
 __tests__/*
+jest.config.ts
