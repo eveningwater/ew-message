@@ -4,3 +4,5 @@ type AnyObj<T extends unknown> = Record<string, T>;
 interface ewMessageStyleRefType extends AnyObj {
     insertAt?: string;
 }
+
+declare module '*.svg';

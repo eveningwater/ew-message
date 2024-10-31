@@ -5,6 +5,7 @@ const replace = require('@rollup/plugin-replace');
 const node = require('rollup-plugin-node-resolve');
 const ts = require('rollup-plugin-typescript');
 const scss = require('rollup-plugin-scss');
+const svg = require('rollup-plugin-url');
 const banner =
   '/*!\n' +
   ` * ewMeassage.js v${version.version}\n` +
@@ -59,7 +60,12 @@ function genConfig(name) {
         failOnError: true,
         outputStyle: 'compressed' //压缩
       }),
-      node()
+      node(),
+      svg({
+        include: ['**/*.svg'], // 处理所有 SVG 文件
+        limit: 10000, // 超过这个大小的文件将被复制
+        // 你可以添加其他配置选项
+      })
     ].concat(opts.plugins || []),
     output: {
       file: opts.dest,
