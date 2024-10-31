@@ -19,10 +19,8 @@ export const defaultMessageOption: ewMessageOption = {
   showClose: true,
   showTypeIcon: true,
   container: document.body,
-  removeClassName: '',
-  removeClassNameSymbol: ' ',
-  startClassName: '',
-  startClassNameSymbol: ' '
+  removeClassName: [],
+  startClassName: []
 };
 
 export const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];

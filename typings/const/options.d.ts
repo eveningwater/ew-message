@@ -8,9 +8,7 @@ export interface ewMessageOption {
     typeIcon?: string;
     closeIcon?: string;
     container?: string | HTMLElement;
-    removeClassName?: string;
-    startClassName?: string;
-    startClassNameSymbol?: string;
-    removeClassNameSymbol?: string;
+    removeClassName?: string[];
+    startClassName?: string[];
     top?: number | string;
 }

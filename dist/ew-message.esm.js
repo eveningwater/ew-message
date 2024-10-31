@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.1.4
+ * ewMeassage.js v0.1.5
  * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
@@ -25,10 +25,8 @@ const defaultMessageOption = {
     showClose: true,
     showTypeIcon: true,
     container: document.body,
-    removeClassName: '',
-    removeClassNameSymbol: ' ',
-    startClassName: '',
-    startClassNameSymbol: ' '
+    removeClassName: [],
+    startClassName: []
 };
 const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];
 const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
@@ -51,6 +49,8 @@ const MESSAGE_TYPE_WARNING = `${MESSAGE_WARNING_PREFIX}Message type need not to 
 const MESSAGE_CLOSE_PARAM_WARNING = `${MESSAGE_WARNING_PREFIX}Message need a close time to auto close or a close button to close by yourself!`;
 const MESSAGE_CONTENT_PARAM_WARNING = `${MESSAGE_WARNING_PREFIX}Message need a value as content ,that is "content" property,otherwise Message will use the default content,that is empty string!`;
 const MESSAGE_CONTAINER_WARNING = `${MESSAGE_WARNING_PREFIX}Can not find the dom element,make sure to pass a correct dom element`;
+const MESSAGE_REMOVE_CLASSNAME_WARNING = `${MESSAGE_WARNING_PREFIX}RemoveClassName needs to be a string array`;
+const MESSAGE_STAERT_CLASSNAME_WARNING = `${MESSAGE_WARNING_PREFIX}startClassName needs to be a string array`;
 
 const assertLists = ['warn', 'error', 'log'];
 const noop = () => { };
@@ -148,7 +148,7 @@ const normalizeOptions = (option) => {
     else if (isObject$1(option)) {
         messageOption = { ...messageOption, ...option };
     }
-    const { duration, showClose, content } = messageOption;
+    const { duration, showClose, content, removeClassName, startClassName } = messageOption;
     if ((!isNumber(duration) || duration <= 0) && !showClose) {
         {
             warn$1(MESSAGE_CLOSE_PARAM_WARNING);
@@ -158,6 +158,20 @@ const normalizeOptions = (option) => {
     if (!isString(content) && true) {
         warn$1(MESSAGE_CONTENT_PARAM_WARNING);
     }
+    if (!isArray(removeClassName)) {
+        {
+            warn$1(MESSAGE_REMOVE_CLASSNAME_WARNING);
+        }
+        messageOption.removeClassName = [];
+    }
+    if (!isArray(startClassName)) {
+        {
+            warn$1(MESSAGE_STAERT_CLASSNAME_WARNING);
+        }
+        messageOption.startClassName = [];
+    }
+    messageOption.removeClassName = messageOption.removeClassName.filter((className) => isString(className));
+    messageOption.startClassName = messageOption.startClassName.filter((className) => isString(className));
     return messageOption;
 };
 const getOffsetTop = (top) => {
@@ -173,10 +187,9 @@ const getOffsetTop = (top) => {
     }
     return baseTopUnit;
 };
-const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existClassNames, callback) => {
-    const classNameList = className?.split(classNameSymbol);
-    let res = className;
-    if (classNameList.length > 1) {
+const handleAnimationNode = (el, classNameList, stylePrefix, existClassNames, callback) => {
+    let res = classNameList;
+    if (classNameList.length > 0) {
         const filterClassNameList = [];
         existClassNames.forEach((item) => {
             classNameList.forEach((className) => {
@@ -189,25 +202,10 @@ const handleAnimationNode = (el, className, classNameSymbol, stylePrefix, existC
         filterClassNameList.forEach((className) => addClass(className, el));
         res = filterClassNameList;
     }
-    else {
-        let filterClassName = className;
-        if (existClassNames.some((item) => item.includes(className))) {
-            filterClassName = `${stylePrefix}message-${className}`;
-        }
-        addClass(filterClassName, el);
-        res = filterClassName;
-    }
     on(el, "animationend", () => callback?.(res));
     setTimeout(() => {
-        if (isArray(res)) {
-            if (res.some(item => hasClass(item, el))) {
-                callback?.(res);
-            }
-        }
-        else {
-            if (hasClass(res, el)) {
-                callback?.(res);
-            }
+        if (res.some(item => hasClass(item, el))) {
+            callback?.(res);
         }
     }, 1200);
 };
@@ -271,7 +269,7 @@ class Message {
         const p = create("p");
         p.appendChild(createElement(content));
         if (showTypeIcon) {
-            const icon = isString(typeIcon) && typeIcon ? typeIcon : typeIconMap[type || "info"]('ew-');
+            const icon = typeIcon ? typeIcon : typeIconMap[type || "info"]('ew-');
             element.appendChild(createElement(icon));
         }
         element.appendChild(p);
@@ -301,27 +299,24 @@ class Message {
         }
     }
     animationAddNode(el, container) {
-        const { startClassName, startClassNameSymbol } = this.options;
+        const { startClassName } = this.options;
         if (startClassName) {
-            handleAnimationNode(el, startClassName, startClassNameSymbol, "ew-", utilAnimationAddClassNames, (res) => {
-                if (isArray(res)) {
-                    res.forEach((className) => removeClass(className, el));
-                }
-                else {
-                    removeClass(res, el);
-                }
+            handleAnimationNode(el, startClassName, "ew-", utilAnimationAddClassNames, (res) => {
+                res.forEach((className) => removeClass(className, el));
             });
         }
         container.appendChild(el);
     }
     animationRemoveNode(el, isDestroy = false) {
-        const { removeClassName, removeClassNameSymbol } = this.options;
-        if (removeClassName && !isDestroy) {
-            handleAnimationNode(el, removeClassName, removeClassNameSymbol, "ew-", utilAnimationRemoveClassNames, () => removeNode(el));
+        const { removeClassName } = this.options;
+        if (!isDestroy) {
+            handleAnimationNode(el, removeClassName, "ew-", utilAnimationRemoveClassNames, () => removeNode(el));
         }
         else {
             removeNode(el);
         }
+        this.el = null;
+        this.closeBtnEl = null;
     }
     close(nodes = [], time, isDestroy = false) {
         const delay = Math.min(10000, time);

@@ -10,7 +10,7 @@ import {
   handleAnimationNode,
   normalizeOptions,
 } from "./method";
-import { isString, $$, on, addClass, createElement, isRemoveNode, create, isArray, removeClass, removeNode, toArray } from "../utils/util";
+import { $$, on, log,addClass, createElement, isRemoveNode, create, removeClass, removeNode, toArray } from "../utils/util";
 import { ewMessageOption } from "../const/options";
 
 export class Message {
@@ -64,7 +64,7 @@ export class Message {
     const p = create("p");
     p.appendChild(createElement(content));
     if (showTypeIcon) {
-      const icon = isString(typeIcon) && typeIcon ? typeIcon : typeIconMap[type || "info"]('ew-');
+      const icon = typeIcon ? typeIcon : typeIconMap[type || "info"]('ew-');
       element.appendChild(createElement(icon));
     }
     element.appendChild(p);
@@ -101,35 +101,29 @@ export class Message {
     }
   }
   animationAddNode(el: HTMLElement, container: HTMLElement) {
-    const { startClassName, startClassNameSymbol } = this.options;
+    const { startClassName } = this.options;
     if (startClassName) {
       handleAnimationNode(
         el,
         startClassName,
-        startClassNameSymbol!,
         "ew-",
         utilAnimationAddClassNames,
         (res) => {
-          if (isArray(res)) {
-            res.forEach((className) =>
-              removeClass(className, el)
-            );
-          } else {
-            removeClass(res, el);
-          }
+          res.forEach((className) =>
+            removeClass(className, el)
+          );
         }
       );
     }
     container.appendChild(el);
   }
   animationRemoveNode(el: HTMLElement, isDestroy = false) {
-    const { removeClassName, removeClassNameSymbol } =
+    const { removeClassName } =
       this.options;
-    if (removeClassName && !isDestroy) {
+    if (!isDestroy) {
       handleAnimationNode(
         el,
         removeClassName,
-        removeClassNameSymbol,
         "ew-",
         utilAnimationRemoveClassNames,
         () => removeNode(el)
@@ -137,6 +131,8 @@ export class Message {
     } else {
       removeNode(el);
     }
+    this.el = null;
+    this.closeBtnEl = null;
   }
   close(
     nodes: HTMLElement[] = [],

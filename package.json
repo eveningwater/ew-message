@@ -1,6 +1,6 @@
 {
   "name": "ew-message",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "一个基于typescript封装的消息提示框",
   "scripts": {
     "build": "node scripts/build.js",
@@ -13,7 +13,8 @@
     "release-docs": "gh-pages -d gh-pages",
     "dev:demo": "node ./live-server-config.js",
     "type": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "test:core": "jest --config jest.config.core.ts"
   },
   "main": "dist/ew-message.min.js",
   "module": "dist/ew-message.esm.min.js",

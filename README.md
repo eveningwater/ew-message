@@ -91,3 +91,4 @@ const msg = ewMessage(option); //option为配置对象，详情见前述
 - 0.1.2: 修改了销毁消息提示框逻辑,增加了 isArray、isRemoveNode 方法。
 - 0.1.3: 调整了代码结构，新增了position属性，新增了isUndef方法。
 - 0.1.4: 移除stylePrefix以及监听样式是否加载的逻辑。
+- 0.1.5: 移除了很多不必要的代码api和逻辑。

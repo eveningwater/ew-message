@@ -23,14 +23,13 @@
     showClose: true,
     immediate: false,
     container: '#test',
-    removeClassName: 'animate__animated animate__bounce',
-    startClassName: 'animate__animated animate__bounceIn',
+    removeClassName: ['animate__animated', 'animate__bounce'],
+    startClassName: ['animate__animated', 'animate__bounceIn'],
     top: '15px',
     position: 'absolute',
     messageZIndex: 3000
   });
   console.log(msg1);
-  msg1.render();
 </script>
 
 </html>

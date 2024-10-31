@@ -1,6 +1,6 @@
 import { baseTopUnit, defaultMessageOption } from "../const/config";
 import { ewMessageOption } from "../const/options";
-import { MESSAGE_CLOSE_PARAM_WARNING, MESSAGE_CONTAINER_WARNING, MESSAGE_CONTENT_PARAM_WARNING, MESSAGE_TYPE_WARNING } from "../const/warn";
+import { MESSAGE_CLOSE_PARAM_WARNING, MESSAGE_CONTAINER_WARNING, MESSAGE_CONTENT_PARAM_WARNING, MESSAGE_REMOVE_CLASSNAME_WARNING, MESSAGE_STAERT_CLASSNAME_WARNING, MESSAGE_TYPE_WARNING } from "../const/warn";
 import { $, addClass, isNumber, isString, on, isArray, hasClass, isDom, warn, isObject, hasOwn } from '../utils/util';
 export const normalizeOptions = (
   option: string | ewMessageOption
@@ -11,7 +11,7 @@ export const normalizeOptions = (
   } else if (isObject(option)) {
     messageOption = { ...messageOption, ...option };
   }
-  const { duration, showClose, content } = messageOption;
+  const { duration, showClose, content, removeClassName, startClassName } = messageOption;
   if ((!isNumber(duration) || duration! <= 0) && !showClose) {
     if (__DEV__) {
       warn(MESSAGE_CLOSE_PARAM_WARNING);
@@ -21,6 +21,20 @@ export const normalizeOptions = (
   if (!isString(content) && __DEV__) {
     warn(MESSAGE_CONTENT_PARAM_WARNING);
   }
+  if(!isArray(removeClassName)){
+     if(__DEV__){
+        warn(MESSAGE_REMOVE_CLASSNAME_WARNING);
+     }
+     messageOption.removeClassName = [];
+  }
+  if(!isArray(startClassName)){
+    if(__DEV__){
+      warn(MESSAGE_STAERT_CLASSNAME_WARNING);
+    }
+    messageOption.startClassName = [];
+  }
+  messageOption.removeClassName = messageOption.removeClassName!.filter((className) => isString(className));
+  messageOption.startClassName = messageOption.startClassName!.filter((className) => isString(className));
   return messageOption as Required<ewMessageOption>;
 };
 export const getOffsetTop = (top?: string | number) => {
@@ -41,15 +55,13 @@ export const getOffsetTop = (top?: string | number) => {
 
 export const handleAnimationNode = (
   el: HTMLElement,
-  className: string,
-  classNameSymbol: string,
+  classNameList: string [],
   stylePrefix: string,
   existClassNames: string[],
-  callback: (v: string | string[]) => void
+  callback: (v: string[]) => void
 ) => {
-  const classNameList = className?.split(classNameSymbol);
-  let res: string | string[] = className;
-  if (classNameList.length > 1) {
+  let res = classNameList;
+  if (classNameList.length > 0) {
     const filterClassNameList: string[] = [];
     existClassNames.forEach((item) => {
       classNameList.forEach((className) => {
@@ -61,25 +73,12 @@ export const handleAnimationNode = (
     });
     filterClassNameList.forEach((className) => addClass(className, el));
     res = filterClassNameList;
-  } else {
-    let filterClassName = className;
-    if (existClassNames.some((item) => item.includes(className))) {
-      filterClassName = `${stylePrefix}message-${className}`;
-    }
-    addClass(filterClassName, el);
-    res = filterClassName;
   }
 
   on(el, "animationend", () => callback?.(res));
   setTimeout(() => {
-    if (isArray(res)) {
-      if (res.some(item => hasClass(item, el))) {
-        callback?.(res);
-      }
-    } else {
-      if (hasClass(res, el)) {
-        callback?.(res);
-      }
+    if (res.some(item => hasClass(item, el))) {
+      callback?.(res);
     }
   }, 1200);
 };
