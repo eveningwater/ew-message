@@ -52,17 +52,7 @@ const MESSAGE_CONTAINER_WARNING = `${MESSAGE_WARNING_PREFIX}Can not find the dom
 const MESSAGE_REMOVE_CLASSNAME_WARNING = `${MESSAGE_WARNING_PREFIX}RemoveClassName needs to be a string array`;
 const MESSAGE_STAERT_CLASSNAME_WARNING = `${MESSAGE_WARNING_PREFIX}startClassName needs to be a string array`;
 
-const assertLists = ['warn', 'error', 'log'];
-const noop = () => { };
-const assert = {
-    log: noop,
-    warn: noop,
-    error: noop
-};
-assertLists.forEach(key => assert[key] = (...v) => console[key](...v));
-const warn$1 = assert.warn;
-const error = assert.error;
-const log = assert.log;
+const warn$1 = (...v) => console.warn(...v);
 
 const isString = (v) => typeof v === "string";
 const isNumber = (v) => typeof v === "number" && !Number.isNaN(v);
@@ -135,9 +125,7 @@ var util = /*#__PURE__*/Object.freeze({
     off: off,
     isRemoveNode: isRemoveNode,
     removeNode: removeNode,
-    warn: warn$1,
-    error: error,
-    log: log
+    warn: warn$1
 });
 
 const normalizeOptions = (option) => {
