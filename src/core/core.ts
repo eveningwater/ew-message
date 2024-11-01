@@ -18,7 +18,7 @@ export class Message {
   el: HTMLElement | null;
   closeBtnEl: HTMLElement | null;
   container: HTMLElement;
-  instances: NodeListOf<HTMLDivElement> | null;
+  instances: NodeListOf<HTMLElement> | null;
   constructor(options: ewMessageOption | string) {
     this.options = normalizeOptions(options);
     this.el = null;
@@ -36,7 +36,7 @@ export class Message {
     this.options = Object.assign({}, this.options, opt);
     const { duration } = this.options;
     const { element: el, closeBtnEl } = this.createMessage();
-    this.instances = $$(".ew-message", this.container) as NodeListOf<HTMLDivElement>;
+    this.instances = $$(".ew-message", this.container);
     this.animationAddNode(el, this.container);
     this.setTop(this.instances);
     if (duration > 0) {
@@ -84,7 +84,7 @@ export class Message {
       closeBtnEl: this.closeBtnEl,
     };
   }
-  setTop(nodeList: NodeListOf<HTMLDivElement>) {
+  setTop(nodeList: NodeListOf<HTMLElement>) {
     const nodes = toArray(nodeList);
     if (nodes.length === 0) return;
     const { top } = this.options;

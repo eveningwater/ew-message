@@ -16,8 +16,8 @@ export const isDom = (el: unknown): el is HTMLElement | HTMLCollection | NodeLis
 export const toArray = <T extends unknown>(v: ArrayLike<T>): Array<T> => [].slice.call(v);
 export const hasOwn = <T extends object>(v: T, prop: string) => v.hasOwnProperty(prop);
 export const $$ = (v: string, el: Element | Document = document) =>
-  el.querySelectorAll(v);
-export const $ = (v: string, el: Element | Document = document) => el.querySelector(v);
+  el.querySelectorAll<HTMLElement>(v);
+export const $ = (v: string, el: Element | Document = document) => el.querySelector<HTMLElement>(v);
 export const create = (v: string) => document.createElement(v);
 export const createElement = (temp: string) => document
   .createRange()

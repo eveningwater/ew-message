@@ -1,4 +1,4 @@
-import { addClass, createElement, hasOwn, isDom, isNumber, isObject, isString, on } from "../util";
+import { addClass, createElement, hasOwn, isDom, isNumber, isObject, isString, on, $ } from "../util";
 
 describe('utils', () => {
   test('hasOwn', () => {
@@ -141,6 +141,46 @@ describe('utils', () => {
       expect(fragment.firstChild).toBeInstanceOf(HTMLDivElement);
       expect(fragment.firstChild?.firstChild).toBeInstanceOf(HTMLSpanElement);
       expect(fragment.childNodes.length).toBe(1);
+    });
+  });
+
+  describe('$', () => {
+    let container: HTMLElement;
+
+    beforeEach(() => {
+      container = document.createElement('div');
+      container.innerHTML = `
+            <div class="test-class" id="test-id">Test Element</div>
+            <span class="test-class">Test Span</span>
+        `;
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      document.body.removeChild(container);
+    });
+
+    test('should select an element by class name', () => {
+      const result = $('.test-class');
+      expect(result).toBeInstanceOf(HTMLElement);
+      expect(result?.className).toBe('test-class');
+    });
+
+    test('should select an element by ID', () => {
+      const result = $('#test-id');
+      expect(result).toBeInstanceOf(HTMLElement);
+      expect(result?.id).toBe('test-id');
+    });
+
+    test('should return null for non-existent selector', () => {
+      const result = $('.non-existent-class');
+      expect(result).toBeNull();
+    });
+
+    test('should select an element within a specific container', () => {
+      const result = $('.test-class', container);
+      expect(result).toBeInstanceOf(HTMLElement);
+      expect(result?.parentElement).toBe(container);
     });
   });
 });    

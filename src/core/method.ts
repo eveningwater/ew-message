@@ -89,7 +89,7 @@ export const checkContainer = (el?: string | HTMLElement) => {
       }
       return document.body;
     }
-    return container as HTMLElement;
+    return container;
   }
   return document.body;
 }
