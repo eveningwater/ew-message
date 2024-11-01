@@ -9,7 +9,8 @@ export const typeMap: ewMessageType = {
   success: ewMessageEnumType.success,
   info: ewMessageEnumType.info,
   warning: ewMessageEnumType.warning,
-  error: ewMessageEnumType.error
+  error: ewMessageEnumType.error,
+  loading: ewMessageEnumType.loading
 };
 export const defaultMessageOption: ewMessageOption = {
   content: '',

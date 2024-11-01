@@ -3,4 +3,5 @@ export enum ewMessageEnumType {
     info = "info",
     warning = "warning",
     error = "error",
+    loading = "loading",
 }

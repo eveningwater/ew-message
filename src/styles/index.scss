@@ -51,6 +51,29 @@
   &-center {
     justify-content: center;
   }
+  
+  &-loading {
+    background-color: $loadingBgColor;
+    border-color: $loadingBorderColor;
+    p,
+    .#{$prefix}message-close {
+      color: $loadingColor;
+    }
+    .#{$prefix}message-close:hover,
+    .#{$prefix}message-close:active {
+      color: $loadingColor;
+    }
+    &-icon {
+      animation: loadingCircle 1s infinite linear;
+      color: $loadingColor;
+      @keyframes loadingCircle {
+         100% {
+           transform: rotate(360deg);
+         }
+      }
+   }
+  }
+
   &-success {
     background-color: $successBgColor;
     border-color: $successBorderColor;

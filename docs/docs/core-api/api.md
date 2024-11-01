@@ -47,6 +47,21 @@ const msg = ewMessage({
 });
 ```
 
+> 说明: 0.1.6新增了type为loading的加载消息提示框。调用方式如下:
+
+```ts
+const msg = ewMessage({
+  content: "这是一个加载中的消息提示框",
+  center: true,
+  type: "loading",
+});
+// 或者
+const msg = ewMessage.loading({
+  content: "这是一个加载中的消息提示框",
+  center: true
+})
+```
+
 ### 4. duration
 
 该字段的值是一个数值，表示消息提示框关闭的时间，默认值是 2s，可以自定义修改。如:
