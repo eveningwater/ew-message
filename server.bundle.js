@@ -254,6 +254,15 @@ function _createMdxContent(props) {
         className: "language-ts",
         children: "const msg = ewMessage({\n  content: \"这是一个成功的消息提示框\",\n  center: true,\n  type: \"success\", // 成功消息提示框\n});\n"
       })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components.blockquote, {
+      children: ["\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.p, {
+        children: "说明: 0.1.6新增了type为loading的加载消息提示框。调用方式如下:"
+      }), "\n"]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.pre, {
+      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.code, {
+        className: "language-ts",
+        children: "const msg = ewMessage({\n  content: \"这是一个加载中的消息提示框\",\n  center: true,\n  type: \"loading\",\n});\n// 或者\nconst msg = ewMessage.loading({\n  content: \"这是一个加载中的消息提示框\",\n  center: true\n})\n"
+      })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components.h3, {
       id: "4-duration",
       children: "4. duration"
