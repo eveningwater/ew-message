@@ -1,7 +1,5 @@
 import { hasOwn, isDom, isNumber, isObject, isString } from "../util";
 
-
-
 describe('utils', () => {
   test('hasOwn', () => {
     expect(hasOwn({ a: 1 }, 'a')).toBe(true);

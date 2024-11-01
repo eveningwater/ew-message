@@ -8,4 +8,7 @@ module.exports = {
   moduleFileExtensions: ['ts','js'],
   testEnvironment: 'jest-environment-jsdom',
   preset: 'ts-jest',
+  moduleNameMapper: {
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
+  },
 }

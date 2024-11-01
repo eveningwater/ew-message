@@ -5,6 +5,14 @@ import * as util from './utils/util';
 import { MESSAGE_TYPE_WARNING } from './const/warn';
 import './styles/index.scss';
 import { ewMessageOption } from './const/options';
+import { ewMessageEnumType } from './const/enum';
+
+type ewMessageFunction = {
+  (options: ewMessageOption | string): Message;
+  util: typeof util;
+} & {
+  [key in ewMessageEnumType]: (option: ewMessageOption | string) => Message
+};
 
 const { hasOwn, isObject, warn } = util;
 const ewMessage = (options: ewMessageOption | string) => new Message(options);
@@ -23,4 +31,5 @@ for (let key in typeMap) {
   };
 }
 
-export default ewMessage;
+// 需要显示声明ewMessage的类型，因为ts无法推断循环类型
+export default ewMessage as ewMessageFunction;
