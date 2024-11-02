@@ -36,8 +36,8 @@ export class Message {
     this.options = Object.assign({}, this.options, opt);
     const { duration } = this.options;
     const { element: el, closeBtnEl } = this.createMessage();
-    this.instances = $$(".ew-message", this.container);
     this.animationAddNode(el, this.container);
+    this.instances = $$(".ew-message");
     this.setTop(this.instances);
     if (duration > 0) {
       this.close([el], duration);
@@ -118,21 +118,30 @@ export class Message {
     container.appendChild(el);
   }
   animationRemoveNode(el: HTMLElement, isDestroy = false) {
-    const { removeClassName } =
+    const removeHandler = () => new Promise((resolve) => {
+      const { removeClassName } =
       this.options;
-    if (!isDestroy) {
+    if (!isDestroy && removeClassName.length > 0) {
       handleAnimationNode(
         el,
         removeClassName,
         "ew-",
         utilAnimationRemoveClassNames,
-        () => removeNode(el)
+        () => {
+          removeNode(el);
+          resolve(true);
+        }
       );
     } else {
       removeNode(el);
+      resolve(true);
     }
-    this.el = null;
-    this.closeBtnEl = null;
+    })
+    removeHandler().then(() => {
+      this.el = null;
+      this.closeBtnEl = null;
+      this.instances = $$('.ew-message');
+    })
   }
   close(
     nodes: HTMLElement[] = [],

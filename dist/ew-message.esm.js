@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.1.6
+ * ewMeassage.js v0.1.7
  * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
@@ -236,8 +236,8 @@ class Message {
         this.options = Object.assign({}, this.options, opt);
         const { duration } = this.options;
         const { element: el, closeBtnEl } = this.createMessage();
-        this.instances = $$(".ew-message", this.container);
         this.animationAddNode(el, this.container);
+        this.instances = $$(".ew-message");
         this.setTop(this.instances);
         if (duration > 0) {
             this.close([el], duration);
@@ -295,15 +295,24 @@ class Message {
         container.appendChild(el);
     }
     animationRemoveNode(el, isDestroy = false) {
-        const { removeClassName } = this.options;
-        if (!isDestroy) {
-            handleAnimationNode(el, removeClassName, "ew-", utilAnimationRemoveClassNames, () => removeNode(el));
-        }
-        else {
-            removeNode(el);
-        }
-        this.el = null;
-        this.closeBtnEl = null;
+        const removeHandler = () => new Promise((resolve) => {
+            const { removeClassName } = this.options;
+            if (!isDestroy && removeClassName.length > 0) {
+                handleAnimationNode(el, removeClassName, "ew-", utilAnimationRemoveClassNames, () => {
+                    removeNode(el);
+                    resolve(true);
+                });
+            }
+            else {
+                removeNode(el);
+                resolve(true);
+            }
+        });
+        removeHandler().then(() => {
+            this.el = null;
+            this.closeBtnEl = null;
+            this.instances = $$('.ew-message');
+        });
     }
     close(nodes = [], time, isDestroy = false) {
         const delay = Math.min(10000, time);

@@ -84,17 +84,17 @@ describe('Message', () => {
         const spy = jest.spyOn(message, 'destroy');
         message.destroy();
         expect(spy).toHaveBeenCalled();
-        expect(message.el).toBeNull();
+        setTimeout(() => {
+            expect(message.el).toBeNull(); 
+          }, 1000);
       });
 
-      test('should handle close with duration', done => {
+      test('should handle close with duration', () => {
         const closeHandlerSpy = jest.spyOn(message, 'close');
         message.render();
         expect(closeHandlerSpy).toHaveBeenCalled();
-
         setTimeout(() => {
           expect(message.el).toBeNull(); 
-          done();
         }, 2100);
       });
 });

@@ -1,7 +1,7 @@
 import { baseTopUnit, defaultMessageOption } from "../const/config";
 import { ewMessageOption } from "../const/options";
 import { MESSAGE_CLOSE_PARAM_WARNING, MESSAGE_CONTAINER_WARNING, MESSAGE_CONTENT_PARAM_WARNING, MESSAGE_REMOVE_CLASSNAME_WARNING, MESSAGE_STAERT_CLASSNAME_WARNING, MESSAGE_TYPE_WARNING } from "../const/warn";
-import { $, addClass, isNumber, isString, on, isArray, hasClass, isDom, warn, isObject, hasOwn } from '../utils/util';
+import { $, addClass, isNumber, isString, on, isArray, isDom, warn, isObject } from '../utils/util';
 export const normalizeOptions = (
   option: string | ewMessageOption
 ) => {
@@ -9,7 +9,7 @@ export const normalizeOptions = (
   if (isString(option)) {
     messageOption.content = option;
   } else if (isObject(option)) {
-    messageOption = { ...messageOption, ...option };
+    messageOption = { ...messageOption,...option };
   }
   const { duration, showClose, content, removeClassName, startClassName } = messageOption;
   if ((!isNumber(duration) || duration <= 0) && !showClose) {

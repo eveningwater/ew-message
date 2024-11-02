@@ -10,8 +10,8 @@ function App() {
     const msg = ewMessage({
       content: "这是一个默认的消息提示框",
       showClose: true,
-      removeClassName: "fadeOut",
-      startClassName: "fadeIn",
+      removeClassName: ["fadeOut"],
+      startClassName: ["fadeIn"],
       duration: 0,
     });
     return () => {
