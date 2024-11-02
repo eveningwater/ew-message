@@ -2,6 +2,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const buildUrl = process.env.NODE_ENV === 'development' ? '/' : '/ew-message/';
 const config: Config = {
   title: 'ewMessage',
   tagline: '一个基于typescript封装的消息提示框插件',
@@ -11,7 +12,7 @@ const config: Config = {
   url: 'https://eveningwater.github.io/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/ew-message/',
+  baseUrl: buildUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
