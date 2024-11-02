@@ -2,10 +2,33 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import ewMessage from "ew-message";
+import 'ew-message/dist/ew-message.min.css'
 import "./App.css";
+import { ewMessageEnumType } from "ew-message/typings/const/enum";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const messageList = [
+    {
+      type: "info",
+      content: "默认消息提示框"
+    },
+    {
+      type: "loading",
+      content: "加载中消息提示框"
+    },
+    {
+      type: "success",
+      content: "成功消息提示框"
+    },
+    {
+      type: "error",
+      content: "错误消息提示框"
+    },
+    {
+      type: "warning",
+      content: "警告消息提示框"
+    }
+  ]
   useEffect(() => {
     const msg = ewMessage({
       content: "这是一个默认的消息提示框",
@@ -28,18 +51,11 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {
+        messageList.map((item, index) => (
+          <button type="button" onClick={() => ewMessage[item.type as ewMessageEnumType](item.content)} key={item.type + index}>{item.type}</button>
+        ))
+      }
     </>
   );
 }
