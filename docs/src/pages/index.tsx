@@ -5,18 +5,20 @@ import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 import "ew-message/dist/ew-message.min.css"
-import ewMessage from 'ew-message';
 import styles from './index.module.css';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import Demo from '../components/demo';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   const onMessageHandler = () => {
-    ewMessage({
-      content:
-        'ew-message,一个好用的使用typescript编写的消息提示框，可以使用在任意框架中!',
-      showClose: true,
-      duration: 0
+    // 这里是仅应在客户端运行的代码，如果直接使用，会build报错
+    import('ew-message').then((library) => {
+      library.default({
+        content:
+          'ew-message,一个好用的使用typescript编写的消息提示框，可以使用在任意框架中!',
+        showClose: true,
+        duration: 0
+      });
     });
   };
   return (
@@ -39,6 +41,7 @@ function HomepageHeader() {
           >
             点我试用
           </button>
+          <Demo />
         </div>
       </div>
     </header>
@@ -48,17 +51,13 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <BrowserOnly>
-      {() =>
-        <Layout
-          title={`Hello from ${siteConfig.title}`}
-          description="Description will go into a meta tag in <head />">
-          <HomepageHeader />
-          <main>
-            <HomepageFeatures />
-          </main>
-        </Layout>
-      }
-    </BrowserOnly>
+    <Layout
+      title={`Hello from ${siteConfig.title}`}
+      description="Description will go into a meta tag in <head />">
+      <HomepageHeader />
+      <main>
+        <HomepageFeatures />
+      </main>
+    </Layout>
   );
 }
