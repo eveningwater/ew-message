@@ -1,0 +1,7 @@
+.demoBtnContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}

@@ -41,8 +41,8 @@ function HomepageHeader() {
           >
             点我试用
           </button>
-          <Demo />
         </div>
+        <Demo />
       </div>
     </header>
   );

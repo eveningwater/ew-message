@@ -1,17 +1,17 @@
 import { openNewWindow } from "@site/src/utils";
-
+import styles from './styles.module.css';
 const demoList = [
     {
         title: "非框架示例",
-        src: "/demo.html"
+        src: "demo.html"
     },
     {
         title: "react框架示例",
-        src: "/react-demo/index.html"
+        src: "react-demo/index.html"
     },
     {
         title: "vue框架示例",
-        src: "/vue-demo/index.html"
+        src: "vue-demo/index.html"
     }
 ]
 export default function Demo(): JSX.Element {
@@ -20,14 +20,14 @@ export default function Demo(): JSX.Element {
         openNewWindow(href)
     }
     return (
-        <>
+        <div className={styles.demoBtnContainer}>
             {
                 demoList.map((item) => {
                     return (
                         <button
                             className="button button--secondary button--lg"
                             onClick={() => onOpenHandler(item.src)}
-                            style={{ marginLeft: 15 }}
+                            style={{ margin: 15 }}
                             key={item.title}
                         >
                             查看{item.title}
@@ -35,6 +35,6 @@ export default function Demo(): JSX.Element {
                     )
                 })
             }
-        </>
+        </div>
     );
 }
