@@ -8,6 +8,7 @@ import "ew-message/dist/ew-message.min.css"
 import ewMessage from 'ew-message';
 import styles from './index.module.css';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import Demo from '../components/demo';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -39,6 +40,7 @@ function HomepageHeader() {
           >
             点我试用
           </button>
+          <Demo />
         </div>
       </div>
     </header>
