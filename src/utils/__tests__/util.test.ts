@@ -1,4 +1,16 @@
-import { addClass, createElement, hasOwn, isDom, isNumber, isObject, isString, on, $ } from "../util";
+import {
+  addClass,
+  hasClass,
+  removeClass,
+  createElement,
+  hasOwn,
+  isDom,
+  isString,
+  isNumber,
+  isObject,
+  on,
+  $,
+} from '../util';
 
 describe('utils', () => {
   test('hasOwn', () => {
@@ -14,20 +26,19 @@ describe('utils', () => {
   test('isString', () => {
     expect(isString('')).toEqual(true);
     expect(isString(1)).toEqual(false);
-  })
+  });
 
   test('isNumber', () => {
     expect(isNumber(1)).toEqual(true);
     expect(isNumber(1e2)).toEqual(true);
     expect(isNumber(NaN)).toEqual(false);
     expect(isNumber('123')).toEqual(false);
-  })
-
+  });
 
   describe('isDom', () => {
     jest.mock('../util.ts', {
       // @ts-ignore
-      isObject: jest.fn((v) => isObject(v))
+      isObject: jest.fn((v) => isObject(v)),
     });
     test('should return true for HTMLElement', () => {
       const element = document.createElement('div');
@@ -76,6 +87,42 @@ describe('utils', () => {
     });
   });
 
+  describe('addClass', () => {
+    let element: HTMLElement;
+    const TEST_CLASS = 'test-class';
+    const TEST_CLASS1 = 'test-class1';
+
+    beforeEach(() => {
+      element = document.createElement('div');
+      addClass(TEST_CLASS, element);
+    });
+
+    test('have `test-class` on the element ', () => {
+      expect(hasClass(TEST_CLASS, element)).toBe(true);
+    });
+
+    test("haven't `test-class1` on the element ", () => {
+      expect(hasClass(TEST_CLASS1, element)).toBe(false);
+    });
+  });
+  describe('removeClass', () => {
+    let element: HTMLElement;
+    const TEST_CLASS = 'test-class';
+    const TEST_CLASS1 = 'test-class1';
+
+    beforeEach(() => {
+      element = document.createElement('div');
+      addClass(TEST_CLASS, element);
+      addClass(TEST_CLASS1, element);
+    });
+
+    test('remove a class on the element', () => {
+      removeClass(TEST_CLASS, element);
+
+      expect(hasClass(TEST_CLASS, element)).toBe(false);
+    });
+  });
+
   describe('on', () => {
     let element: HTMLElement;
     let mockHandler: jest.Mock;
@@ -111,7 +158,11 @@ describe('utils', () => {
     test('should support useCapture parameter', () => {
       const addEventListenerSpy = jest.spyOn(element, 'addEventListener');
       on(element, 'click', mockHandler, true);
-      expect(addEventListenerSpy).toHaveBeenCalledWith('click', mockHandler, true);
+      expect(addEventListenerSpy).toHaveBeenCalledWith(
+        'click',
+        mockHandler,
+        true
+      );
       addEventListenerSpy.mockRestore();
     });
   });
@@ -183,4 +234,4 @@ describe('utils', () => {
       expect(result?.parentElement).toBe(container);
     });
   });
-});    
+});
