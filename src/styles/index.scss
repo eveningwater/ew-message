@@ -1,11 +1,12 @@
-@import './variable.scss';
-@import './animation.scss';
-.#{$prefix}message {
+@use 'variable';
+@use 'animation';
+
+.#{variable.$prefix}message {
   min-width: 300px;
-  border: 1px solid $infoBorderColor;
+  border: 1px solid variable.$infoBorderColor;
   position: fixed;
   left: 50%;
-  background-color: $infoBgColor;
+  background-color: variable.$infoBgColor;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
@@ -27,7 +28,7 @@
     padding-right: 15px;
     line-height: 1;
     font-size: 14px;
-    color: $infoColor;
+    color: variable.$infoColor;
     margin: 0;
   }
   &-close {
@@ -36,12 +37,12 @@
     right: 5px;
     transform: translateY(-50%);
     cursor: pointer;
-    color: $infoColor;
+    color: variable.$infoColor;
     font-size: 20px;
     font-style: normal;
     &:hover,
     &:active {
-      color: $infoColor;
+      color: variable.$infoColor;
     }
     &-icon {
       width: 1em;
@@ -53,19 +54,19 @@
   }
   
   &-loading {
-    background-color: $loadingBgColor;
-    border-color: $loadingBorderColor;
+    background-color: variable.$loadingBgColor;
+    border-color: variable.$loadingBorderColor;
     p,
-    .#{$prefix}message-close {
-      color: $loadingColor;
+    .#{variable.$prefix}message-close {
+      color: variable.$loadingColor;
     }
-    .#{$prefix}message-close:hover,
-    .#{$prefix}message-close:active {
-      color: $loadingColor;
+    .#{variable.$prefix}message-close:hover,
+    .#{variable.$prefix}message-close:active {
+      color: variable.$loadingColor;
     }
     &-icon {
       animation: loadingCircle 1s infinite linear;
-      color: $loadingColor;
+      color: variable.$loadingColor;
       @keyframes loadingCircle {
          100% {
            transform: rotate(360deg);
@@ -75,39 +76,39 @@
   }
 
   &-success {
-    background-color: $successBgColor;
-    border-color: $successBorderColor;
+    background-color: variable.$successBgColor;
+    border-color: variable.$successBorderColor;
     p,
-    .#{$prefix}message-close {
-      color: $successColor;
+    .#{variable.$prefix}message-close {
+      color: variable.$successColor;
     }
-    .#{$prefix}message-close:hover,
-    .#{$prefix}message-close:active {
-      color: $successColor;
+    .#{variable.$prefix}message-close:hover,
+    .#{variable.$prefix}message-close:active {
+      color: variable.$successColor;
     }
   }
   &-warning {
-    background-color: $warningBgColor;
-    border-color: $warningBorderColor;
+    background-color: variable.$warningBgColor;
+    border-color: variable.$warningBorderColor;
     p,
-    .#{$prefix}message-close {
-      color: $warningColor;
+    .#{variable.$prefix}message-close {
+      color: variable.$warningColor;
     }
-    .#{$prefix}message-close:hover,
-    .#{$prefix}message-close:active {
-      color: $warningColor;
+    .#{variable.$prefix}message-close:hover,
+    .#{variable.$prefix}message-close:active {
+      color: variable.$warningColor;
     }
   }
   &-error {
-    background-color: $errorBgColor;
-    border-color: $errorBorderColor;
+    background-color: variable.$errorBgColor;
+    border-color: variable.$errorBorderColor;
     p,
-    .#{$prefix}message-close {
-      color: $errorColor;
+    .#{variable.$prefix}message-close {
+      color: variable.$errorColor;
     }
-    .#{$prefix}message-close:hover,
-    .#{$prefix}message-close:active {
-      color: $errorColor;
+    .#{variable.$prefix}message-close:hover,
+    .#{variable.$prefix}message-close:active {
+      color: variable.$errorColor;
     }
   }
 }

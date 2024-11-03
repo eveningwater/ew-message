@@ -1,6 +1,5 @@
 @use 'sass:map';
-@import './variable.scss';
-
+@use 'variable';
 
 $animation-remove-key-list: (
   'fadeOut': 'opacity',
@@ -46,34 +45,34 @@ $animation-add-value-list: (
   )
 );
 
-$prefixValue: $prefix + message-;
+$prefixValue: variable.$prefix + message-;
 
 @mixin setAnimation($list){
   @each $key, $value in $list {
     .#{$prefixValue + $key} {
       animation: #{$key} 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
-    $listValue: map-get($animation-remove-value-list, $value);
+    $listValue: map.get($animation-remove-value-list, $value);
   
     @keyframes #{$key} {
       0% {
-        #{$value}: map-get($listValue, #{$value + '1'});
+        #{$value}: map.get($listValue, #{$value + '1'});
       }
   
       25% {
-        #{$value}: map-get($listValue, #{$value + '2'});
+        #{$value}: map.get($listValue, #{$value + '2'});
       }
   
       50% {
-        #{$value}: map-get($listValue, #{$value + '3'});
+        #{$value}: map.get($listValue, #{$value + '3'});
       }
   
       75% {
-        #{$value}: map-get($listValue, #{$value + '4'});
+        #{$value}: map.get($listValue, #{$value + '4'});
       }
   
       100% {
-        #{$value}: map-get($listValue, #{$value + '5'});
+        #{$value}: map.get($listValue, #{$value + '5'});
       }
     }
   }
