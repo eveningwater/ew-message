@@ -3,15 +3,15 @@ import { useHistory } from "@docusaurus/router";
 const demoList = [
     {
         title:"非框架示例",
-        src: "/demo.html"
+        src: "/ew-message/demo.html"
     },
     {
         title:"react框架示例",
-        src: "/react-demo/index.html"
+        src: "/ew-message/react-demo/index.html"
     },
     {
         title:"vue框架示例",
-        src: "/vue-demo/index.html"
+        src: "/ew-message/vue-demo/index.html"
     }
 ]
 export default function Demo(): JSX.Element {
