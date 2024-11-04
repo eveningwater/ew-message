@@ -37,7 +37,7 @@ const msg = ewMessage({ content: "这是一个默认的消息提示框", center:
 
 ### 3. type
 
-type 的值虽然是一个字符串，但只支持"info" | "success" | "warning" | "error"，表示消息提示框的类型，默认是值是"info"。如:
+type 的值虽然是一个字符串，但只支持"info" | "success" | "warning" | "error" | "loading"，表示消息提示框的类型，默认是值是"info"。如:
 
 ```ts
 const msg = ewMessage({
@@ -64,7 +64,7 @@ const msg = ewMessage.loading({
 
 ### 4. duration
 
-该字段的值是一个数值，表示消息提示框关闭的时间，默认值是 2s，可以自定义修改。如:
+该字段的值是一个数值，表示消息提示框关闭的时间，默认值是 2s，可以自定义修改,最大值是10s。如:
 
 ```ts
 const msg = ewMessage({
@@ -86,7 +86,7 @@ const msg = ewMessage({
 });
 ```
 
-> ps: 需要注意的是如果将 duration 的值设置为 0,showClose 设置为 false,则在开发环境下会提供警告，然后自动开启消息提示框的关闭按钮。
+> ps: 需要注意的是如果将 duration 的值设置为 0,showClose 设置为 false,则在开发环境下会提供警告，然后自动开启消息提示框的关闭按钮,即showClose设置为true。
 
 ### 6. showTypeIcon (0.0.8)新增
 

@@ -2,9 +2,11 @@
 sidebar_position: 1
 ---
 
-# 实例方法接口
+# 实例属性与实例方法接口
 
-除了属性接口之外，我们也可以使用插件的一些实例方法，总结如下。
+除了属性接口之外，我们也可以使用插件的一些实例属性和实例方法，总结如下。
+
+> ps: 如非必要，不建议使用这些实例属性和实例方法。
 
 ## 实例属性
 
@@ -25,9 +27,13 @@ console.log(msg.options); // { content:"这是一个默认的消息提示框",..
 
 消息提示框的关闭元素。
 
-### instance
+### instances
 
 消息提示框元素集合。
+
+### container
+
+消息提示框的挂载容器元素，默认是document.body。
 
 ## 实例方法
 
@@ -39,10 +45,6 @@ console.log(msg.options); // { content:"这是一个默认的消息提示框",..
 const msg = ewMessage("这是一个默认的消息提示框");
 msg.destroy(); // 页面将不再看到消息提示框
 ```
-
-
-
-
 
 ### render
 
@@ -58,11 +60,16 @@ msg.destroy(); // 页面将不再看到消息提示框
 
 ### close
 
-该方法用于销毁一个 dom 元素，传入 2 个参数，第一个参数是一个 dom 元素或者是 dom 元素集合，第二个参数是销毁的时间，是一个数值。如:
+该方法用于销毁一个 dom 元素，传入 2 个参数，第一个参数是dom 元素集合，第二个参数是销毁的时间，是一个数值,第三个参数表示是否直接消除（如果传入了removeClassName属性，并且传入改值为false，销毁时会有动画效果）。如:
 
 ```ts
 const msg = ewMessage("这是一个默认的消息提示框");
-msg.close(msg.el, 1000); // 将在1s后移除元素
+msg.close([msg.el], 1000); // 将在1s后移除元素
+const msg = ewMessage({
+    content: "这是一个默认的消息提示框",
+    removeClassName:["fadeOut"],
+});
+msg.close([msg.el], 1000, false); // 将在1s后移除元素,销毁时会有动画效果
 ```
 
 ### animationRemoveNode(0.0.9 新增)
