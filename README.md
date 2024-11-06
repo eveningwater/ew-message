@@ -69,7 +69,7 @@ import 'ew-message/dist/ew-message.min.css';
 const msg = ewMessage(option); // option is a configuration object, see above for details
 ```
 
-For more details, please refer to the official website introduction[ew-message](https://eveningwater.github.io/ew-message/);
+For more details, please refer to the official website introduction [ew-message](https://eveningwater.github.io/ew-message/);
 
 # update log
 
