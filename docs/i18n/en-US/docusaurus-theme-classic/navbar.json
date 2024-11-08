@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "ewMessage",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "ewMessage",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.指南": {
+    "message": "handbook",
+    "description": "Navbar item with label 指南"
+  },
+  "item.label.接口": {
+    "message": "API",
+    "description": "Navbar item with label 接口"
+  },
+  "item.label.更新日志": {
+    "message": "updateLog",
+    "description": "Navbar item with label 更新日志"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
