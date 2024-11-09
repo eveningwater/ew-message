@@ -18,7 +18,7 @@
     "build:react-demo": "cd examples/ew-message-react-demo && npm run build",
     "build:vue-demo": "cd examples/ew-message-vue-demo && npm run build",
     "build:demo":"node ./move-demo.js",
-    "build:alldocs": "npm run build:docs && npm run build:demo && npm run build:react-demo && npm run build:vue-demo && npm run release-docs"
+    "build:alldocs": "./build/build-docs.sh"
   },
   "main": "dist/ew-message.min.js",
   "module": "dist/ew-message.esm.min.js",
