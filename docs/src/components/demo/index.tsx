@@ -12,6 +12,10 @@ const demoList = [
     {
         title: "vue框架示例",
         src: "vue-demo/index.html"
+    },
+    {
+        title: "angular框架示例",
+        src: "angular-demo/browser/index.html"
     }
 ]
 export default function Demo(): JSX.Element {
