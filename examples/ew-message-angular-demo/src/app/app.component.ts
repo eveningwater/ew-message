@@ -8,7 +8,7 @@ import { ewMessageEnumType } from 'ew-message/typings/const/enum';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrls: ['/node_modules/ew-message/dist/ew-message.min.css','./app.component.css']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'ew-message-angular-demo';
