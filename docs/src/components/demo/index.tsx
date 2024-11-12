@@ -16,7 +16,11 @@ const demoList = [
     {
         title: "angular框架示例",
         src: "angular-demo/browser/index.html"
-    }
+    },
+    {
+        title: "svelte框架示例",
+        src: "svelte-demo/index.html"
+    },
 ]
 export default function Demo(): JSX.Element {
     const onOpenHandler = (src: string) => {
