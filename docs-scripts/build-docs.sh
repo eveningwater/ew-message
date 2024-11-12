@@ -8,6 +8,8 @@ npm run build:demo
 
 npm run build:angular-demo
 
+npm run build:svelte-demo
+
 # 执行构建 React demo 相关任务
 npm run build:react-demo
 
