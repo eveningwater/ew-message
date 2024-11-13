@@ -21,11 +21,15 @@ const demoList = [
         title: "svelte框架示例",
         src: "svelte-demo/index.html"
     },
+    {
+        title: "preact框架示例",
+        src: "preact-demo/index.html"
+    },
 ]
 export default function Demo(): JSX.Element {
     const onOpenHandler = (src: string) => {
         const href = process.env.NODE_ENV !== "development" ? `${location.href}${src}` : `https://eveningwater.github.io/ew-message/${src}`
-        openNewWindow(href)
+        openNewWindow(`http://127.0.0.1:8284/gh-pages/${src}`)
     }
     return (
         <div className={styles.demoBtnContainer}>
