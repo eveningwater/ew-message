@@ -141,6 +141,11 @@ export class Message {
       this.el = null;
       this.closeBtnEl = null;
       this.instances = $$('.ew-message');
+      if(this.instances){
+        this.setTop(
+          this.instances
+        );
+      }
     })
   }
   close(
@@ -155,9 +160,6 @@ export class Message {
           this.animationRemoveNode(item, isDestroy);
         }
       });
-      this.setTop(
-        this.instances!
-      );
     };
     if (isDestroy) {
       closeHandler();

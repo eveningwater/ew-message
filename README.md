@@ -81,9 +81,10 @@ For more details, please refer to the official website introduction [ew-message]
 - 0.0.9: Added container, immediate, removeClassName, removeClassNameSymbol configuration attributes, and added on, off, addClass tool methods.
 - 0.1.0: Fixed ts type errors, added messageZIndex attribute.
 - 0.1.1: Added top attribute, added startClassName and startClassNameSymbol attributes, and added removeClass method.
-- 0.1.2: Modified the logic of destroying the message prompt box, added isArray and isRemoveNode methods.
+- 0.1.2: Modified the logic of destroying the message, added isArray and isRemoveNode methods.
 - 0.1.3: Adjusted the code structure, added position attribute, and added isUndef method.
 - 0.1.4: Removed stylePrefix and the logic of monitoring whether the style is loaded.
 - 0.1.5: Removed a lot of unnecessary code APIs and logic.
-- 0.1.6: Fixed ts type issues, optimized some codes, improved unit tests, and added a loading message prompt box.
-- 0.1.7: Fixed ts type issues, fixed the problem of being unable to close the message prompt box.
+- 0.1.6: Fixed ts type issues, optimized some codes, improved unit tests, and added a loading message.
+- 0.1.7: Fixed ts type issues, fixed the problem of being unable to close the message.
+- 0.1.8: Fixed a problem with redirect location。

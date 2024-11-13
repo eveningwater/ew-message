@@ -1,5 +1,5 @@
 /*!
- * ewMeassage.js v0.1.7
+ * ewMeassage.js v0.1.8
  * (c) 2023-2024 eveningwater 
  * Released under the MIT License.
  */
@@ -312,6 +312,9 @@ class Message {
             this.el = null;
             this.closeBtnEl = null;
             this.instances = $$('.ew-message');
+            if (this.instances) {
+                this.setTop(this.instances);
+            }
         });
     }
     close(nodes = [], time, isDestroy = false) {
@@ -322,7 +325,6 @@ class Message {
                     this.animationRemoveNode(item, isDestroy);
                 }
             });
-            this.setTop(this.instances);
         };
         if (isDestroy) {
             closeHandler();
