@@ -29,7 +29,8 @@ const demoList = [
 export default function Demo(): JSX.Element {
     const onOpenHandler = (src: string) => {
         const href = process.env.NODE_ENV !== "development" ? `${location.href}${src}` : `https://eveningwater.github.io/ew-message/${src}`
-        openNewWindow(`http://127.0.0.1:8284/gh-pages/${src}`)
+        // openNewWindow(`http://127.0.0.1:8284/gh-pages/${src}`)
+        openNewWindow(href)
     }
     return (
         <div className={styles.demoBtnContainer}>
