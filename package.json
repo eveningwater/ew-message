@@ -19,6 +19,7 @@
     "build:vue-demo": "cd examples/ew-message-vue-demo && npm run build",
     "build:angular-demo": "cd examples/ew-message-angular-demo && npm run build",
     "build:svelte-demo": "cd examples/ew-message-svelte-demo && npm run build",
+    "build:preact-demo": "cd examples/ew-message-preact-demo && npm run build",
     "build:demo":"node ./move-demo.js",
     "build:alldocs": "chmod +x ./docs-scripts/build-docs.sh && ./docs-scripts/build-docs.sh"
   },
