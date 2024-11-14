@@ -140,8 +140,8 @@ export class Message {
     removeHandler().then(() => {
       this.el = null;
       this.closeBtnEl = null;
-      this.instances = $$('.ew-message');
-      if(this.instances){
+      this.instances = $$('.ew-message', this.container);
+      if(this.instances && this.instances.length > 0){
         this.setTop(
           this.instances
         );
