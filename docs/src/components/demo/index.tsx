@@ -25,6 +25,10 @@ const demoList = [
         title: "preact框架示例",
         src: "preact-demo/index.html"
     },
+    {
+        title: "solid框架示例",
+        src: "solid-demo/index.html"
+    },
 ]
 export default function Demo(): JSX.Element {
     const onOpenHandler = (src: string) => {

@@ -53,7 +53,6 @@ const App: Component = () => {
           {
             messageList.map((item, index) => (
               <button
-                key={item.type + index}
                 type="button"
                 onClick={() => ewMessage[item.type as ewMessageEnumType](item.content)}
               >
@@ -62,14 +61,6 @@ const App: Component = () => {
             ))
           }
         </div>
-        {/* <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a> */}
       </header>
     </div>
   );
