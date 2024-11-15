@@ -18,6 +18,13 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.buttonsGroup {
+  margin-top: 35px;
+  button {
+    margin-left: 20px;
+    font-size: 20px;
+  }
+}
 
 .link {
   color: #b318f0;
