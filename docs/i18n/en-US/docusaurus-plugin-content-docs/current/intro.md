@@ -6,71 +6,83 @@
 [![GitHub stars](https://img.shields.io/github/stars/eveningwater/ewMessage.svg?color=#42b983)](https://github.com/eveningwater/ew-message/stargazers)
 [![GitHub stars](https://img.shields.io/github/forks/eveningwater/ewMessage.svg)](https://github.com/eveningwater/ew-message/network/members)
 
-A typescript based wrapped message prompt box plug-in
+A message plugin encapsulated based on typescript.
 
-## 安装与使用
+## Installation and Usage
 
-### 安装
+### Installation
 
 ```
 npm install ew-message --save-dev//或者 yarn add ew-message
 ```
 
-### 引入
+### import
 
 ```js
 <script src="./dist/ew-message.min.js"></script>
 ```
 
-消息提示框插件如下:
+The message plugin code is as follows:
 
 ```js
-const msg1 = ewMessage('默认消息提示框');
+const msg1 = ewMessage('the default message');
 const msg1 = ewMessage({
-  content: '默认消息提示框'
+  content: 'the default message'
 });
 ```
 
-option 配置对象有如下参数:
+The option configuration object has the following parameters:
 
 ```ts
 interface ewMessageOption {
-  content: string; //消息提示框内容，必传参数
-  center?: boolean; //消息提示框内容是否居中
-  type?: string; //消息提示框类型，有四种: info,success,warning,error
-  duration?: number; //消息提示框消失时间
-  showClose?: boolean; //是否显示关闭按钮
-  showTypeIcon?: boolean; // 是否显示类型图标，默认为true
-  typeIcon?: string; // 自定义类型图标
-  closeIcon?: string; // 自定义关闭按钮图标
-  container?: string | HTMLElement; // 挂载元素
-  removeClassName?: string[]; // 移除消息提示框动画类名，目前内置动画类名值: fadeOut与scaleDown
-  startClassName?: string[]; // 添加消息提示框动画类名，目前内置动画类名值: fadeIn与scaleUp
-  top?: number; // 用于自定义配置每个消息提示框的top偏移值
+  content: string; // content required
+  center?: boolean; // center the content
+  type?: string; // message type: info,success,warning,error
+  duration?: number; // duration to close the message
+  showClose?: boolean; // Whether to display the close button
+  showTypeIcon?: boolean; // Whether to display the type icon, the default value is true
+  typeIcon?: string; // custom the type icon
+  closeIcon?: string; // custom the close icon
+  container?: string | HTMLElement; // mounted element
+  removeClassName?: string[]; // Remove the message animation class name. Currently, the built-in animation class name values ​​are: fadeOut and scaleDown
+  startClassName?: string[]; // Add the message animation class name, currently built-in animation class name values: fadeIn and scaleUp
+  top?: number; // Used to customize the top offset value of each message
 }
 ```
 
-> ps: 推荐使用导入样式文件的方式。
-
-## cdn 引入
+## import by cdn
 
 ```js
-//样式引入
+// import the css
 // CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.css
 // CDN:https://www.unpkg.com/ew-message/dist/ew-message.min.js
 ```
 
-## 在组件中使用
+## use in component
 
 ```js
 import ewMessage from 'ewMessage';
-//  导入样式
+// import css
 import 'ew-message/dist/ew-message.min.css';
-const msg = ewMessage(option); //option为配置对象，详情见前述
+const msg = ewMessage(option); // option is a configuration object, see above for details
 ```
 
-更多详情参阅文档官网介绍[ew-message](https://eveningwater.github.io/ew-message/);
+For more details, please refer to the official website introduction [ew-message](https://eveningwater.github.io/ew-message/);
 
-# 更新日志
+# update log
 
-详情可参考[更新日志](https://www.npmjs.com/package/ew-message)。
+- 0.0.1 ~ 0.0.4: Added basic functions of message。
+- 0.0.5: update the ts about import。
+- 0.0.6: add destroy method。
+- 0.0.7: Improved the typescript, added the maximum closing time attribute maxDuration, and modified the default closing time。
+- 0.0.8: Added showTypeIcon and typeIcon attributes and closeIcon for configuring icons, and added the tool method createElement.
+- 0.0.9: Added container, immediate, removeClassName, removeClassNameSymbol configuration attributes, and added on, off, addClass tool methods.
+- 0.1.0: Fixed ts type errors, added messageZIndex attribute.
+- 0.1.1: Added top attribute, added startClassName and startClassNameSymbol attributes, and added removeClass method.
+- 0.1.2: Modified the logic of destroying the message, added isArray and isRemoveNode methods.
+- 0.1.3: Adjusted the code structure, added position attribute, and added isUndef method.
+- 0.1.4: Removed stylePrefix and the logic of monitoring whether the style is loaded.
+- 0.1.5: Removed a lot of unnecessary code APIs and logic.
+- 0.1.6: Fixed ts type issues, optimized some codes, improved unit tests, and added a loading message.
+- 0.1.7: Fixed ts type issues, fixed the problem of being unable to close the message.
+- 0.1.8: Fixed a problem with redirect location。
