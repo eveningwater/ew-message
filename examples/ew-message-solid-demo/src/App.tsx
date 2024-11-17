@@ -1,10 +1,10 @@
-import { createEffect, type Component } from 'solid-js';
-import ewMessage from "ew-message"
-import 'ew-message/dist/ew-message.min.css'
-import { ewMessageEnumType } from "ew-message/typings/const/enum"
-
-import logo from './logo.svg';
-import styles from './App.module.css';
+import { createEffect } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import ewMessage from "ew-message";
+import 'ew-message/dist/ew-message.min.css';
+import { ewMessageEnumType } from "ew-message/typings/const/enum";
 
 const messageList = [
   {
@@ -40,30 +40,37 @@ createEffect(() => {
     msg.destroy();
   };
 });
+function App() {
+  // const [count, setCount] = createSignal(0);
 
-const App: Component = () => {
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        {/* <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p> */}
-        <div class={styles.buttonsGroup}>
-          {
-            messageList.map((item, index) => (
-              <button
-                type="button"
-                onClick={() => ewMessage[item.type as ewMessageEnumType](item.content)}
-              >
-                {item.type}
-              </button>
-            ))
-          }
-        </div>
-      </header>
-    </div>
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt="Vite logo" />
+        </a>
+        <a href="https://solidjs.com" target="_blank">
+          <img src={solidLogo} class="logo solid" alt="Solid logo" />
+        </a>
+      </div>
+      <h1>Vite + Solid</h1>
+      <div class="card">
+        {
+          messageList.map((item) => (
+            <button
+              type="button"
+              onClick={() => ewMessage[item.type as ewMessageEnumType](item.content)}
+            >
+              {item.type}
+            </button>
+          ))
+        }
+        {/* <button onClick={() => setCount((count) => count + 1)}>
+          count is {count()}
+        </button> */}
+      </div>
+    </>
   );
-};
+}
 
 export default App;
