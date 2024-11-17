@@ -305,5 +305,47 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "homepage.quickStart": {
+    "message": "Quick start"
+  },
+  "homepage.clickTry": {
+    "message": "Click me to try"
+  },
+  "homepage.feature.title1": {
+    "message": "Easy to use"
+  },
+  "homepage.feature.description1": {
+    "message": "The API is simple and easy to use. It is just a function call. When simple configuration parameters are passed in, a message will appear."
+  },
+  "homepage.feature.title2": {
+    "message": "Native writing"
+  },
+  "homepage.feature.description2": {
+    "message": "Written in typescript, it does not rely on any library or framework, but can also be used in the framework."
+  },
+  "homepage.feature.title3": {
+    "message": "Type Perfection"
+  },
+  "homepage.feature.description3": {
+    "message": "Perfect type definition brings you a different experience."
+  },
+  "homepage.demo.text1": {
+    "message": "Non-framework example"
+  },
+  "homepage.demo.text2": {
+    "message": "React framework example"
+  },
+  "homepage.demo.text3": {
+    "message": "Vue framework example"
+  },
+  "homepage.demo.text4": {
+    "message": "Angular framework example"
+  },
+  "homepage.demo.text5": {
+    "message": "Svelte framework example"
+  },
+  "homepage.demo.text6": {
+    "message": "Preact framework example"
   }
 }

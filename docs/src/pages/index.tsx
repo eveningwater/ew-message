@@ -7,6 +7,7 @@ import Heading from '@theme/Heading';
 import "ew-message/dist/ew-message.min.css"
 import styles from './index.module.css';
 import Demo from '../components/demo';
+import Translate from '@docusaurus/Translate';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -32,7 +33,11 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            快速开始⏱️
+            <Translate
+              id="homepage.quickStart"
+            >
+              快速开始
+            </Translate>⏱️
           </Link>
           <button
             className="button button--secondary button--lg"
@@ -40,6 +45,11 @@ function HomepageHeader() {
             style={{ marginLeft: 15 }}
           >
             点我试用
+            <Translate
+              id="homepage.clickTry"
+            >
+              点我试用
+            </Translate>
           </button>
         </div>
         <Demo />

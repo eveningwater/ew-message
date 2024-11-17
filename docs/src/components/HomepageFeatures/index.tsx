@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+import Translate, { translate } from '@docusaurus/Translate';
 
 type FeatureItem = {
   title: string;
@@ -10,29 +11,27 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: '简单易用',
+    title: translate({ message: '简单易用', id: 'homepage.feature.title1' }),
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
-      <>
-        api简单，上手容易，就是一个函数调用，传入简单的配置参数即可出现一个消息提示框。
-      </>
+      <Translate id='homepage.feature.description1'>api简单，上手容易，就是一个函数调用，传入简单的配置参数即可出现一个消息提示框。</Translate>
     )
   },
   {
-    title: '原生编写',
+    title: translate({ message: '原生编写', id: 'homepage.feature.title2' }),
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
-      <>使用typescript编写，无任何库或框架的依赖，当然也可以使用到框架当中。</>
+      <Translate id='homepage.feature.description2'>使用typescript编写，无任何库或框架的依赖，当然也可以使用到框架当中。</Translate>
     )
   },
   {
-    title: '类型完善',
+    title: translate({ message: '类型完善', id: 'homepage.feature.title3' }),
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: <>完善的类型定义带给你不一样的体验。</>
+    description: <><Translate id='homepage.feature.description3'>完善的类型定义带给你不一样的体验。</Translate></>
   }
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
