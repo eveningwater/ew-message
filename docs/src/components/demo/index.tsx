@@ -45,7 +45,7 @@ export default function Demo(): JSX.Element {
                             style={{ margin: 15 }}
                             key={item.title}
                         >
-                            查看{item.title}
+                            {item.title}
                         </button>
                     )
                 })

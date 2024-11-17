@@ -44,7 +44,6 @@ function HomepageHeader() {
             onClick={onMessageHandler}
             style={{ marginLeft: 15 }}
           >
-            点我试用
             <Translate
               id="homepage.clickTry"
             >

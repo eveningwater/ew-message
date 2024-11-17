@@ -1,10 +1,28 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import ConfigLocalized from './docusaurus.config.localized.json';
+
+const defaultLocale = 'en-US';
+
+function getLocalizedConfigValue(key: keyof typeof ConfigLocalized) {
+  const currentLocale = process.env.DOCUSAURUS_CURRENT_LOCALE ?? defaultLocale;
+  const values = ConfigLocalized[key];
+  if (!values) {
+    throw new Error(`Localized config key=${key} not found`);
+  }
+  const value = values[currentLocale] ?? values[defaultLocale];
+  if (!value) {
+    throw new Error(
+      `Localized value for config key=${key} not found for both currentLocale=${currentLocale} or defaultLocale=${defaultLocale}`,
+    );
+  }
+  return value;
+}
 
 const config: Config = {
   title: 'ewMessage',
-  tagline: '一个基于typescript封装的消息提示框插件',
+  tagline: getLocalizedConfigValue('tagline'),
   favicon: 'img/ew-message-logo.svg',
 
   // Set the production url of your site here
