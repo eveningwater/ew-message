@@ -350,5 +350,8 @@
   },
   "homepage.demo.text7": {
     "message": "Solid framework example"
+  },
+  "homepage.ew-message": {
+    "message": "ew-message, a useful message plugin written in typescript, can be used in any framework!"
   }
 }

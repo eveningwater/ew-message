@@ -7,7 +7,7 @@ import Heading from '@theme/Heading';
 import "ew-message/dist/ew-message.min.css"
 import styles from './index.module.css';
 import Demo from '../components/demo';
-import Translate from '@docusaurus/Translate';
+import Translate, { translate } from '@docusaurus/Translate';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -16,7 +16,7 @@ function HomepageHeader() {
     import('ew-message').then((library) => {
       library.default({
         content:
-          'ew-message,一个好用的使用typescript编写的消息提示框，可以使用在任意框架中!',
+          translate({ message:'ew-message,一个好用的使用typescript编写的消息提示框，可以使用在任意框架中!',id:'homepage.ew-message'}),
         showClose: true,
         duration: 0
       });
