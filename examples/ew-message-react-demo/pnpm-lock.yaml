@@ -38,8 +38,8 @@ devDependencies:
     specifier: ^0.3.5
     version: 0.3.5(eslint@8.57.1)
   ew-message:
-    specifier: 0.1.7
-    version: 0.1.7(@babel/core@7.26.0)(rollup@4.24.3)(typescript@5.6.3)
+    specifier: 0.1.8
+    version: 0.1.8(@babel/core@7.26.0)(rollup@4.24.3)(typescript@5.6.3)
   typescript:
     specifier: ^5.4.5
     version: 5.6.3
@@ -2499,8 +2499,8 @@ packages:
       through: 2.3.8
     dev: true
 
-  /ew-message@0.1.7(@babel/core@7.26.0)(rollup@4.24.3)(typescript@5.6.3):
-    resolution: {integrity: sha512-0svZ2eUKhjVt4CDMwcKqGVHKyxuhuujfMgKHC+px3dNQkRE8vAabDD9dLPnCjWH/PqorqOVtfBvP1nr2xBOZog==}
+  /ew-message@0.1.8(@babel/core@7.26.0)(rollup@4.24.3)(typescript@5.6.3):
+    resolution: {integrity: sha512-zROk1YzU2zh+Buwb1hxK23vYYHWxhxnAbvg6KisXhue2uMzX0/l3spvbWR6bMvtIEKML2F9m0ew9sDVaLRPoFg==}
     dependencies:
       '@types/jest': 29.5.14
       '@types/node': 22.8.6
