@@ -19,5 +19,8 @@ npm run build:vue-demo
 # 执行构建 preact demo 相关任务
 npm run build:preact-demo
 
+# 执行构建 solid demo 相关任务
+npm run build:solid-demo
+
 # 执行发布文档任务
 npm run release-docs

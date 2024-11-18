@@ -27,6 +27,10 @@ const demoList = [
         title: translate({ message: 'preact框架示例', id: 'homepage.demo.text6' }),
         src: "preact-demo/index.html"
     },
+    {
+        title: translate({ message: 'solid框架示例', id: 'homepage.demo.text7' }),
+        src: "solid-demo/index.html"
+    },
 ]
 export default function Demo(): JSX.Element {
     const onOpenHandler = (src: string) => {
