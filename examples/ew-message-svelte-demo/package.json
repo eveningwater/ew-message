@@ -19,6 +19,6 @@
     "vite": "^5.4.10"
   },
   "dependencies": {
-    "ew-message": "^0.1.7"
+    "ew-message": "^0.1.8"
   }
 }
