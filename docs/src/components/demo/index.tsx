@@ -1,28 +1,30 @@
 import { openNewWindow } from "@site/src/utils";
 import styles from './styles.module.css';
+import { translate } from '@docusaurus/Translate';
+
 const demoList = [
     {
-        title: "非框架示例",
+        title: translate({ message: '非框架示例', id: 'homepage.demo.text1' }),
         src: "demo.html"
     },
     {
-        title: "react框架示例",
+        title: translate({ message: 'react框架示例', id: 'homepage.demo.text2' }),
         src: "react-demo/index.html"
     },
     {
-        title: "vue框架示例",
+        title: translate({ message: 'vue框架示例', id: 'homepage.demo.text3' }),
         src: "vue-demo/index.html"
     },
     {
-        title: "angular框架示例",
+        title: translate({ message: 'angular框架示例', id: 'homepage.demo.text4' }),
         src: "angular-demo/browser/index.html"
     },
     {
-        title: "svelte框架示例",
+        title: translate({ message: 'svelte框架示例', id: 'homepage.demo.text5' }),
         src: "svelte-demo/index.html"
     },
     {
-        title: "preact框架示例",
+        title: translate({ message: 'preact框架示例', id: 'homepage.demo.text6' }),
         src: "preact-demo/index.html"
     },
     {
@@ -47,7 +49,7 @@ export default function Demo(): JSX.Element {
                             style={{ margin: 15 }}
                             key={item.title}
                         >
-                            查看{item.title}
+                            {item.title}
                         </button>
                     )
                 })
