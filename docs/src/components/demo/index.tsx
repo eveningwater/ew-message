@@ -28,7 +28,7 @@ const demoList = [
         src: "preact-demo/index.html"
     },
     {
-        title: "solid框架示例",
+        title: translate({ message: 'solid框架示例', id: 'homepage.demo.text7' }),
         src: "solid-demo/index.html"
     },
 ]

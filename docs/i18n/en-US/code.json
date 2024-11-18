@@ -347,5 +347,8 @@
   },
   "homepage.demo.text6": {
     "message": "Preact framework example"
+  },
+  "homepage.demo.text7": {
+    "message": "Solid framework example"
   }
 }
