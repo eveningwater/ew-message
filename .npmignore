@@ -11,9 +11,6 @@ src/*
 tsconfig.json
 .babelrc
 gh-pages
-live-server-config.js
 __tests__/*
 jest.config.ts
-move-demo.js
-docs-scripts/*
 contribute.md

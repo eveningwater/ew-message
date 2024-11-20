@@ -11,7 +11,7 @@
     "publicPublish": "npm publish . --access public",
     "deploy": "npm run build:docs & gh-pages -d gh-pages",
     "release-docs": "gh-pages -d gh-pages",
-    "dev:demo": "node ./live-server-config.js",
+    "dev:demo": "node ./scripts/doc/live-server-config.js",
     "type": "tsc",
     "test": "jest",
     "test:core": "jest src/core/__tests__/core.test.ts",
@@ -21,8 +21,8 @@
     "build:svelte-demo": "cd examples/ew-message-svelte-demo && npm run build",
     "build:preact-demo": "cd examples/ew-message-preact-demo && npm run build",
     "build:solid-demo": "cd examples/ew-message-solid-demo && npm run build",
-    "build:demo":"node ./move-demo.js",
-    "build:alldocs": "chmod +x ./docs-scripts/build-docs.sh && ./docs-scripts/build-docs.sh"
+    "build:demo":"node ./scripts/doc/move-demo.js",
+    "build:alldocs": "chmod +x ./scripts/doc/build-docs.sh && ./scripts/doc/build-docs.sh"
   },
   "main": "dist/ew-message.min.js",
   "module": "dist/ew-message.esm.min.js",

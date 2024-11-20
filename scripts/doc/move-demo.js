@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const sourceDir = './examples/demo/';
-const targetDir = './gh-pages'; 
+const sourceDir = 'examples/demo/';
+const targetDir = 'gh-pages'; 
 
 if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
