@@ -13,7 +13,7 @@ A message plugin encapsulated based on typescript.
 ### Installation
 
 ```
-npm install ew-message --save-dev//或者 yarn add ew-message
+npm install ew-message --save-dev//or yarn add ew-message
 ```
 
 ### import
