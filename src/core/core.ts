@@ -10,7 +10,7 @@ import {
   handleAnimationNode,
   normalizeOptions,
 } from "./method";
-import { $$, on,addClass, createElement, isRemoveNode, create, removeClass, removeNode, toArray } from "../utils/util";
+import { $$, on, addClass, createElement, isRemoveNode, create, removeClass, removeNode, toArray } from "../utils/util";
 import { ewMessageOption } from "../const/options";
 
 export class Message {
@@ -57,10 +57,11 @@ export class Message {
       closeIcon: optionCloseIcon,
     } = this.options;
     const element = create("div");
-    element.className = `ew-message ew-message-${type}`;
-    if (center) {
-      addClass("ew-message-center", element);
+    const baseClassnames = ["ew-message", `ew-message-${type}`];
+    if(center){
+      baseClassnames.push("ew-message-center");
     }
+    addClass(baseClassnames, element);
     const p = create("p");
     p.appendChild(createElement(content));
     if (showTypeIcon) {
@@ -120,28 +121,28 @@ export class Message {
   animationRemoveNode(el: HTMLElement, isDestroy = false) {
     const removeHandler = () => new Promise((resolve) => {
       const { removeClassName } =
-      this.options;
-    if (!isDestroy && removeClassName.length > 0) {
-      handleAnimationNode(
-        el,
-        removeClassName,
-        "ew-",
-        utilAnimationRemoveClassNames,
-        () => {
-          removeNode(el);
-          resolve(true);
-        }
-      );
-    } else {
-      removeNode(el);
-      resolve(true);
-    }
+        this.options;
+      if (!isDestroy && removeClassName.length > 0) {
+        handleAnimationNode(
+          el,
+          removeClassName,
+          "ew-",
+          utilAnimationRemoveClassNames,
+          () => {
+            removeNode(el);
+            resolve(true);
+          }
+        );
+      } else {
+        removeNode(el);
+        resolve(true);
+      }
     })
     removeHandler().then(() => {
       this.el = null;
       this.closeBtnEl = null;
       this.instances = $$('.ew-message', this.container);
-      if(this.instances && this.instances.length > 0){
+      if (this.instances && this.instances.length > 0) {
         this.setTop(
           this.instances
         );

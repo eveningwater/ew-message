@@ -25,9 +25,10 @@ export const createElement = (temp: string) => document
     temp
   );
 
-export const addClass = (v: string, el: HTMLElement) => el.classList.add(v);
+export const wrapperArrayValue = <T>(v: T) => (Array.isArray(v) ? v : [v]);
+export const addClass = (v: string | string[], el: HTMLElement) => el.classList.add(...wrapperArrayValue(v));
 export const hasClass = (v: string, el: HTMLElement) => el.classList.contains(v);
-export const removeClass = (v: string, el: HTMLElement) => el.classList.remove(v);
+export const removeClass = (v: string | string[], el: HTMLElement) => el.classList.remove(...wrapperArrayValue(v));
 export const on = (
   element: HTMLElement | Document | Element | Window,
   type: string,

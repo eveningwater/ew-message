@@ -1,6 +1,6 @@
 /*!
  * ewMeassage.js v0.1.8
- * (c) 2023-2024 eveningwater 
+ * (c) 2023-2025 eveningwater 
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -86,9 +86,10 @@
     const createElement = (temp) => document
         .createRange()
         .createContextualFragment(temp);
-    const addClass = (v, el) => el.classList.add(v);
+    const wrapperArrayValue = (v) => (Array.isArray(v) ? v : [v]);
+    const addClass = (v, el) => el.classList.add(...wrapperArrayValue(v));
     const hasClass = (v, el) => el.classList.contains(v);
-    const removeClass = (v, el) => el.classList.remove(v);
+    const removeClass = (v, el) => el.classList.remove(...wrapperArrayValue(v));
     const on = (element, type, handler, useCapture = false) => {
         if (element && type && handler) {
             element.addEventListener(type, handler, useCapture);
@@ -128,6 +129,7 @@
         $: $,
         create: create,
         createElement: createElement,
+        wrapperArrayValue: wrapperArrayValue,
         addClass: addClass,
         hasClass: hasClass,
         removeClass: removeClass,
@@ -255,10 +257,11 @@
         createMessage() {
             const { type, center, content, showTypeIcon, typeIcon, showClose, closeIcon: optionCloseIcon, } = this.options;
             const element = create("div");
-            element.className = `ew-message ew-message-${type}`;
+            const baseClassnames = ["ew-message", `ew-message-${type}`];
             if (center) {
-                addClass("ew-message-center", element);
+                baseClassnames.push("ew-message-center");
             }
+            addClass(baseClassnames, element);
             const p = create("p");
             p.appendChild(createElement(content));
             if (showTypeIcon) {
