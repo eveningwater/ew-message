@@ -115,6 +115,7 @@ const config: Config = {
           to: '/docs/core-api/api'
         },
         { to: '/docs/log', label: '更新日志', position: 'left' },
+        { to: 'https://eveningwater.github.io/ew-message/playground/', label: 'playground', position: 'left' },
         {
           href: 'https://github.com/eveningwater/ewMessage',
           label: 'GitHub',
