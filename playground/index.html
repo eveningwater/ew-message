@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ew-message</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .ew-iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="ew-playground-iframe" scrolling="no" title="code"
+        src="https://eveningwater.github.io/ew-code-editor/" frameborder="no"
+        allowtransparency="true" allowfullscreen="true" class="ew-iframe"></iframe>
+    <script src="./script.js"></script>
+    <script>
+        const iframe = document.getElementById('ew-playground-iframe');
+        const message = [
+            {
+                type: 'html',
+                content: htmlCode
+            },
+            {
+                type: 'css',
+                content: cssCode
+            },
+            {
+                type: 'js',
+                content: jsCode
+            }
+        ];
+        iframe.onload = function () {
+            iframe.contentWindow.postMessage(message, '*');
+        }
+    </script>
+</body>
+
+</html>
