@@ -14,3 +14,5 @@ gh-pages
 __tests__/*
 jest.config.ts
 contribute.md
+pnpm-workspace.yaml
+playground
