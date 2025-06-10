@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ew-message</title>
-  <link rel="stylesheet" href="../dist/ew-message.min.css" />
+  <link rel="stylesheet" href="../dist/ew-message-ts.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
@@ -14,7 +14,7 @@
 </body>
 <script src="../dist/ew-message.js"></script>
 <script>
-  const msg1 = ewMessage.loading({
+  const msg1 = ewMessage.error({
     duration: 0,
     content: '这是一条测试消息',
     maxDuration: 2000,
@@ -26,7 +26,7 @@
     startClassName: ['animate__animated', 'animate__bounceIn'],
     // top: '15px',
   });
-  ewMessage.loading('加载中的提示')
+  ewMessage.warning('加载中的提示')
   console.log(msg1);
 </script>
 

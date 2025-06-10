@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use 'variable';
+@use 'variable' as v;
 
 $animation-remove-key-list: (
   'fadeOut': 'opacity',
@@ -45,7 +45,7 @@ $animation-add-value-list: (
   )
 );
 
-$prefixValue: variable.$prefix + message-;
+$prefixValue: v.$prefix + message-;
 
 @mixin setAnimation($list){
   @each $key, $value in $list {

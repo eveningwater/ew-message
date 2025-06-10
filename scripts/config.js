@@ -13,7 +13,7 @@ const banner =
   ' * Released under the MIT License.\n' +
   ' */';
 
-const resolve = p => path.resolve(__dirname, '../', p);
+const resolve = (p) => path.resolve(__dirname, '../', p);
 
 const builds = {
   'ewMessage-umd-dev': {
@@ -21,29 +21,29 @@ const builds = {
     dest: resolve('dist/ew-message.js'),
     format: 'umd',
     env: 'development',
-    banner
+    banner,
   },
   'ewMessage-umd-build': {
     entry: resolve('src/index.ts'),
     dest: resolve('dist/ew-message.min.js'),
     format: 'umd',
     env: 'production',
-    banner
+    banner,
   },
   'ewMessage-esm-dev': {
     entry: resolve('src/index.ts'),
     dest: resolve('dist/ew-message.esm.js'),
     format: 'esm',
     env: 'development',
-    banner
+    banner,
   },
   'ewMessage-esm-build': {
     entry: resolve('src/index.ts'),
     dest: resolve('dist/ew-message.esm.min.js'),
     format: 'esm',
     env: 'production',
-    banner
-  }
+    banner,
+  },
 };
 function genConfig(name) {
   const opts = builds[name];
@@ -51,14 +51,14 @@ function genConfig(name) {
     input: opts.entry,
     plugins: [
       alias({
-        entries: Object.assign({}, opts.alias)
+        entries: Object.assign({}, opts.alias),
       }),
       ts(),
       scss({
         include: ['/**/*.css', '/**/*.scss', '/**/*.sass'],
-        output: 'dist/ew-message.min.css',
+        output: 'dist/ew-message-ts.min.css',
         failOnError: true,
-        outputStyle: 'compressed' //压缩
+        outputStyle: 'compressed', //压缩
       }),
       node(),
       // svg({
@@ -73,15 +73,15 @@ function genConfig(name) {
       format: opts.format,
       banner: opts.banner,
       name: opts.moduleName || 'ewMessage',
-      exports: 'auto'
-    }
+      exports: 'auto',
+    },
   };
 
   // console.log('pluging', config.plugins)
 
   // built-in vars
   const vars = {
-    __DEV__: `process.env.NODE_ENV !== 'production'`
+    __DEV__: `process.env.NODE_ENV !== 'production'`,
   };
   // build-specific env
   if (opts.env) {
@@ -94,7 +94,7 @@ function genConfig(name) {
 
   Object.defineProperty(config, '_name', {
     enumerable: false,
-    value: name
+    value: name,
   });
 
   return config;
