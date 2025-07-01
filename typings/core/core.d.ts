@@ -5,9 +5,12 @@ export declare class Message {
     closeBtnEl: HTMLElement | null;
     container: HTMLElement;
     instances: NodeListOf<HTMLElement> | null;
+    private closeHandler;
+    private animationFrameId;
     constructor(options: ewMessageOption | string);
     destroy(): void;
     render(opt?: ewMessageOption): void;
+    private updateInstances;
     createMessage(): {
         element: HTMLElement;
         closeBtnEl: HTMLElement | null;

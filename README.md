@@ -88,3 +88,4 @@ For more details, please refer to the official website introduction [ew-message]
 - 0.1.6: Fixed ts type issues, optimized some codes, improved unit tests, and added a loading message.
 - 0.1.7: Fixed ts type issues, fixed the problem of being unable to close the message.
 - 0.1.8: Fixed a problem with redirect location。
+- 0.1.8-beta.x: Some optimizations

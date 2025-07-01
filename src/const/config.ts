@@ -12,7 +12,8 @@ export const typeMap: ewMessageType = {
   error: ewMessageEnumType.error,
   loading: ewMessageEnumType.loading
 };
-export const defaultMessageOption: ewMessageOption = {
+
+export const defaultMessageOption: Readonly<ewMessageOption> = Object.freeze({
   content: '',
   center: false,
   type: 'info',
@@ -22,9 +23,9 @@ export const defaultMessageOption: ewMessageOption = {
   container: document.body,
   removeClassName: [],
   startClassName: []
-};
+});
 
-export const utilAnimationRemoveClassNames = ['fadeOut', 'scaleUp'];
-export const utilAnimationAddClassNames = ['fadeIn', 'scaleDown'];
+export const utilAnimationRemoveClassNames = Object.freeze(['fadeOut', 'scaleUp']);
+export const utilAnimationAddClassNames = Object.freeze(['fadeIn', 'scaleDown']);
 
 export const baseTopUnit = 25;

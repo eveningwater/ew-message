@@ -1,20 +1,17 @@
-
-
 export const isString = (v: unknown): v is string => typeof v === "string";
 export const isNumber = (v: unknown): v is number => typeof v === "number" && !Number.isNaN(v);
 export const isObject = <T extends object>(v: unknown): v is T => typeof v === "object" && !!v;
 export const isArray = <T>(v: unknown): v is Array<T> => Array.isArray(v);
 export const isFunction = (value: unknown): value is Function => typeof value === "function";
 export const isDom = (el: unknown): el is HTMLElement | HTMLCollection | NodeList => {
-  if (isObject<HTMLElement>(HTMLElement)) {
-    return el instanceof HTMLElement;
-  } else {
-    const isHTMLElement = isObject<HTMLElement>(el) && el.nodeType === 1 && isString(el.nodeName);
-    return isHTMLElement || el instanceof HTMLCollection || el instanceof NodeList;
-  }
-}
-export const toArray = <T extends unknown>(v: ArrayLike<T>): Array<T> => [].slice.call(v);
-export const hasOwn = <T extends object>(v: T, prop: string) => v.hasOwnProperty(prop);
+  return el instanceof HTMLElement || 
+         el instanceof HTMLCollection || 
+         el instanceof NodeList ||
+         (typeof el === 'object' && el !== null && 
+          'nodeType' in el && (el as any).nodeType === 1);
+};
+export const toArray = <T extends unknown>(v: ArrayLike<T>): Array<T> => Array.from(v);
+export const hasOwn = <T extends object>(v: T, prop: string) => Object.prototype.hasOwnProperty.call(v, prop);
 export const $$ = (v: string, el: Element | Document = document) =>
   el.querySelectorAll<HTMLElement>(v);
 export const $ = (v: string, el: Element | Document = document) => el.querySelector<HTMLElement>(v);
