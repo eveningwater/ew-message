@@ -4,6 +4,7 @@ import { normalizeOptions } from '../core/method';
 import { MESSAGE_TYPE_WARNING } from '../const/warn';
 import { typeMap } from '../const/config';
 import * as util from '../utils/util';
+import { ewMessageEnumType } from '../const/enum';
 
 jest.mock('../core/core');
 jest.mock('../core/method');
@@ -30,7 +31,7 @@ describe('ewMessage', () => {
         const type = Object.keys(typeMap)[0];
         const options = { content: 'Test message', type };
 
-        ewMessage[type](options);
+        ewMessage[type as ewMessageEnumType](options);
 
         expect(normalizeOptions).toHaveBeenCalledWith(options);
         expect(Message).toHaveBeenCalledWith({ type });
