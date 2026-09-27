@@ -1,3 +1,3 @@
 window.onload = function () {
-  createIframeEditor('./demo.html');
+  createIframeEditor('./demo.html','https://eveningwater.github.io/ew-code-editor/');
 };

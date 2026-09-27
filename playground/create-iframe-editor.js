@@ -36,7 +36,6 @@ function createIframeEditor(
       let htmlContent = '',
         styleContent = '',
         jsContent = '';
-
       const cssMatch = scriptContent.match(/<style>[\s\S]*?<\/style>/i);
 
       if (cssMatch) {
