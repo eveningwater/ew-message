@@ -1,6 +1,6 @@
 /*!
  * ewMeassage.js v0.1.8-beta.3
- * (c) 2023-2025 eveningwater 
+ * (c) 2023-2026 eveningwater 
  * Released under the MIT License.
  */
 var ewMessageEnumType;

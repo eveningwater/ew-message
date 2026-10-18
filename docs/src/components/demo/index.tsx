@@ -1,6 +1,7 @@
 import { openNewWindow } from "@site/src/utils";
 import styles from './styles.module.css';
 import { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const demoList = [
     {
@@ -33,9 +34,9 @@ const demoList = [
     },
 ]
 export default function Demo(): JSX.Element {
+    const { siteConfig } = useDocusaurusContext();
     const onOpenHandler = (src: string) => {
-        const href = process.env.NODE_ENV !== "development" ? `https://eveningwater.github.io/ew-message/${src}` : `https://eveningwater.github.io/ew-message/${src}`
-        // openNewWindow(`http://127.0.0.1:8284/gh-pages/${src}`)
+        const href = `${siteConfig.baseUrl}${src}`
         openNewWindow(href)
     }
     return (

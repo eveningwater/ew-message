@@ -1,6 +1,6 @@
 function createIframeEditor(
   requestUrl,
-  codeUrl = 'https://eveningwater.atomgit.net/ew-code-editor/',
+  codeUrl = 'https://ew-code-editor.eveningwater.com',
   iframeStyle = `
       body,html {
         height: 100%;

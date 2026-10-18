@@ -5,6 +5,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "build:docs": "node scripts/build-docs.js & cd docs && npm run build",
+    "build:docs:esa": "node scripts/build-docs.js && cd docs && npm run build",
+    "build:alldocs:esa": "chmod +x ./scripts/doc/build-esa.sh && ./scripts/doc/build-esa.sh",
     "start:docs": "cd docs && npm run start",
     "pretest": "npm run build",
     "release": "npm publish .",
@@ -69,5 +71,10 @@
     "rollup-plugin-url": "^3.0.1",
     "sass": "^1.78.0",
     "ts-jest": "^29.2.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "webpack": "5.88.1"
+    }
   }
 }

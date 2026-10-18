@@ -1,0 +1,8 @@
+{
+  "name": "ew-message",
+  "installCommand": "pnpm install",
+  "buildCommand": "npm run build:alldocs:esa",
+  "assets": {
+    "directory": "./gh-pages"
+  }
+}

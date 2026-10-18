@@ -5,6 +5,12 @@ import ConfigLocalized from './docusaurus.config.localized.json';
 
 const defaultLocale = 'en-US';
 
+// Site URL and base URL are configurable via environment variables
+// For GitHub Pages: SITE_URL=https://eveningwater.github.io, BASE_URL=/ew-message/
+// For ESA deployment: SITE_URL=<esa-domain>, BASE_URL=/
+const siteUrl = process.env.SITE_URL || 'https://eveningwater.github.io';
+const baseUrl = process.env.BASE_URL || (process.env.NODE_ENV === 'development' ? '/' : '/ew-message/');
+
 function getLocalizedConfigValue(key: keyof typeof ConfigLocalized) {
   const currentLocale = process.env.DOCUSAURUS_CURRENT_LOCALE ?? defaultLocale;
   const values = ConfigLocalized[key];
@@ -26,10 +32,9 @@ const config: Config = {
   favicon: 'img/ew-message-logo.svg',
 
   // Set the production url of your site here
-  url: 'https://eveningwater.github.io/',
+  url: siteUrl,
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/ew-message/',
+  baseUrl: baseUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -115,7 +120,7 @@ const config: Config = {
           to: '/docs/core-api/api'
         },
         { to: '/docs/log', label: '更新日志', position: 'left' },
-        { to: 'https://eveningwater.github.io/ew-message/playground/', label: 'playground', position: 'left' },
+        { href: `${siteUrl}${baseUrl}playground/`, label: 'playground', position: 'left' },
         {
           href: 'https://github.com/eveningwater/ewMessage',
           label: 'GitHub',
