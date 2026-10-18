@@ -22,7 +22,6 @@ function createIframeEditor(
   const iframe = document.createElement('iframe');
   const style = document.createElement('style');
   style.textContent = iframeStyle;
-  iframe.src = codeUrl;
   iframe.id = 'ew-playground-iframe';
   iframe.scrolling = 'no';
   iframe.title = 'code';
@@ -30,54 +29,57 @@ function createIframeEditor(
   iframe.allowtransparency = 'true';
   iframe.allowfullscreen = 'true';
   iframe.classList.add('ew-iframe');
-  fetch(requestUrl)
-    .then((response) => response.text())
-    .then((scriptContent) => {
-      let htmlContent = '',
-        styleContent = '',
-        jsContent = '';
-      const cssMatch = scriptContent.match(/<style>[\s\S]*?<\/style>/i);
 
-      if (cssMatch) {
-        styleContent = cssMatch[0]
-          .replace('<style>', '')
-          .replace('</style>', '');
-      }
+  // 先绑定 onload，确保不会错过 load 事件
+  iframe.onload = function () {
+    fetch(requestUrl)
+      .then((response) => response.text())
+      .then((scriptContent) => {
+        let htmlContent = '',
+          styleContent = '',
+          jsContent = '';
+        const cssMatch = scriptContent.match(/<style>[\s\S]*?<\/style>/i);
 
+        if (cssMatch) {
+          styleContent = cssMatch[0]
+            .replace('<style>', '')
+            .replace('</style>', '');
+        }
 
-      const htmlMatch = scriptContent.match(/<html>[\s\S]*?<\/html>/i);
+        const htmlMatch = scriptContent.match(/<html>[\s\S]*?<\/html>/i);
 
-      if (htmlMatch) {
-        htmlContent = htmlMatch[0].replace('<html>', '').replace('</html>', '');
-      }
+        if (htmlMatch) {
+          htmlContent = htmlMatch[0].replace('<html>', '').replace('</html>', '');
+        }
 
-      const jsMatch = scriptContent.match(/<script>[\s\S]*?<\/script>/i);
-      if (jsMatch) {
-        jsContent = jsMatch[0].replace('<script>', '').replace('</script>', '');
-      }
+        const jsMatch = scriptContent.match(/<script>[\s\S]*?<\/script>/i);
+        if (jsMatch) {
+          jsContent = jsMatch[0].replace('<script>', '').replace('</script>', '');
+        }
 
-      const message = [
-        {
-          type: 'html',
-          content: htmlContent,
-        },
-        {
-          type: 'css',
-          content: styleContent,
-        },
-        {
-          type: 'js',
-          content: jsContent,
-        },
-      ];
+        const message = [
+          {
+            type: 'html',
+            content: htmlContent,
+          },
+          {
+            type: 'css',
+            content: styleContent,
+          },
+          {
+            type: 'js',
+            content: jsContent,
+          },
+        ];
 
-      iframe.onload = function () {
         iframe.contentWindow.postMessage(message, '*');
-      };
-    })
-    .catch((error) => {
-      console.error('', error);
-    });
+      })
+      .catch((error) => {
+        console.error('[create-iframe-editor] Failed to load initial code:', error);
+      });
+  };
+
+  iframe.src = codeUrl;
   document.head.appendChild(style);
   document.body.appendChild(iframe);
 }
