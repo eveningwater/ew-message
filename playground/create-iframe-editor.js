@@ -19,8 +19,15 @@ function createIframeEditor(
       }
     `
 ) {
+  // 如果已存在，先清理旧的 iframe 和 style，避免重复添加
+  const oldIframe = document.getElementById('ew-playground-iframe');
+  if (oldIframe) oldIframe.remove();
+  const oldStyle = document.getElementById('ew-playground-style');
+  if (oldStyle) oldStyle.remove();
+
   const iframe = document.createElement('iframe');
   const style = document.createElement('style');
+  style.id = 'ew-playground-style';
   style.textContent = iframeStyle;
   iframe.id = 'ew-playground-iframe';
   iframe.scrolling = 'no';
