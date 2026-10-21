@@ -1,3 +1,6 @@
+const { createEditor } = EwIframeEditor;
 window.onload = function () {
-  createIframeEditor('./demo.html');
+  createEditor({
+    requestUrl: './demo.html',
+  });
 };
